@@ -1,6 +1,6 @@
-# Gold Watcher — prototyp r2.1 (base: r2.0)
+# Gold Watcher — prototyp r2.2 (base: r2.1)
 
-Klikalny kontrakt designu i zachowania, a nie kod aplikacji. r2.0 to kanoniczna migracja zaakceptowanego r1.3. r2.1 zmienia wyłącznie narzędzie `user_preview` (jeden dolny panel, skala 1:1). Powierzchnia produktu, stany, fixture'y, publiczne ID i `mode=capture` są bez zmian.
+Klikalny kontrakt designu i zachowania, a nie kod aplikacji. r2.0 to kanoniczna migracja zaakceptowanego r1.3. r2.1 zmienia wyłącznie narzędzie `user_preview` (jeden dolny panel, skala 1:1). r2.2 migruje wyłącznie nazwy pól `instances[]` w manifeście (`configuration`, `visibility`); pliki HTML są identyczne z r2.1. Powierzchnia produktu, stany, fixture'y, publiczne ID i `mode=capture` są bez zmian.
 
 ## Uruchomienie lokalne
 Rozpakuj ZIP i otwórz `prototype/index.html` w przeglądarce, bezpośrednio (`file://`) albo przez dowolny lokalny serwer HTTP. Pliki są samowystarczalne i nie potrzebują sieci.
@@ -37,7 +37,7 @@ Selector `capture_surface`: `[data-element-id="element.product-work-surface"]`. 
 - `catalog.html`: katalog komponentów.
 - `responsive-spec.md`: geometria, kolejność, widoczność, wariant i scroll dla 5 targetów.
 - `assets/fixtures.json`: dane fixture'ów.
-- `changelog.md`: r2.0 → r2.1, r1.3 → r2.0 i migracje.
+- `changelog.md`: r2.1 → r2.2, r2.0 → r2.1, r1.3 → r2.0 i migracje.
 - `checksums.sha256`: SHA-256 pozostałych 7 plików.
 
 ## Publiczne atrybuty
@@ -50,18 +50,15 @@ Selector `capture_surface`: `[data-element-id="element.product-work-surface"]`. 
 ## Raport kontroli
 Minimalna kontrola eksportu z 2026-09-29. Wynik: **pozytywny**.
 - **Archiwum i checksumy — OK.** ZIP zawiera wyłącznie katalog `prototype/` z 8 wymaganymi plikami. `checksums.sha256` pokrywa 7 pozostałych plików i wszystkie sumy się zgadzają.
-- **Manifest — OK.** Poprawny JSON z dokładnie 15 sekcjami, `revision_id: "r2.1"` i `base_revision: "r2.0"`. `entry`, `capture_url_template`, `profiles[].capture_surface`, stany, fixture'y i interakcje są identyczne z r2.0. Nie ma `renderer_id` ani parametrów legacy.
-- **Interakcje — OK.** Wszystkie 16 wpisów `interactions[]` ma instancję z tym samym `interaction_id` i wskazuje istniejące stany.
-- **Zasoby lokalne — OK.** Pliki są samowystarczalne, a linki prototyp ↔ katalog względne.
-- **Smoke test zmienionego narzędzia — OK.**
-  - **user_preview w oknie 1000×700:**
-    - mac-wide renderuje się 1:1 (1440×932, bez transformacji), a obszar nad panelem się przewija i widać lewą krawędź;
-    - panel leży na dole okna, pod obszarem powierzchni; wszystkie narzędzia i link do katalogu są wyłącznie w nim, a w powierzchni produktu nie ma żadnego narzędzia;
-    - nie ma etykiety fixture'u ani skali.
-  - **Działanie narzędzi:**
-    - przyciski ‹ i ›, klawisze ← / → oraz wybór z listy zmieniają stan; lista, licznik i `state=` pokazują stan faktycznie otwarty, a klawisze strzałek w powierzchni produktu (np. kursor wykresu) nie zmieniają stanu;
-    - przełączenie targetu na galaxy-s20 daje 360×800 i zachowuje stan.
-  - **capture:** zachowanie jak w r2.0 dla alert-settings-editing (iphone-16), alert-settings-saved (mac-wide), intraday-rebound (galaxy-s20), stale (pixel-8) i empty-range (iphone-16-pro-max):
-    - anchor występuje raz, w pozycji 0,0, w rozmiarze targetu, z rogami 0 i bez cienia;
-    - jest jeden korzeń stanu, brak narzędzi, `ready` jest ustawione, a URL się nie zmienia.
+- **Manifest — OK.**
+  - Poprawny JSON z dokładnie 15 sekcjami, `revision_id: "r2.2"` i `base_revision: "r2.1"`.
+  - Każdy z 29 wpisów `instances[]` ma wyłącznie `configuration` i `visibility` (`state_ids`, `profile_ids`). W całym manifeście nie ma `config`, `visible_in_states` ani `visible_in_profiles`.
+  - Treść `configuration` i wartości widoczności są identyczne z r2.1 (porównanie wpis po wpisie), a wszystkie `state_ids` i `profile_ids` istnieją.
+  - `element.product-work-surface` występuje raz w `instances[]`, z 10 stanami i 5 targetami.
+  - `entry`, `profiles[].capture_surface`, stany, fixture'y, interakcje i `id_migrations[]` są bez zmian.
+- **Interakcje — OK.** Wszystkie 16 wpisów `interactions[]` ma instancję z tym samym `interaction_id`.
+- **Pliki bez zmian — OK.** `index.html`, `catalog.html`, `responsive-spec.md` i `assets/fixtures.json` mają te same sumy SHA-256 co w r2.1.
+- **Smoke test — OK.**
+  - `mode=capture`: w stanach alert-settings-editing (pixel-8) i intraday-rebound (galaxy-s20) anchor występuje raz, w pozycji 0,0 i w rozmiarze targetu; jest jeden korzeń stanu i brak narzędzi.
+  - `user_preview`: dolny panel i przełączanie stanu działają.
 - **Konsola i układ — OK.** Brak błędów konsoli, a automatyczny przegląd strony zakończył się bez zgłoszeń.

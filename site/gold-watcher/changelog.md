@@ -1,5 +1,22 @@
 # Changelog — Gold Watcher
 
+## r2.2 — 2026-09-29
+
+- **revision_id:** r2.2
+- **base_revision:** r2.1
+- **Zakres:** techniczna migracja nazewnictwa pól manifestu do docelowego standardu. `index.html`, `catalog.html`, `responsive-spec.md` i `assets/fixtures.json` są identyczne bajtowo z r2.1. UI, copy, dane fixture'ów, interakcje, stany, targety i publiczne ID są bez zmian.
+
+### Manifest — `instances[]` (wszystkie 29 wpisy, w tym `element.product-work-surface`)
+- `config` → `configuration`; treść obiektu bez zmian.
+- `visible_in_states` + `visible_in_profiles` → `visibility: { state_ids, profile_ids }`; wartości bez zmian.
+- Stare pola usunięto i nie występują równolegle.
+
+### Pozostałe
+- `state_templates[visibility].description`: odwołanie do pól zaktualizowane na `visibility.state_ids` / `visibility.profile_ids`.
+- `id_migrations[]`: bez nowych wpisów (to migracja nazw pól, nie ID).
+
+---
+
 ## r2.1 — 2026-09-29
 
 - **revision_id:** r2.1

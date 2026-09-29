@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "revision_id": "r2.1",
-  "base_revision": "r2.0",
+  "revision_id": "r2.2",
+  "base_revision": "r2.1",
   "product": "gold-watcher",
   "entry": {
     "path": "index.html",
@@ -353,7 +353,7 @@
         "mobile": "mobile",
         "compact": "compact"
       },
-      "config": {
+      "configuration": {
         "bar_height": {
           "wide": 64,
           "mobile": 56
@@ -363,23 +363,25 @@
           "mobile": 560
         }
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -390,7 +392,7 @@
         "wide": "segmented",
         "mobile": "select"
       },
-      "config": {
+      "configuration": {
         "options": [
           {
             "value": "PL",
@@ -417,23 +419,25 @@
           "gold-overview.loading"
         ]
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.country-selector"
     },
     {
@@ -442,21 +446,23 @@
       "component_id": "freshness-indicator",
       "element_id": "element.bar-freshness",
       "variant": "gold-compact",
-      "config": {
+      "configuration": {
         "kind": "gold",
         "stale_after_hours": 2
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -467,28 +473,30 @@
         "wide": "secondary",
         "mobile": "icon"
       },
-      "config": {
+      "configuration": {
         "label": "Odśwież",
         "aria_label": "Odśwież dane",
         "loading_label": "Odświeżanie…"
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.data-refresh"
     },
     {
@@ -497,22 +505,24 @@
       "component_id": "data-state-panel",
       "element_id": "element.source-error-banner",
       "variant": "source-error",
-      "config": {
+      "configuration": {
         "template": "data-unavailable",
         "severity": "info",
         "placement": "banner",
         "title": "Źródło ceny chwilowo niedostępne"
       },
-      "visible_in_states": [
-        "gold-overview.source-error"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.source-error"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -520,19 +530,21 @@
       "component_id": "button",
       "element_id": "element.source-error-retry",
       "variant": "secondary",
-      "config": {
+      "configuration": {
         "label": "Spróbuj ponownie"
       },
-      "visible_in_states": [
-        "gold-overview.source-error"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.source-error"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.source-error-retry"
     },
     {
@@ -545,7 +557,7 @@
         "mobile": "mobile",
         "compact": "compact"
       },
-      "config": {
+      "configuration": {
         "source": "daily_close[today]",
         "units": [
           "USD/oz",
@@ -560,22 +572,24 @@
           "loading"
         ]
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -586,7 +600,7 @@
         "wide": "md",
         "mobile": "touch"
       },
-      "config": {
+      "configuration": {
         "options": [
           {
             "value": "oz",
@@ -600,21 +614,23 @@
         "default": "oz",
         "persisted": true
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.gold-unit-selector"
     },
     {
@@ -623,27 +639,29 @@
       "component_id": "freshness-indicator",
       "element_id": "element.price-freshness",
       "variant": "gold",
-      "config": {
+      "configuration": {
         "kind": "gold",
         "stale_after_hours": 2,
         "timezone": "UTC"
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -651,22 +669,24 @@
       "component_id": "data-state-panel",
       "element_id": "element.price-unavailable",
       "variant": "unavailable",
-      "config": {
+      "configuration": {
         "template": "data-unavailable",
         "severity": "warning",
         "placement": "slot:price-summary",
         "title": "Brak ceny złota"
       },
-      "visible_in_states": [
-        "gold-overview.unavailable"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.unavailable"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -674,19 +694,21 @@
       "component_id": "button",
       "element_id": "element.price-unavailable-retry",
       "variant": "secondary",
-      "config": {
+      "configuration": {
         "label": "Odśwież"
       },
-      "visible_in_states": [
-        "gold-overview.unavailable"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.unavailable"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.price-unavailable-retry"
     },
     {
@@ -701,29 +723,31 @@
         "unknown",
         "+stale"
       ],
-      "config": {
+      "configuration": {
         "threshold_source": "saved X",
         "cooldown_hours": 168,
         "window_days": 30,
         "below_threshold_muted": "Linia 1: bieżący stan (teraz, odczyt HH:MM UTC, brak spełnienia, brakujące p.p.). Linia 2: ostatni sygnał (data, godzina, spadek) i koniec wyciszenia 168 h od godziny sygnału."
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -731,26 +755,28 @@
       "component_id": "button",
       "element_id": "element.alert-settings-open",
       "variant": "secondary",
-      "config": {
+      "configuration": {
         "label": "Próg {X}%",
         "aria_haspopup": "dialog"
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.alert-settings-open"
     },
     {
@@ -763,7 +789,7 @@
         "mobile": "mobile",
         "compact": "compact"
       },
-      "config": {
+      "configuration": {
         "unit": "g/m²",
         "change_basis": "pierwszy dostępny punkt zakresu",
         "details": {
@@ -771,22 +797,24 @@
           "mobile": "disclosure"
         }
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -794,23 +822,25 @@
       "component_id": "button",
       "element_id": "element.pp-details-toggle",
       "variant": "quiet",
-      "config": {
+      "configuration": {
         "label": "Szczegóły obliczenia"
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.pp-details-toggle"
     },
     {
@@ -819,7 +849,7 @@
       "component_id": "freshness-indicator",
       "element_id": "element.housing-freshness",
       "variant": "housing",
-      "config": {
+      "configuration": {
         "kind": "housing",
         "shows": [
           "period",
@@ -827,21 +857,23 @@
         ],
         "stale_rule": "brak"
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -852,7 +884,7 @@
         "wide": "default",
         "mobile": "compact"
       },
-      "config": {
+      "configuration": {
         "options": [
           "30",
           "180",
@@ -867,23 +899,25 @@
           "gold-overview.unavailable"
         ]
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.range-selector"
     },
     {
@@ -896,7 +930,7 @@
         "mobile": "mobile",
         "compact": "compact"
       },
-      "config": {
+      "configuration": {
         "series": "daily_close",
         "markers": "signals (kropki)",
         "guides": [
@@ -931,23 +965,25 @@
           "mobile": "przypięty u góry wykresu, wyśrodkowany, zawija tekst"
         }
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.price-chart"
     },
     {
@@ -960,7 +996,7 @@
         "mobile": "mobile",
         "compact": "compact"
       },
-      "config": {
+      "configuration": {
         "series": "gold_grams_per_m2",
         "interpolation": "liniowa między publikacjami",
         "after_last": "wartość utrzymana (linia przerywana)",
@@ -972,23 +1008,25 @@
           "unavailable"
         ]
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.purchasing-power-chart"
     },
     {
@@ -997,22 +1035,24 @@
       "component_id": "data-state-panel",
       "element_id": "element.pp-empty-range",
       "variant": "empty-range",
-      "config": {
+      "configuration": {
         "template": "data-unavailable",
         "severity": "info",
         "placement": "slot:purchasing-power-chart",
         "rule": "pokrycie < 50% dni zakresu lub < 2 punkty"
       },
-      "visible_in_states": [
-        "gold-overview.empty-range"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.empty-range"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -1020,19 +1060,21 @@
       "component_id": "button",
       "element_id": "element.pp-empty-range-show-360",
       "variant": "secondary",
-      "config": {
+      "configuration": {
         "label": "Pokaż 360 dni"
       },
-      "visible_in_states": [
-        "gold-overview.empty-range"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.empty-range"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.pp-empty-range-show-360"
     },
     {
@@ -1044,7 +1086,7 @@
         "wide": "side-panel",
         "mobile": "bottom-sheet"
       },
-      "config": {
+      "configuration": {
         "width": {
           "wide": 400
         },
@@ -1056,16 +1098,18 @@
           "mobile": true
         }
       },
-      "visible_in_states": [
-        "gold-overview.alert-settings-editing"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.alert-settings-editing"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": "gold-overview",
@@ -1073,19 +1117,21 @@
       "component_id": "button",
       "element_id": "element.alert-settings-close",
       "variant": "icon",
-      "config": {
+      "configuration": {
         "aria_label": "Zamknij"
       },
-      "visible_in_states": [
-        "gold-overview.alert-settings-editing"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.alert-settings-editing"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.alert-settings-close"
     },
     {
@@ -1094,7 +1140,7 @@
       "component_id": "threshold-input",
       "element_id": "element.alert-threshold-input",
       "variant": "default",
-      "config": {
+      "configuration": {
         "min": 1,
         "max": 30,
         "step": 0.5,
@@ -1115,16 +1161,18 @@
           "invalid"
         ]
       },
-      "visible_in_states": [
-        "gold-overview.alert-settings-editing"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.alert-settings-editing"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.alert-threshold-input"
     },
     {
@@ -1133,19 +1181,21 @@
       "component_id": "button",
       "element_id": "element.alert-settings-cancel",
       "variant": "quiet",
-      "config": {
+      "configuration": {
         "label": "Anuluj"
       },
-      "visible_in_states": [
-        "gold-overview.alert-settings-editing"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.alert-settings-editing"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.alert-settings-cancel"
     },
     {
@@ -1154,23 +1204,25 @@
       "component_id": "button",
       "element_id": "element.alert-settings-save",
       "variant": "primary",
-      "config": {
+      "configuration": {
         "label": "Zapisz",
         "disabled_when": [
           "wartość niepoprawna",
           "wartość = zapisana"
         ]
       },
-      "visible_in_states": [
-        "gold-overview.alert-settings-editing"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.alert-settings-editing"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.alert-settings-save"
     },
     {
@@ -1179,21 +1231,23 @@
       "component_id": "toast",
       "element_id": "element.toast",
       "variant": "default",
-      "config": {
+      "configuration": {
         "text": "Próg zapisany lokalnie: {X}%",
         "duration_ms": 4000,
         "role": "status"
       },
-      "visible_in_states": [
-        "gold-overview.alert-settings-saved"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.alert-settings-saved"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     },
     {
       "screen_id": null,
@@ -1201,7 +1255,7 @@
       "component_id": "preview-profile",
       "element_id": "element.preview-profile",
       "variant": "prototype-tool",
-      "config": {
+      "configuration": {
         "options": [
           "mac-wide",
           "iphone-16",
@@ -1213,25 +1267,27 @@
         "position": "pod ekranem",
         "mode": "tylko user_preview, w dolnym panelu narzędzi (pełna szerokość, dół okna) pod element.product-work-surface; nie jest renderowany w mode=capture"
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound",
-        "gold-overview.alert-settings-editing",
-        "gold-overview.alert-settings-saved"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ],
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound",
+          "gold-overview.alert-settings-editing",
+          "gold-overview.alert-settings-saved"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      },
       "interaction_id": "interaction.preview-profile"
     },
     {
@@ -1240,7 +1296,7 @@
       "component_id": "product-work-surface",
       "element_id": "element.product-work-surface",
       "variant": "technical",
-      "config": {
+      "configuration": {
         "selector": "[data-element-id=\"element.product-work-surface\"]",
         "product_ui": false,
         "interactive": false,
@@ -1252,25 +1308,27 @@
         "public_root": "w stanach gold-overview.alert-settings-editing i gold-overview.alert-settings-saved anchor jest jedynym publicznym korzeniem (data-screen-id=\"gold-overview\" + data-state-id stanu); widok ready pod panelem/toastem nie ma własnych atrybutów ekranu ani stanu",
         "ready": "data-prototype-ready=\"true\" po wyrenderowaniu żądanego stanu"
       },
-      "visible_in_states": [
-        "gold-overview.ready",
-        "gold-overview.loading",
-        "gold-overview.refreshing",
-        "gold-overview.stale",
-        "gold-overview.source-error",
-        "gold-overview.unavailable",
-        "gold-overview.empty-range",
-        "gold-overview.intraday-rebound",
-        "gold-overview.alert-settings-editing",
-        "gold-overview.alert-settings-saved"
-      ],
-      "visible_in_profiles": [
-        "mac-wide",
-        "iphone-16",
-        "pixel-8",
-        "galaxy-s20",
-        "iphone-16-pro-max"
-      ]
+      "visibility": {
+        "state_ids": [
+          "gold-overview.ready",
+          "gold-overview.loading",
+          "gold-overview.refreshing",
+          "gold-overview.stale",
+          "gold-overview.source-error",
+          "gold-overview.unavailable",
+          "gold-overview.empty-range",
+          "gold-overview.intraday-rebound",
+          "gold-overview.alert-settings-editing",
+          "gold-overview.alert-settings-saved"
+        ],
+        "profile_ids": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ]
+      }
     }
   ],
   "state_templates": [
@@ -1293,7 +1351,7 @@
     },
     {
       "template_id": "visibility",
-      "description": "Widoczność elementów w stanach: visible_in_states / visible_in_profiles w instances[]; szczegóły (V/H/D/Z/P) w responsive-spec.md, sekcja „Widoczność stanów”.",
+      "description": "Widoczność elementów w stanach: visibility.state_ids / visibility.profile_ids w instances[]; szczegóły (V/H/D/Z/P) w responsive-spec.md, sekcja „Widoczność stanów”.",
       "path": "responsive-spec.md#widoczność-stanów",
       "parameters": {
         "V": "widoczny",
