@@ -51,15 +51,16 @@ Otwórz `http://localhost:8000/index.html` (= `?mode=user_preview`). Przez `file
 
 ## Raport kontroli R10-RC1
 
-### Wykonane (kontrola danych na plikach paczki, 28.09.2026)
+### Wykonane (kontrola danych na plikach paczki, 28–29.09.2026)
 
 **Manifest**
 - JSON poprawny; 15 sekcji w kolejności standardu; `schema_version` `1.0`, `revision_id` R10-RC1.
-- 74 stany (unikalne), 30 ekranów (każdy stan ma istniejący ekran), 33 komponenty, 201 instancji (0 zduplikowanych `element_id`), 66 interakcji, 5 szablonów stanów.
+- 74 stany (unikalne), 30 ekranów (każdy stan ma istniejący ekran), 33 komponenty, 202 instancji (0 zduplikowanych `element_id`), 66 interakcji, 5 szablonów stanów.
 - 74 fixture 1:1 ze stanami: `fixture_id` = `fx-<state_id>` w 74/74; każde `fixtures[].path` = `assets/fixtures.json`; 74/74 wpisów z `data` w pliku, 0 nadmiarowych.
 - `id_migrations[]`: 39 wpisów (35 historycznych + 4 migracje profili R10-RC1: `ios-iphone-15` → `iphone-16`, `android-pixel-8` → `pixel-8`, `android-galaxy-s20` → `galaxy-s20`, `ios-iphone-16-pro-max` → `iphone-16-pro-max`); `mac-wide` bez migracji.
 - 5 profili `role: product`; `capture_surface.logical_size` = `viewport` w 5/5.
 - `entry.capture_url_template` i `entry.user_preview_url` zgodne z kontraktem; `components[app-shell].configuration` = `?mode=capture|user_preview (brak mode = user_preview)`, `?state`, `?target`.
+- Anchor `element.product-work-surface`: 1 instancja w `instances[]` (`product_ui: false`, bez interakcji, `visibility` = 74 stany × 5 targetów); dokładnie 1 wystąpienie w każdej z 370 par `state_id + profile_id`, zgodne z `profiles[].capture_surface` (element_id, selector, logical_size = viewport). Poprawka po odbiorze: w pierwszym wydaniu R10-RC1 manifest nie deklarował tej instancji. HTML bez zmian.
 - Integralność odwołań: każdy stan i target w `instances[].visibility` istnieje; każde `interaction_id` instancji istnieje; każda interakcja wskazuje istniejącą instancję.
 
 **Adresy legacy i stare ID**
@@ -70,11 +71,14 @@ Otwórz `http://localhost:8000/index.html` (= `?mode=user_preview`). Przez `file
 - `README.md`, `changelog.md`, `responsive-spec.md`: rewizja R10-RC1, base_revision R9-RC2 (local working copy).
 - `checksums.sha256`: wygenerowany dla 7 plików.
 
+**Paczka ZIP**
+- Katalog główny ZIP-a: `prototype/` z 8 plikami (7 plików + `checksums.sha256`). Poprawka po odbiorze: pierwsze wydanie miało root `r10-out/prototype/`. Nie sprawdzono rozpakowania ani zgodności sum po rozpakowaniu — to kontrola odbierającego.
+
 ### Do wykonania przez odbierającego
 
-1. Otwarcie 74 stanów × 5 targetów (370 uruchomień) przez `capture_url_template`: sygnał gotowości, błędy konsoli, elementy wychodzące poza obszar roboczy.
+1. Otwarcie 74 stanów × 5 targetów (370 uruchomień) przez `capture_url_template`: sygnał gotowości, błędy konsoli, obecność jednego `element.product-work-surface` w DOM każdego stanu, elementy wychodzące poza obszar roboczy. Nie wykonano po stronie Designera.
 2. Spakowanie paczki, rozpakowanie, zgodność `checksums.sha256` i uruchomienie `index.html` z rozpakowanej kopii.
 
-**Liczby:** 74 stanów · 30 ekranów · 33 komponentów · 201 instancji · 66 interakcji · 74 fixture · 39 migracji ID · 5 targetów.
+**Liczby:** 74 stanów · 30 ekranów · 33 komponentów · 202 instancji · 66 interakcji · 74 fixture · 39 migracji ID · 5 targetów.
 
 **Status:** kandydat do odbioru.
