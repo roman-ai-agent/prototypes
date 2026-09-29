@@ -1,0 +1,2168 @@
+{
+  "schema_version": 1,
+  "revision_id": "r2.1",
+  "base_revision": "r2.0",
+  "product": "gold-watcher",
+  "entry": {
+    "path": "index.html",
+    "catalog": "catalog.html",
+    "responsive_spec": "responsive-spec.md",
+    "initial_state": "gold-overview.ready",
+    "capture_url_template": "index.html?mode=capture&state={state_id}&target={target_id}",
+    "user_preview_url": "index.html?mode=user_preview",
+    "ready_selector": "[data-element-id=\"element.product-work-surface\"][data-prototype-ready=\"true\"]"
+  },
+  "profiles": [
+    {
+      "profile_id": "mac-wide",
+      "viewport": {
+        "width": 1440,
+        "height": 932
+      },
+      "layout": "wide",
+      "role": "product",
+      "capture_surface": {
+        "element_id": "element.product-work-surface",
+        "selector": "[data-element-id=\"element.product-work-surface\"]",
+        "logical_size": {
+          "width": 1440,
+          "height": 932
+        }
+      }
+    },
+    {
+      "profile_id": "iphone-16",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "layout": "mobile",
+      "role": "product",
+      "capture_surface": {
+        "element_id": "element.product-work-surface",
+        "selector": "[data-element-id=\"element.product-work-surface\"]",
+        "logical_size": {
+          "width": 393,
+          "height": 852
+        }
+      }
+    },
+    {
+      "profile_id": "pixel-8",
+      "viewport": {
+        "width": 412,
+        "height": 915
+      },
+      "layout": "mobile",
+      "role": "product",
+      "capture_surface": {
+        "element_id": "element.product-work-surface",
+        "selector": "[data-element-id=\"element.product-work-surface\"]",
+        "logical_size": {
+          "width": 412,
+          "height": 915
+        }
+      }
+    },
+    {
+      "profile_id": "galaxy-s20",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "layout": "mobile+compact",
+      "role": "product",
+      "capture_surface": {
+        "element_id": "element.product-work-surface",
+        "selector": "[data-element-id=\"element.product-work-surface\"]",
+        "logical_size": {
+          "width": 360,
+          "height": 800
+        }
+      }
+    },
+    {
+      "profile_id": "iphone-16-pro-max",
+      "viewport": {
+        "width": 440,
+        "height": 956
+      },
+      "layout": "mobile",
+      "role": "product",
+      "capture_surface": {
+        "element_id": "element.product-work-surface",
+        "selector": "[data-element-id=\"element.product-work-surface\"]",
+        "logical_size": {
+          "width": 440,
+          "height": 956
+        }
+      }
+    }
+  ],
+  "screens": [
+    {
+      "screen_id": "gold-overview",
+      "title": "Przegląd złota",
+      "selector": "[data-screen-id=\"gold-overview\"]"
+    }
+  ],
+  "states": [
+    {
+      "state_id": "gold-overview.ready",
+      "screen_id": "gold-overview",
+      "description": "Dane wybranego kraju są dostępne i świeże.",
+      "selector": "[data-state-id=\"gold-overview.ready\"]",
+      "fixture_id": "default"
+    },
+    {
+      "state_id": "gold-overview.loading",
+      "screen_id": "gold-overview",
+      "description": "Dane pierwszego wejścia są pobierane.",
+      "selector": "[data-state-id=\"gold-overview.loading\"]",
+      "fixture_id": "default"
+    },
+    {
+      "state_id": "gold-overview.refreshing",
+      "screen_id": "gold-overview",
+      "description": "Ręczne odświeżenie; ostatnie dane pozostają widoczne.",
+      "selector": "[data-state-id=\"gold-overview.refreshing\"]",
+      "fixture_id": "default"
+    },
+    {
+      "state_id": "gold-overview.stale",
+      "screen_id": "gold-overview",
+      "description": "Ostatnie dane starsze niż 2 godziny (fixture: odczyt 10:00 UTC, teraz 14:12 UTC).",
+      "selector": "[data-state-id=\"gold-overview.stale\"]",
+      "fixture_id": "stale"
+    },
+    {
+      "state_id": "gold-overview.source-error",
+      "screen_id": "gold-overview",
+      "description": "Chwilowa awaria źródła; ostatnia wartość widoczna jako nieaktualna.",
+      "selector": "[data-state-id=\"gold-overview.source-error\"]",
+      "fixture_id": "stale"
+    },
+    {
+      "state_id": "gold-overview.unavailable",
+      "screen_id": "gold-overview",
+      "description": "Brak danych koniecznych do widoku (brak jakiegokolwiek odczytu ceny).",
+      "selector": "[data-state-id=\"gold-overview.unavailable\"]",
+      "fixture_id": "no-gold"
+    },
+    {
+      "state_id": "gold-overview.empty-range",
+      "screen_id": "gold-overview",
+      "description": "Wybrany zakres nie ma dostatecznej historii mieszkań.",
+      "selector": "[data-state-id=\"gold-overview.empty-range\"]",
+      "fixture_id": "short-housing-history"
+    },
+    {
+      "state_id": "gold-overview.intraday-rebound",
+      "screen_id": "gold-overview",
+      "description": "Wariant gotowego widoku: sygnał o 09:00 UTC, później cena odbiła (ostatni odczyt 14:00 UTC); próg 5%.",
+      "selector": "[data-state-id=\"gold-overview.intraday-rebound\"]",
+      "fixture_id": "intraday-rebound"
+    },
+    {
+      "state_id": "gold-overview.alert-settings-editing",
+      "screen_id": "gold-overview",
+      "description": "Panel progu alertu otwarty nad widokiem ready; użytkownik zmienia jedyny próg X.",
+      "selector": "[data-state-id=\"gold-overview.alert-settings-editing\"]",
+      "fixture_id": "default"
+    },
+    {
+      "state_id": "gold-overview.alert-settings-saved",
+      "screen_id": "gold-overview",
+      "description": "Toast po zapisie progu nad widokiem ready; próg zapisano lokalnie.",
+      "selector": "[data-state-id=\"gold-overview.alert-settings-saved\"]",
+      "fixture_id": "default"
+    }
+  ],
+  "components": [
+    {
+      "component_id": "app-shell",
+      "semantics": "Układ i kontener jedynego widoku",
+      "variants": [
+        "wide",
+        "mobile",
+        "compact"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "country-selector",
+      "semantics": "Wybór jednego kraju",
+      "variants": [
+        "segmented",
+        "select"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "range-selector",
+      "semantics": "Zakres czasu obu wykresów",
+      "variants": [
+        "default",
+        "compact"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "segmented-control",
+      "semantics": "Przełącznik jednej z kilku opcji (jednostka ceny)",
+      "variants": [
+        "md",
+        "touch"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "price-summary",
+      "semantics": "Aktualna cena, jednostka, drawdown, maks. 30 dni, czas odczytu",
+      "variants": [
+        "wide",
+        "mobile",
+        "compact"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "freshness-indicator",
+      "semantics": "Świeżość danych: fresh / refreshing / stale / source-error / unavailable",
+      "variants": [
+        "gold",
+        "gold-compact",
+        "housing",
+        "fx"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "signal-status",
+      "semantics": "Czy próg jest spełniony, ostatni sygnał, wyciszenie",
+      "variants": [
+        "new-signal",
+        "eligible-muted",
+        "below-threshold",
+        "unknown",
+        "+stale"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "price-chart",
+      "semantics": "Wykres ceny z markerami sygnałów",
+      "variants": [
+        "wide",
+        "mobile",
+        "compact"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "purchasing-power-summary",
+      "semantics": "Gramy złota za 1 m² i znaczenie zmiany",
+      "variants": [
+        "wide",
+        "mobile",
+        "compact"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "purchasing-power-chart",
+      "semantics": "Wykres wskaźnika mieszkań",
+      "variants": [
+        "wide",
+        "mobile",
+        "compact"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "threshold-input",
+      "semantics": "Jedyny próg X z walidacją",
+      "variants": [
+        "default"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "alert-settings-panel",
+      "semantics": "Kontener konfiguracji progu",
+      "variants": [
+        "side-panel",
+        "bottom-sheet"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "button",
+      "semantics": "Akcje",
+      "variants": [
+        "primary",
+        "secondary",
+        "quiet",
+        "icon"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "toast",
+      "semantics": "Potwierdzenie zapisu",
+      "variants": [
+        "default"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "data-state-panel",
+      "semantics": "Szablon stanu danych (banner / slot)",
+      "variants": [
+        "source-error",
+        "unavailable",
+        "empty-range"
+      ],
+      "product_ui": true
+    },
+    {
+      "component_id": "preview-profile",
+      "semantics": "Narzędzie user_preview (dolny panel): wybór targetu (5 urządzeń); nie jest UI produktu i nie jest renderowane w mode=capture",
+      "variants": [
+        "prototype-tool"
+      ],
+      "product_ui": false
+    },
+    {
+      "component_id": "product-work-surface",
+      "semantics": "Techniczna powierzchnia robocza produktu — granica obrazu visual capture; nieinteraktywna, nie jest UI produktu",
+      "variants": [
+        "technical"
+      ],
+      "product_ui": false
+    }
+  ],
+  "instances": [
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "app-shell",
+      "element_id": "element.app-shell",
+      "variant": {
+        "wide": "wide",
+        "mobile": "mobile",
+        "compact": "compact"
+      },
+      "config": {
+        "bar_height": {
+          "wide": 64,
+          "mobile": 56
+        },
+        "content_max_width": {
+          "wide": 1200,
+          "mobile": 560
+        }
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "country-selector",
+      "element_id": "element.country-selector",
+      "variant": {
+        "wide": "segmented",
+        "mobile": "select"
+      },
+      "config": {
+        "options": [
+          {
+            "value": "PL",
+            "label": "Polska",
+            "capital": "Warszawa",
+            "currency": "PLN"
+          },
+          {
+            "value": "US",
+            "label": "USA",
+            "capital": "Waszyngton D.C.",
+            "currency": "USD"
+          },
+          {
+            "value": "BE",
+            "label": "Belgia",
+            "capital": "Bruksela",
+            "currency": "EUR"
+          }
+        ],
+        "default": "PL",
+        "persisted": true,
+        "disabled_in": [
+          "gold-overview.loading"
+        ]
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.country-selector"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "freshness-indicator",
+      "element_id": "element.bar-freshness",
+      "variant": "gold-compact",
+      "config": {
+        "kind": "gold",
+        "stale_after_hours": 2
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "button",
+      "element_id": "element.data-refresh",
+      "variant": {
+        "wide": "secondary",
+        "mobile": "icon"
+      },
+      "config": {
+        "label": "Odśwież",
+        "aria_label": "Odśwież dane",
+        "loading_label": "Odświeżanie…"
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.data-refresh"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.source-error",
+      "component_id": "data-state-panel",
+      "element_id": "element.source-error-banner",
+      "variant": "source-error",
+      "config": {
+        "template": "data-unavailable",
+        "severity": "info",
+        "placement": "banner",
+        "title": "Źródło ceny chwilowo niedostępne"
+      },
+      "visible_in_states": [
+        "gold-overview.source-error"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.source-error",
+      "component_id": "button",
+      "element_id": "element.source-error-retry",
+      "variant": "secondary",
+      "config": {
+        "label": "Spróbuj ponownie"
+      },
+      "visible_in_states": [
+        "gold-overview.source-error"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.source-error-retry"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "price-summary",
+      "element_id": "element.price-summary",
+      "variant": {
+        "wide": "wide",
+        "mobile": "mobile",
+        "compact": "compact"
+      },
+      "config": {
+        "source": "daily_close[today]",
+        "units": [
+          "USD/oz",
+          "USD/g"
+        ],
+        "grams_per_oz": 31.1034768,
+        "states": [
+          "fresh",
+          "refreshing",
+          "stale",
+          "source-error",
+          "loading"
+        ]
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "segmented-control",
+      "element_id": "element.gold-unit-selector",
+      "variant": {
+        "wide": "md",
+        "mobile": "touch"
+      },
+      "config": {
+        "options": [
+          {
+            "value": "oz",
+            "label": "USD/oz"
+          },
+          {
+            "value": "g",
+            "label": "USD/g"
+          }
+        ],
+        "default": "oz",
+        "persisted": true
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.gold-unit-selector"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "freshness-indicator",
+      "element_id": "element.price-freshness",
+      "variant": "gold",
+      "config": {
+        "kind": "gold",
+        "stale_after_hours": 2,
+        "timezone": "UTC"
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.unavailable",
+      "component_id": "data-state-panel",
+      "element_id": "element.price-unavailable",
+      "variant": "unavailable",
+      "config": {
+        "template": "data-unavailable",
+        "severity": "warning",
+        "placement": "slot:price-summary",
+        "title": "Brak ceny złota"
+      },
+      "visible_in_states": [
+        "gold-overview.unavailable"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.unavailable",
+      "component_id": "button",
+      "element_id": "element.price-unavailable-retry",
+      "variant": "secondary",
+      "config": {
+        "label": "Odśwież"
+      },
+      "visible_in_states": [
+        "gold-overview.unavailable"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.price-unavailable-retry"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "signal-status",
+      "element_id": "element.signal-status",
+      "variant": [
+        "new-signal",
+        "eligible-muted",
+        "below-threshold",
+        "unknown",
+        "+stale"
+      ],
+      "config": {
+        "threshold_source": "saved X",
+        "cooldown_hours": 168,
+        "window_days": 30,
+        "below_threshold_muted": "Linia 1: bieżący stan (teraz, odczyt HH:MM UTC, brak spełnienia, brakujące p.p.). Linia 2: ostatni sygnał (data, godzina, spadek) i koniec wyciszenia 168 h od godziny sygnału."
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "button",
+      "element_id": "element.alert-settings-open",
+      "variant": "secondary",
+      "config": {
+        "label": "Próg {X}%",
+        "aria_haspopup": "dialog"
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.alert-settings-open"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "purchasing-power-summary",
+      "element_id": "element.purchasing-power-summary",
+      "variant": {
+        "wide": "wide",
+        "mobile": "mobile",
+        "compact": "compact"
+      },
+      "config": {
+        "unit": "g/m²",
+        "change_basis": "pierwszy dostępny punkt zakresu",
+        "details": {
+          "wide": "visible",
+          "mobile": "disclosure"
+        }
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "button",
+      "element_id": "element.pp-details-toggle",
+      "variant": "quiet",
+      "config": {
+        "label": "Szczegóły obliczenia"
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.pp-details-toggle"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "freshness-indicator",
+      "element_id": "element.housing-freshness",
+      "variant": "housing",
+      "config": {
+        "kind": "housing",
+        "shows": [
+          "period",
+          "published_at"
+        ],
+        "stale_rule": "brak"
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "range-selector",
+      "element_id": "element.range-selector",
+      "variant": {
+        "wide": "default",
+        "mobile": "compact"
+      },
+      "config": {
+        "options": [
+          "30",
+          "180",
+          "360",
+          "5y",
+          "max"
+        ],
+        "default": "360",
+        "persisted": true,
+        "disabled_in": [
+          "gold-overview.loading",
+          "gold-overview.unavailable"
+        ]
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.range-selector"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "price-chart",
+      "element_id": "element.price-chart",
+      "variant": {
+        "wide": "wide",
+        "mobile": "mobile",
+        "compact": "compact"
+      },
+      "config": {
+        "series": "daily_close",
+        "markers": "signals (kropki)",
+        "guides": [
+          "high_30d",
+          "high_30d×(1−X)"
+        ],
+        "sampling": "min/max kubełkowo powyżej 480 dni",
+        "states": [
+          "ready",
+          "loading",
+          "stale",
+          "preview",
+          "unavailable"
+        ],
+        "tooltip": {
+          "default": [
+            "data",
+            "cena"
+          ],
+          "signal_daily": [
+            "data",
+            "cena",
+            "sygnał (zamknięcie dnia) + spadek",
+            "bieżący próg"
+          ],
+          "signal_intraday": [
+            "data · ostatni odczyt",
+            "sygnał HH:MM UTC + spadek",
+            "ostatnia cena dnia HH:MM UTC",
+            "bieżący próg"
+          ],
+          "mobile": "przypięty u góry wykresu, wyśrodkowany, zawija tekst"
+        }
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.price-chart"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.ready",
+      "component_id": "purchasing-power-chart",
+      "element_id": "element.purchasing-power-chart",
+      "variant": {
+        "wide": "wide",
+        "mobile": "mobile",
+        "compact": "compact"
+      },
+      "config": {
+        "series": "gold_grams_per_m2",
+        "interpolation": "liniowa między publikacjami",
+        "after_last": "wartość utrzymana (linia przerywana)",
+        "no_data": "pas kreskowany",
+        "states": [
+          "ready",
+          "loading",
+          "empty-range",
+          "unavailable"
+        ]
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.purchasing-power-chart"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.empty-range",
+      "component_id": "data-state-panel",
+      "element_id": "element.pp-empty-range",
+      "variant": "empty-range",
+      "config": {
+        "template": "data-unavailable",
+        "severity": "info",
+        "placement": "slot:purchasing-power-chart",
+        "rule": "pokrycie < 50% dni zakresu lub < 2 punkty"
+      },
+      "visible_in_states": [
+        "gold-overview.empty-range"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.empty-range",
+      "component_id": "button",
+      "element_id": "element.pp-empty-range-show-360",
+      "variant": "secondary",
+      "config": {
+        "label": "Pokaż 360 dni"
+      },
+      "visible_in_states": [
+        "gold-overview.empty-range"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.pp-empty-range-show-360"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.alert-settings-editing",
+      "component_id": "alert-settings-panel",
+      "element_id": "element.alert-settings-panel",
+      "variant": {
+        "wide": "side-panel",
+        "mobile": "bottom-sheet"
+      },
+      "config": {
+        "width": {
+          "wide": 400
+        },
+        "max_height": {
+          "mobile": "85%"
+        },
+        "modal": {
+          "wide": false,
+          "mobile": true
+        }
+      },
+      "visible_in_states": [
+        "gold-overview.alert-settings-editing"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.alert-settings-editing",
+      "component_id": "button",
+      "element_id": "element.alert-settings-close",
+      "variant": "icon",
+      "config": {
+        "aria_label": "Zamknij"
+      },
+      "visible_in_states": [
+        "gold-overview.alert-settings-editing"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.alert-settings-close"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.alert-settings-editing",
+      "component_id": "threshold-input",
+      "element_id": "element.alert-threshold-input",
+      "variant": "default",
+      "config": {
+        "min": 1,
+        "max": 30,
+        "step": 0.5,
+        "default": 5,
+        "decimal_separator": [
+          ",",
+          "."
+        ],
+        "controls": [
+          "pole",
+          "−/+ 0,5",
+          "suwak"
+        ],
+        "states": [
+          "default",
+          "dirty",
+          "rounded",
+          "invalid"
+        ]
+      },
+      "visible_in_states": [
+        "gold-overview.alert-settings-editing"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.alert-threshold-input"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.alert-settings-editing",
+      "component_id": "button",
+      "element_id": "element.alert-settings-cancel",
+      "variant": "quiet",
+      "config": {
+        "label": "Anuluj"
+      },
+      "visible_in_states": [
+        "gold-overview.alert-settings-editing"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.alert-settings-cancel"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.alert-settings-editing",
+      "component_id": "button",
+      "element_id": "element.alert-settings-save",
+      "variant": "primary",
+      "config": {
+        "label": "Zapisz",
+        "disabled_when": [
+          "wartość niepoprawna",
+          "wartość = zapisana"
+        ]
+      },
+      "visible_in_states": [
+        "gold-overview.alert-settings-editing"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.alert-settings-save"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": "gold-overview.alert-settings-saved",
+      "component_id": "toast",
+      "element_id": "element.toast",
+      "variant": "default",
+      "config": {
+        "text": "Próg zapisany lokalnie: {X}%",
+        "duration_ms": 4000,
+        "role": "status"
+      },
+      "visible_in_states": [
+        "gold-overview.alert-settings-saved"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    },
+    {
+      "screen_id": null,
+      "state_id": null,
+      "component_id": "preview-profile",
+      "element_id": "element.preview-profile",
+      "variant": "prototype-tool",
+      "config": {
+        "options": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "product_ui": false,
+        "position": "pod ekranem",
+        "mode": "tylko user_preview, w dolnym panelu narzędzi (pełna szerokość, dół okna) pod element.product-work-surface; nie jest renderowany w mode=capture"
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound",
+        "gold-overview.alert-settings-editing",
+        "gold-overview.alert-settings-saved"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ],
+      "interaction_id": "interaction.preview-profile"
+    },
+    {
+      "screen_id": "gold-overview",
+      "state_id": null,
+      "component_id": "product-work-surface",
+      "element_id": "element.product-work-surface",
+      "variant": "technical",
+      "config": {
+        "selector": "[data-element-id=\"element.product-work-surface\"]",
+        "product_ui": false,
+        "interactive": false,
+        "contains": "cały ekran produktu wybranego targetu: app-shell, alert-settings-panel (side-panel / bottom-sheet z tłem), toast, lista country-selector",
+        "excludes": "narzędzia user_preview (dolny panel: stan, element.preview-profile, link do katalogu), chrome hosta",
+        "logical_size": "= viewport targetu (profiles[].capture_surface.logical_size)",
+        "capture_mode": "mode=capture: dokładnie jeden, 1:1, promień 0, bez cienia, pasek przewijania ukryty wizualnie; user_preview: zawsze 1:1 (logical_size targetu, bez dopasowania do okna), promień 0, obrys 1 px #b8b1a9 poza powierzchnią, wyśrodkowany w przewijanym obszarze; pełnoszerokościowy panel narzędzi na dole okna",
+        "capture_scope": "widoczny viewport w ustalonej pozycji przewinięcia, domyślnie góra",
+        "public_root": "w stanach gold-overview.alert-settings-editing i gold-overview.alert-settings-saved anchor jest jedynym publicznym korzeniem (data-screen-id=\"gold-overview\" + data-state-id stanu); widok ready pod panelem/toastem nie ma własnych atrybutów ekranu ani stanu",
+        "ready": "data-prototype-ready=\"true\" po wyrenderowaniu żądanego stanu"
+      },
+      "visible_in_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.stale",
+        "gold-overview.source-error",
+        "gold-overview.unavailable",
+        "gold-overview.empty-range",
+        "gold-overview.intraday-rebound",
+        "gold-overview.alert-settings-editing",
+        "gold-overview.alert-settings-saved"
+      ],
+      "visible_in_profiles": [
+        "mac-wide",
+        "iphone-16",
+        "pixel-8",
+        "galaxy-s20",
+        "iphone-16-pro-max"
+      ]
+    }
+  ],
+  "state_templates": [
+    {
+      "template_id": "data-unavailable",
+      "component_id": "data-state-panel",
+      "parameters": {
+        "title": "Jakich danych brakuje",
+        "body": "Wyjaśnienie bez żargonu i kodów błędów",
+        "severity": "info (ostatnia wartość widoczna) | warning (brak jakiejkolwiek wartości)",
+        "actions": "min. Odśwież; opcjonalnie powrót do poprzedniego wyboru / krótszy zakres",
+        "retryPolicy": "manual",
+        "return": "Odśwież: loading → ready albo ten sam stan; akcja zakresu: widok ready dla nowego zakresu"
+      },
+      "instances": [
+        "element.source-error-banner",
+        "element.price-unavailable",
+        "element.pp-empty-range"
+      ]
+    },
+    {
+      "template_id": "visibility",
+      "description": "Widoczność elementów w stanach: visible_in_states / visible_in_profiles w instances[]; szczegóły (V/H/D/Z/P) w responsive-spec.md, sekcja „Widoczność stanów”.",
+      "path": "responsive-spec.md#widoczność-stanów",
+      "parameters": {
+        "V": "widoczny",
+        "H": "ukryty",
+        "D": "nieaktywny",
+        "Z": "zastąpiony",
+        "P": "przeniesiony"
+      },
+      "instances": [
+        "element.app-shell",
+        "element.country-selector",
+        "element.bar-freshness",
+        "element.data-refresh",
+        "element.source-error-banner",
+        "element.source-error-retry",
+        "element.price-summary",
+        "element.gold-unit-selector",
+        "element.price-freshness",
+        "element.price-unavailable",
+        "element.price-unavailable-retry",
+        "element.signal-status",
+        "element.alert-settings-open",
+        "element.purchasing-power-summary",
+        "element.pp-details-toggle",
+        "element.housing-freshness",
+        "element.range-selector",
+        "element.price-chart",
+        "element.purchasing-power-chart",
+        "element.pp-empty-range",
+        "element.pp-empty-range-show-360",
+        "element.alert-settings-panel",
+        "element.alert-settings-close",
+        "element.alert-threshold-input",
+        "element.alert-settings-cancel",
+        "element.alert-settings-save",
+        "element.toast",
+        "element.preview-profile",
+        "element.product-work-surface"
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "fixture_id": "default",
+      "path": "assets/fixtures.json",
+      "applies_to_states": [
+        "gold-overview.ready",
+        "gold-overview.loading",
+        "gold-overview.refreshing",
+        "gold-overview.alert-settings-editing",
+        "gold-overview.alert-settings-saved"
+      ],
+      "now_utc": "2026-09-23T14:12:00Z",
+      "gold_read_at_utc": "2026-09-23T14:00:00Z",
+      "synthetic": true
+    },
+    {
+      "fixture_id": "stale",
+      "path": "assets/fixtures.json",
+      "derived_from": "default",
+      "overrides": {
+        "gold_read_at_utc": "2026-09-23T10:00:00Z"
+      },
+      "applies_to_states": [
+        "gold-overview.stale",
+        "gold-overview.source-error"
+      ],
+      "now_utc": "2026-09-23T14:12:00Z",
+      "gold_read_at_utc": "2026-09-23T10:00:00Z"
+    },
+    {
+      "fixture_id": "no-gold",
+      "path": "assets/fixtures.json",
+      "derived_from": "default",
+      "overrides": {
+        "gold": "brak jakiegokolwiek odczytu ceny"
+      },
+      "applies_to_states": [
+        "gold-overview.unavailable"
+      ]
+    },
+    {
+      "fixture_id": "short-housing-history",
+      "path": "assets/fixtures.json#short_history_fixture",
+      "derived_from": "default",
+      "overrides": {
+        "housing_first_day": "2025-06-30"
+      },
+      "applies_to_states": [
+        "gold-overview.empty-range"
+      ],
+      "housing_first_day": "2025-06-30"
+    },
+    {
+      "fixture_id": "intraday-rebound",
+      "path": "assets/fixtures.json#intraday_rebound",
+      "threshold_percent": 5,
+      "day_utc": "2026-09-23",
+      "signal_at_utc": "2026-09-23T09:00:00Z",
+      "last_read_at_utc": "2026-09-23T14:00:00Z",
+      "muted_until_utc": "2026-09-30T09:00:00Z",
+      "expected": [
+        "wykres dzienny pokazuje cenę z 14:00 UTC",
+        "marker na punkcie dnia 2026-09-23",
+        "tooltip markera: sygnał 09:00 UTC, ostatnia cena dnia 14:00 UTC, bieżący próg",
+        "signal-status: below-threshold; ostatni sygnał 09:00 UTC i wyciszenie do 2026-09-30 09:00 UTC"
+      ],
+      "applies_to_states": [
+        "gold-overview.intraday-rebound"
+      ]
+    }
+  ],
+  "responsive_rules": {
+    "path": "responsive-spec.md",
+    "rules": [
+      {
+        "target_id": "gold-overview",
+        "target_kind": "screen",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Treść max 1200 px (+2×32 margines); 2 kolumny: lewa 368 px (320 px gdy dostępne < 1200 px), prawa fluid; odstęp 24",
+        "order_position": "Lewa: price-summary → signal-status → purchasing-power-summary. Prawa: range-selector → price-chart → purchasing-power-chart",
+        "visibility_variant": "Warianty wide",
+        "scroll_minimum": "Pionowy scroll strony; cena, sygnał i price-chart widoczne bez scrolla",
+        "variant": "wide"
+      },
+      {
+        "target_id": "gold-overview",
+        "target_kind": "screen",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "1 kolumna; margines 16; odstęp 12; max 560, wyśrodkowana",
+        "order_position": "pasek → country-selector → price-summary → signal-status → range-selector → price-chart → purchasing-power-summary → purchasing-power-chart",
+        "visibility_variant": "Warianty mobile",
+        "scroll_minimum": "Pasek sticky 56; range-selector sticky pod paskiem; cena + sygnał bez scrolla",
+        "variant": "mobile"
+      },
+      {
+        "target_id": "gold-overview",
+        "target_kind": "screen",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "Jak mobile; treść 328",
+        "order_position": "Jak mobile",
+        "visibility_variant": "Warianty compact (≤ 374 px)",
+        "scroll_minimum": "Jak mobile",
+        "variant": "compact"
+      },
+      {
+        "target_id": "gold-overview.alert-settings-editing",
+        "target_kind": "state",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Panel 400 px przy prawej krawędzi, pełna wysokość; treść zwęża się do 1040 px",
+        "order_position": "nagłówek → opis → threshold-input → podgląd → uwaga lokalna → stopka (Anuluj, Zapisz) po prawej",
+        "visibility_variant": "side-panel, niemodalny; wykres z podglądem markerów widoczny",
+        "scroll_minimum": "Scroll w panelu; stopka przypięta",
+        "variant": "side-panel"
+      },
+      {
+        "target_id": "gold-overview.alert-settings-editing",
+        "target_kind": "state",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Pełna szerokość; max 85% wysokości; zaokrąglenie 22",
+        "order_position": "uchwyt → nagłówek → threshold-input → podgląd → uwaga → stopka Anuluj | Zapisz (1:1)",
+        "visibility_variant": "bottom-sheet, modalny; tło przyciemnione; treść pod spodem inert",
+        "scroll_minimum": "Stopka nad safe area; Esc / tło / Anuluj zamyka",
+        "variant": "bottom-sheet"
+      },
+      {
+        "target_id": "element.app-shell",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Pasek 64 px; szerokość treści",
+        "order_position": "nazwa · country-selector · [odstęp] · bar-freshness · Odśwież",
+        "visibility_variant": "wide",
+        "scroll_minimum": "Sticky",
+        "variant": "wide"
+      },
+      {
+        "target_id": "element.app-shell",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Pasek 56 px",
+        "order_position": "nazwa · Odśwież (ikona 44)",
+        "visibility_variant": "mobile; country-selector przeniesiony do treści",
+        "scroll_minimum": "Sticky",
+        "variant": "mobile"
+      },
+      {
+        "target_id": "element.app-shell",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "Pasek 56 px",
+        "order_position": "nazwa · Odśwież (ikona 44)",
+        "visibility_variant": "compact; country-selector przeniesiony do treści",
+        "scroll_minimum": "Sticky",
+        "variant": "compact"
+      },
+      {
+        "target_id": "element.country-selector",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "3 × min 132 px, wys. 44",
+        "order_position": "W pasku app-shell",
+        "visibility_variant": "segmented",
+        "scroll_minimum": "—",
+        "variant": "segmented"
+      },
+      {
+        "target_id": "element.country-selector",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "100%, wys. 48",
+        "order_position": "Pierwszy element treści",
+        "visibility_variant": "select (lista rozwijana pod przyciskiem, opcje 48 px); przycisk z walutą",
+        "scroll_minimum": "—",
+        "variant": "select"
+      },
+      {
+        "target_id": "element.country-selector",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "100%, wys. 48",
+        "order_position": "Pierwszy element treści",
+        "visibility_variant": "select; przycisk bez waluty",
+        "scroll_minimum": "—",
+        "variant": "select"
+      },
+      {
+        "target_id": "element.bar-freshness",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Auto",
+        "order_position": "W pasku przed Odśwież",
+        "visibility_variant": "Widoczny (gold-compact)",
+        "scroll_minimum": "—",
+        "visible": true
+      },
+      {
+        "target_id": "element.bar-freshness",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "—",
+        "order_position": "—",
+        "visibility_variant": "Ukryty",
+        "scroll_minimum": "—",
+        "visible": false
+      },
+      {
+        "target_id": "element.data-refresh",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Auto, wys. 36",
+        "order_position": "Ostatni w pasku",
+        "visibility_variant": "button secondary z etykietą „Odśwież”",
+        "scroll_minimum": "—",
+        "variant": "secondary"
+      },
+      {
+        "target_id": "element.data-refresh",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "44 × 44",
+        "order_position": "Ostatni w pasku",
+        "visibility_variant": "button icon (aria-label „Odśwież dane”)",
+        "scroll_minimum": "Min. 44 × 44",
+        "variant": "icon"
+      },
+      {
+        "target_id": "element.range-selector",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Auto, wys. 34",
+        "order_position": "Bezpośrednio nad price-chart",
+        "visibility_variant": "default",
+        "scroll_minimum": "Bez scrolla poziomego",
+        "variant": "default"
+      },
+      {
+        "target_id": "element.range-selector",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "100%, 5 równych kolumn, wys. 44",
+        "order_position": "Bezpośrednio nad price-chart",
+        "visibility_variant": "compact (krótkie etykiety)",
+        "scroll_minimum": "Bez scrolla poziomego; sticky top 56",
+        "variant": "compact"
+      },
+      {
+        "target_id": "element.gold-unit-selector",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Wys. 30; min 60 px na segment",
+        "order_position": "Nagłówek price-summary, prawa strona",
+        "visibility_variant": "md; widoczny gdy jest cena",
+        "scroll_minimum": "—",
+        "variant": "md"
+      },
+      {
+        "target_id": "element.gold-unit-selector",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Wys. 38; min 60 px na segment",
+        "order_position": "Nagłówek price-summary, prawa strona",
+        "visibility_variant": "touch; widoczny gdy jest cena",
+        "scroll_minimum": "—",
+        "variant": "touch"
+      },
+      {
+        "target_id": "element.price-summary",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Kolumna 368 (320); padding 22",
+        "order_position": "nagłówek → cena → cena pomocnicza → kafle drawdown i maks. 30 dni → świeżość",
+        "visibility_variant": "wide; cena 52/56 px",
+        "scroll_minimum": "Cena nie łamie się",
+        "variant": "wide"
+      },
+      {
+        "target_id": "element.price-summary",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "100%; padding 18",
+        "order_position": "Jak wide",
+        "visibility_variant": "mobile; cena 40/44 px",
+        "scroll_minimum": "Cena nie łamie się",
+        "variant": "mobile"
+      },
+      {
+        "target_id": "element.price-summary",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "100%; padding 18",
+        "order_position": "Jak wide",
+        "visibility_variant": "compact; cena 34/38 px",
+        "scroll_minimum": "Cena nie łamie się",
+        "variant": "compact"
+      },
+      {
+        "target_id": "element.signal-status",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Szerokość kontenera",
+        "order_position": "Pod price-summary; below-threshold w wyciszeniu: tytuł → bieżący stan → ostatni sygnał i wyciszenie (osobna linia)",
+        "visibility_variant": "Przycisk progu obok tekstu",
+        "scroll_minimum": "—"
+      },
+      {
+        "target_id": "element.signal-status",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "100%",
+        "order_position": "Jak mobile",
+        "visibility_variant": "Przycisk progu pod tekstem",
+        "scroll_minimum": "—"
+      },
+      {
+        "target_id": "element.alert-settings-open",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Auto",
+        "order_position": "W signal-status, obok tekstu",
+        "visibility_variant": "button secondary",
+        "scroll_minimum": "—",
+        "variant": "secondary"
+      },
+      {
+        "target_id": "element.alert-settings-open",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "100% × 44",
+        "order_position": "W signal-status, pod tekstem",
+        "visibility_variant": "button secondary",
+        "scroll_minimum": "Min. wys. 44",
+        "variant": "secondary"
+      },
+      {
+        "target_id": "element.price-chart",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Obszar 300 px; oś Y po prawej 56 px",
+        "order_position": "Tytuł + meta → legenda (zawija się) → wykres → oś X",
+        "visibility_variant": "wide; 5 etykiet osi X; tooltip przy kursorze, 1 linia na wpis",
+        "scroll_minimum": "touch-action pan-y",
+        "variant": "wide"
+      },
+      {
+        "target_id": "element.price-chart",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Obszar 200 px; oś Y 44 px",
+        "order_position": "Jak wide",
+        "visibility_variant": "mobile; 3 etykiety osi X; tooltip przypięty u góry wykresu, wyśrodkowany, tekst zawija się",
+        "scroll_minimum": "touch-action pan-y; przeciąganie poziome = kursor",
+        "variant": "mobile"
+      },
+      {
+        "target_id": "element.price-chart",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "Obszar 180 px; oś Y 44 px",
+        "order_position": "Jak wide",
+        "visibility_variant": "compact; 3 etykiety osi X; tooltip jak mobile",
+        "scroll_minimum": "Jak mobile",
+        "variant": "compact"
+      },
+      {
+        "target_id": "element.purchasing-power-summary",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Kolumna",
+        "order_position": "Lewa kolumna, pod signal-status",
+        "visibility_variant": "wide; szczegóły widoczne; wartość 34 px",
+        "scroll_minimum": "—",
+        "variant": "wide"
+      },
+      {
+        "target_id": "element.purchasing-power-summary",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "100%",
+        "order_position": "Nad purchasing-power-chart",
+        "visibility_variant": "mobile; szczegóły za disclosure (element.pp-details-toggle); wartość 28 px",
+        "scroll_minimum": "—",
+        "variant": "mobile"
+      },
+      {
+        "target_id": "element.purchasing-power-summary",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "100%",
+        "order_position": "Nad purchasing-power-chart",
+        "visibility_variant": "compact; szczegóły za disclosure; wartość 28 px",
+        "scroll_minimum": "—",
+        "variant": "compact"
+      },
+      {
+        "target_id": "element.pp-details-toggle",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "—",
+        "order_position": "—",
+        "visibility_variant": "Ukryty (szczegóły zawsze widoczne)",
+        "scroll_minimum": "—",
+        "visible": false
+      },
+      {
+        "target_id": "element.pp-details-toggle",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Auto",
+        "order_position": "W purchasing-power-summary, pod wartością",
+        "visibility_variant": "Widoczny; button quiet",
+        "scroll_minimum": "Min. wys. 44",
+        "visible": true,
+        "variant": "quiet"
+      },
+      {
+        "target_id": "element.purchasing-power-chart",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Obszar 240 px",
+        "order_position": "Pod price-chart (prawa kolumna)",
+        "visibility_variant": "wide; legenda zawija się",
+        "scroll_minimum": "Jak price-chart",
+        "variant": "wide"
+      },
+      {
+        "target_id": "element.purchasing-power-chart",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Obszar 180 px",
+        "order_position": "Pod purchasing-power-summary",
+        "visibility_variant": "mobile; legenda zawija się",
+        "scroll_minimum": "Jak price-chart",
+        "variant": "mobile"
+      },
+      {
+        "target_id": "element.purchasing-power-chart",
+        "target_kind": "element",
+        "profiles": [
+          "galaxy-s20"
+        ],
+        "columns_width": "Obszar 160 px",
+        "order_position": "Pod purchasing-power-summary",
+        "visibility_variant": "compact; legenda zawija się",
+        "scroll_minimum": "Jak price-chart",
+        "variant": "compact"
+      },
+      {
+        "target_id": "element.alert-settings-panel",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "400 px, pełna wysokość",
+        "order_position": "Prawa krawędź",
+        "visibility_variant": "side-panel, niemodalny",
+        "scroll_minimum": "Scroll w panelu; stopka przypięta",
+        "variant": "side-panel"
+      },
+      {
+        "target_id": "element.alert-settings-panel",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "100%, max 85% wysokości",
+        "order_position": "Dół ekranu",
+        "visibility_variant": "bottom-sheet, modalny",
+        "scroll_minimum": "Stopka nad safe area",
+        "variant": "bottom-sheet"
+      },
+      {
+        "target_id": "element.toast",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide"
+        ],
+        "columns_width": "Auto (max treść)",
+        "order_position": "Dół, wyśrodkowany, 24 px",
+        "visibility_variant": "4 s (w stanie wymuszonym URL: stały)",
+        "scroll_minimum": "—"
+      },
+      {
+        "target_id": "element.toast",
+        "target_kind": "element",
+        "profiles": [
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "100% − 32",
+        "order_position": "Dół, wyśrodkowany, 24 px",
+        "visibility_variant": "4 s (w stanie wymuszonym URL: stały)",
+        "scroll_minimum": "—"
+      },
+      {
+        "target_id": "data-state-panel",
+        "target_kind": "component",
+        "profiles": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "slot: wymiary zastępowanego komponentu (min 180–220); banner: 100% treści",
+        "order_position": "slot: w miejscu komponentu; banner: pod paskiem, nad kolumnami",
+        "visibility_variant": "Akcje zawijają się",
+        "scroll_minimum": "—"
+      },
+      {
+        "target_id": "element.preview-profile",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "W dolnym panelu narzędzi user_preview (pełna szerokość okna), osobny wiersz kart",
+        "order_position": "Panel na dole okna, pod obszarem z element.product-work-surface",
+        "visibility_variant": "Widoczny tylko w user_preview; nie renderowany w mode=capture; product_ui: false",
+        "scroll_minimum": "Zmienia wyłącznie target",
+        "visible": true
+      },
+      {
+        "target_id": "element.product-work-surface",
+        "target_kind": "element",
+        "profiles": [
+          "mac-wide",
+          "iphone-16",
+          "pixel-8",
+          "galaxy-s20",
+          "iphone-16-pro-max"
+        ],
+        "columns_width": "Równy viewportowi profilu (1440×932 / 393×852 / 412×915 / 360×800 / 440×956)",
+        "order_position": "Ramka ekranu; w user_preview wyśrodkowana w przewijanym obszarze nad jedynym panelem narzędzi (dół okna, pełna szerokość); w mode=capture jedyny renderowany element, w lewym górnym rogu",
+        "visibility_variant": "Zawsze dokładnie jeden; techniczny, product_ui: false. user_preview: 1:1 (logical_size targetu), promień 0, obrys 1 px; mode=capture: 1:1, promień 0, bez cienia, bez widocznego paska przewijania",
+        "scroll_minimum": "Treść przewija się wewnątrz; capture = widoczny viewport",
+        "visible": true
+      }
+    ]
+  },
+  "interactions": [
+    {
+      "interaction_id": "interaction.country-selector",
+      "element_id": "element.country-selector",
+      "action": "Wybór kraju (PL | US | BE); nieaktywny w gold-overview.loading.",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Aktualizuje wartość i wykres mieszkań dla jednego kraju; cena złota bez zmian; zapis w preferencjach lokalnych."
+    },
+    {
+      "interaction_id": "interaction.data-refresh",
+      "element_id": "element.data-refresh",
+      "action": "Ręczne odświeżenie (klik / Enter).",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.refreshing",
+      "expected_effect": "Z ready, stale, source-error, empty-range: refreshing (1,4 s, ostatnie dane widoczne) → ready. Z unavailable: loading → ready. Brak automatycznego odpytywania. Nieaktywny w loading i refreshing."
+    },
+    {
+      "interaction_id": "interaction.source-error-retry",
+      "element_id": "element.source-error-retry",
+      "action": "Ręczne odświeżenie („Spróbuj ponownie”).",
+      "initial_state": "gold-overview.source-error",
+      "result_state": "gold-overview.refreshing",
+      "expected_effect": "refreshing → ready albo source-error."
+    },
+    {
+      "interaction_id": "interaction.gold-unit-selector",
+      "element_id": "element.gold-unit-selector",
+      "action": "Wybór jednostki (USD/oz | USD/g).",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Pokazuje USD/oz albo USD/g w karcie, osiach i tooltipach, bez zmiany źródła danych; zapis w preferencjach lokalnych."
+    },
+    {
+      "interaction_id": "interaction.price-unavailable-retry",
+      "element_id": "element.price-unavailable-retry",
+      "action": "Ręczne odświeżenie („Odśwież”).",
+      "initial_state": "gold-overview.unavailable",
+      "result_state": "gold-overview.loading",
+      "expected_effect": "loading → ready albo ponownie unavailable."
+    },
+    {
+      "interaction_id": "interaction.alert-settings-open",
+      "element_id": "element.alert-settings-open",
+      "action": "Otwarcie konfiguracji progu („Próg {X}%”).",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.alert-settings-editing",
+      "expected_effect": "Otwiera alert-settings z bieżącym X; kontener panelu zgodnie z responsive_rules dla element.alert-settings-panel; przycisk dostaje aria-expanded=true."
+    },
+    {
+      "interaction_id": "interaction.pp-details-toggle",
+      "element_id": "element.pp-details-toggle",
+      "action": "Rozwinięcie / zwinięcie szczegółów obliczenia (tylko profile mobilne).",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Pokazuje cenę 1 m², kurs FX, cenę złota za gram i datę publikacji; ponowne użycie zwija."
+    },
+    {
+      "interaction_id": "interaction.range-selector",
+      "element_id": "element.range-selector",
+      "action": "Wybór zakresu (30 | 180 | 360 | 5y | max); nieaktywny w loading i unavailable.",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Aktualizuje oba wykresy i widoczne markery; nie zmienia maksimum 30 dni ani stanu sygnału; zapis w preferencjach lokalnych."
+    },
+    {
+      "interaction_id": "interaction.price-chart",
+      "element_id": "element.price-chart",
+      "action": "Kursor: hover, dotyk (przeciąganie poziome), klawiatura ←/→ (Shift ×10), Home/End, Esc.",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Pokazuje datę i cenę; na markerze spadek i bieżący próg X (fixture intraday-rebound: sygnał 09:00 UTC, ostatnia cena dnia 14:00 UTC, bieżący próg); kursor wspólny z purchasing-power-chart; Esc ukrywa."
+    },
+    {
+      "interaction_id": "interaction.purchasing-power-chart",
+      "element_id": "element.purchasing-power-chart",
+      "action": "Kursor: hover, dotyk, klawiatura jak price-chart.",
+      "initial_state": "gold-overview.ready",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Pokazuje g/m² i rodzaj punktu: publikacja / interpolacja / wartość utrzymana / brak danych; kursor wspólny z price-chart."
+    },
+    {
+      "interaction_id": "interaction.pp-empty-range-show-360",
+      "element_id": "element.pp-empty-range-show-360",
+      "action": "Zmiana zakresu („Pokaż 360 dni”).",
+      "initial_state": "gold-overview.empty-range",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Ustawia zakres 360 dni; widok wraca do gold-overview.ready."
+    },
+    {
+      "interaction_id": "interaction.alert-settings-close",
+      "element_id": "element.alert-settings-close",
+      "action": "Zamknięcie panelu (×, Esc; na mobile także tło).",
+      "initial_state": "gold-overview.alert-settings-editing",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Zamyka panel bez zapisu; niezapisany draft porzucony; fokus wraca do element.alert-settings-open."
+    },
+    {
+      "interaction_id": "interaction.alert-threshold-input",
+      "element_id": "element.alert-threshold-input",
+      "action": "Zmiana wartości: pole (przecinek lub kropka), −/+ 0,5, suwak; Enter zapisuje.",
+      "initial_state": "gold-overview.alert-settings-editing",
+      "result_state": "gold-overview.alert-settings-editing",
+      "expected_effect": "Pozwala ustawić 1–30% co 0,5 p.p.; wartości spoza kroku zaokrągla (5,3 → 5,5), spoza zakresu blokują zapis (stan invalid); podgląd markerów (obrys) i chip „Podgląd progu … — niezapisany” na price-chart."
+    },
+    {
+      "interaction_id": "interaction.alert-settings-cancel",
+      "element_id": "element.alert-settings-cancel",
+      "action": "Anulowanie („Anuluj”).",
+      "initial_state": "gold-overview.alert-settings-editing",
+      "result_state": "gold-overview.ready",
+      "expected_effect": "Zamyka panel bez zapisu; niezapisany draft porzucony."
+    },
+    {
+      "interaction_id": "interaction.alert-settings-save",
+      "element_id": "element.alert-settings-save",
+      "action": "Zapis („Zapisz”); nieaktywny, gdy wartość niepoprawna albo równa zapisanej.",
+      "initial_state": "gold-overview.alert-settings-editing",
+      "result_state": "gold-overview.alert-settings-saved",
+      "expected_effect": "Zapisuje próg lokalnie, zamyka panel, pokazuje toast „Próg zapisany lokalnie: {X}%” (4 s), przelicza markery i signal-status."
+    },
+    {
+      "interaction_id": "interaction.preview-profile",
+      "element_id": "element.preview-profile",
+      "action": "Wybór profilu podglądu (5 profili).",
+      "initial_state": "*",
+      "result_state": "*",
+      "expected_effect": "Przełącza wyłącznie viewport prototypu; nie zmienia stanu, danych ani preferencji."
+    }
+  ],
+  "id_migrations": [
+    {
+      "from": "iphone-standard",
+      "to": "iphone-16",
+      "reason": "Konkretne urządzenie odtwarzalne w symulatorze; geometria 393×852 bez zmian.",
+      "revision": "r2.0"
+    },
+    {
+      "from": "android-standard",
+      "to": "pixel-8",
+      "reason": "Konkretne urządzenie odtwarzalne w emulatorze; geometria 412×915 bez zmian.",
+      "revision": "r2.0"
+    },
+    {
+      "from": "mobile-compact",
+      "to": "galaxy-s20",
+      "reason": "Konkretne urządzenie odtwarzalne w emulatorze; geometria 360×800 i layout mobile+compact bez zmian.",
+      "revision": "r2.0"
+    },
+    {
+      "from": "mobile-large",
+      "to": "iphone-16-pro-max",
+      "reason": "Konkretne urządzenie odtwarzalne w symulatorze; geometria 440×956 bez zmian.",
+      "revision": "r2.0"
+    },
+    {
+      "from": "alert-settings",
+      "to": "gold-overview",
+      "reason": "Panel alertu jest wariantem jedynego ekranu bez zmiany UI.",
+      "revision": "r2.0"
+    },
+    {
+      "from": "alert-settings.editing",
+      "to": "gold-overview.alert-settings-editing",
+      "reason": "Jednoznaczny wariant panelu.",
+      "revision": "r2.0"
+    },
+    {
+      "from": "alert-settings.saved",
+      "to": "gold-overview.alert-settings-saved",
+      "reason": "Jednoznaczny wariant po zapisie.",
+      "revision": "r2.0"
+    }
+  ]
+}
