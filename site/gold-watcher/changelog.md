@@ -1,5 +1,65 @@
 # Changelog — Gold Watcher
 
+## r2.3 — 2026-09-29
+
+- **revision_id:** r2.3
+- **Baza:** zaakceptowany r2.2
+- **Zakres:**
+  - minimalny manifest `schema_version: 3` (GW-DESIGNER-BRIEF-008);
+  - `assets/fixtures.json` jako jedyne źródło danych renderu;
+  - 6 jawnych stanów rozwiniętych szczegółów mieszkań na telefonach (GW-DESIGNER-BRIEF-007 z odpowiedziami Lidera);
+  - wygląd UI bez zmian.
+
+### Dodane ID
+- `gold-overview.ready-housing-details-expanded` (fixture `default`; targety: iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max)
+- `gold-overview.refreshing-housing-details-expanded` (fixture `default`; targety: iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max)
+- `gold-overview.stale-housing-details-expanded` (fixture `stale`; targety: iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max)
+- `gold-overview.source-error-housing-details-expanded` (fixture `stale`; targety: iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max)
+- `gold-overview.empty-range-housing-details-expanded` (fixture `short-housing-history`; targety: iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max)
+- `gold-overview.intraday-rebound-housing-details-expanded` (fixture `intraday-rebound`; targety: iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max)
+
+Każdy z tych stanów pokazuje swój stan bazowy z rozwiniętymi szczegółami mieszkań, czyli wynik kliknięcia „Szczegóły obliczenia” z r2.2.
+
+W DOM dodano atrybut `data-interaction-id` na 16 elementach interaktywnych. Jego wartości to dotychczasowe `interaction_id`, np. `interaction.pp-details-toggle`.
+
+### Zmienione / usunięte ID
+Brak. `id_migrations: []`. 7 migracji z r2.0 (r1.3 → r2.0) jest opisanych niżej, w sekcji r2.0, i nie przechodzi do minimalnego manifestu.
+
+### Manifest (schema_version 3)
+- **Pola:** `schema_version`, `revision_id`, `id_migrations`, `targets[]` (`target_id`, `width`, `height`) i `states[]` (`state_id`, `fixture_id`, opcjonalnie `target_ids`).
+- **Usunięte:**
+  - `base_revision`, `product`, `entry`;
+  - `profiles` → `targets`; `screens`;
+  - `states[].screen_id`, `selector`, `description`, `availability` → `target_ids`;
+  - `components`, `instances`, `state_templates`, `fixtures`, `responsive_rules`, `interactions`.
+- Kolejność list nie ma znaczenia.
+
+### assets/fixtures.json
+- **Struktura:** `{ "shared_series": {…}, "fixtures": { "default", "stale", "no-gold", "short-housing-history", "intraday-rebound" } }`.
+- **`shared_series`:**
+  - dzienne zamknięcia złota w wariancie zwykłym i intraday-rebound;
+  - dzienne kursy FX dla PL i BE;
+  - kwartalne publikacje cen mieszkań dla PL, US i BE, z datą publikacji.
+  - Wartości mają pełną precyzję, dokładnie te same co w r2.2.
+- **Fixture'y:** każdy wskazuje potrzebne serie po nazwie i zawiera własne różnice stanu:
+  - czas odczytu i świeżość;
+  - brak odczytu w `no-gold`;
+  - początek historii mieszkań w `short-housing-history`;
+  - parametry sygnału w `intraday-rebound`;
+  - bieżący czas `now_utc`, datę kursu FX i metadane krajów.
+
+### Prototyp
+- **Źródło danych:** `index.html` przy starcie wczytuje `prototype-manifest.json` (targety, stany, `fixture_id`, `target_ids`) oraz `assets/fixtures.json`. Seria złota, kursy, publikacje mieszkań, czasy odczytu, „12 min temu” / „4 godz. temu” i parametry intraday pochodzą z fixture'u. Generator danych z kodu usunięto. Wymagany jest lokalny serwer HTTP.
+- **`mode=capture`:**
+  - wymaga parametrów `state` i `target`, bez wartości domyślnych;
+  - błędy: `missing-parameter`, `unknown-state`, `unknown-target`, `state-unavailable-for-target`, `fixtures-unavailable`, `render-invalid`. Błąd oznacza brak anchoru i gotowości, obecność `[data-prototype-error="<kod>"]` i wpis w konsoli;
+  - nie korzysta z `localStorage`, bieżącego czasu, losowości, sieci ani zewnętrznych fontów; animacje i przejścia CSS są wyłączone;
+  - `data-prototype-ready="true"` pojawia się po `document.fonts.ready`, dwóch klatkach i samokontroli (jeden anchor, jeden korzeń stanu z `data-screen-id`, brak duplikatów `data-element-id`, brak narzędzi w DOM).
+- **`user_preview`:** bez parametrów otwiera `gold-overview.ready` na `mac-wide`. Niedozwolona para otwiera stan bazowy. Lista stanów zawiera tylko stany dozwolone dla wybranego targetu.
+- **`catalog.html`:** zmieniono wyłącznie oznaczenie rewizji. `responsive-spec.md` uzupełniono o stany rozwinięte i uaktualniono odwołania do manifestu.
+
+---
+
 ## r2.2 — 2026-09-29
 
 - **revision_id:** r2.2

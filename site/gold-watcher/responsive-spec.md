@@ -1,4 +1,4 @@
-# Gold Watcher r2.1 — specyfikacja responsywności
+# Gold Watcher r2.3 — specyfikacja responsywności
 
 Reguły rysowania wybiera jawny `target_id` (5 targetów produktu); układ wynika z szerokości targetu. Viewport capture jest tylko technicznym wymiarem renderowania.
 
@@ -10,7 +10,7 @@ Reguły rysowania wybiera jawny `target_id` (5 targetów produktu); układ wynik
 
 Wszystkie targety telefonu mają tę samą podróż i hierarchię.
 
-Grupy targetów używane w tabelach: **wide** = `mac-wide`; **mobile** = `iphone-16`, `pixel-8`, `iphone-16-pro-max`; **compact** = `galaxy-s20`; **mobile-\*** = mobile + compact. Maszynowo czytelna wersja reguł (z jawną listą `profiles`) znajduje się w `prototype-manifest.json` → `responsive_rules.rules[]`; wartości są identyczne z tym dokumentem.
+Grupy targetów używane w tabelach: **wide** = `mac-wide`; **mobile** = `iphone-16`, `pixel-8`, `iphone-16-pro-max`; **compact** = `galaxy-s20`; **mobile-\*** = mobile + compact. Dokument opisuje reguły dla człowieka; o konkretnym renderze pary stan–target rozstrzyga DOM prototypu.
 
 | screen / stan / component | Target | Kolumny i szerokość | Kolejność / pozycja | Widoczność / wariant | Scroll / minimum |
 |---|---|---|---|---|---|
@@ -91,3 +91,21 @@ V = widoczny · H = ukryty · D = nieaktywny · Z = zastąpiony · P = przeniesi
 | pixel-8 | 412×915 | mobile | 412×915 | android-standard |
 | galaxy-s20 | 360×800 | mobile+compact | 360×800 | mobile-compact |
 | iphone-16-pro-max | 440×956 | mobile | 440×956 | mobile-large |
+
+## Stany rozwiniętych szczegółów mieszkań (r2.3)
+
+Na targetach telefonicznych szczegóły obliczenia są domyślnie zwinięte za `element.pp-details-toggle`, a `element.housing-freshness` nie jest w DOM. Po rozwinięciu stan przechodzi do wariantu `*-housing-details-expanded`. Układ, dane i wygląd są identyczne z wynikiem kontrolki w r2.2. Na mac-wide szczegóły są zawsze widoczne, więc te stany są niedostępne (`states[].target_ids` w manifeście). `mode=capture` dla mac-wide kończy się błędem `state-unavailable-for-target`.
+
+| state_id | stan bazowy | fixture | dostępny na |
+|---|---|---|---|
+| gold-overview.ready-housing-details-expanded | gold-overview.ready | default | iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max |
+| gold-overview.refreshing-housing-details-expanded | gold-overview.refreshing | default | iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max |
+| gold-overview.stale-housing-details-expanded | gold-overview.stale | stale | iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max |
+| gold-overview.source-error-housing-details-expanded | gold-overview.source-error | stale | iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max |
+| gold-overview.empty-range-housing-details-expanded | gold-overview.empty-range | short-housing-history | iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max |
+| gold-overview.intraday-rebound-housing-details-expanded | gold-overview.intraday-rebound | intraday-rebound | iphone-16, pixel-8, galaxy-s20, iphone-16-pro-max |
+
+| element | stany bazowe (telefon) | stany *-housing-details-expanded (telefon) | mac-wide |
+|---|---|---|---|
+| pp-details-toggle | V (`aria-expanded="false"`) | V (`aria-expanded="true"`) | H |
+| housing-freshness | H | V | V w 6 stanach bazowych |
