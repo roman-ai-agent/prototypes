@@ -1,10 +1,10 @@
 # VirtualTutor V4 — responsive-spec R10
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` · **base_revision:** `VT-VIRTUALTUTOR-PROTOTYPE-R9-RC2 (local working copy)` (R10-RC1 nie zmienia geometrii ani wyglądu; zmienione wyłącznie ID profili i kontrakt URL) · **Status:** kandydat do odbioru.
-- **Target (R10):** `target_id` = `profiles[].profile_id`. W `mode=capture` klasa układu (§2) wynika z szerokości `capture_surface.logical_size` jawnego targetu, nie z okna przeglądarki; środowisko capture ustawia viewport na `profiles[].viewport` targetu.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` (R10-RC2 nie zmienia geometrii ani wyglądu; zmieniony wyłącznie format manifestu do standardu v3) · **Status:** kandydat do odbioru.
+- **Target (R10):** `target_id` = `targets[].target_id`. W `mode=capture` klasa układu (§2) wynika z `targets[].width` jawnego targetu, nie z okna przeglądarki; środowisko capture ustawia viewport na `targets[].width × height` targetu.
 - **Zakres R9:** (1) `advertisement-screen` pełnoekranowy (§5.13); (2) komponenty dynamiczne z regułami ruchu i klatką capture (§5.16); (3) własne ikony SVG zamiast znaków Unicode/emoji (§5.17); (4) usunięte wejście ekranu (fade 0,4–0,5 s). Pozostała geometria, kolejność, widoczność i minima bez zmian względem R8-RC2. `capture_surface` bez zmian (§1.1).
-- **Profile:** `profiles[]` zawiera pięć profili produktu, po jednym dla każdego docelowego targetu.
-- **Towarzyszy:** `catalog.html` (`components[]`) i `index.html`. `preview-profile` (`product_ui: false`, tylko w `mode=user_preview`) przełącza target ramki podglądu.
+- **Targety:** `targets[]` manifestu zawiera pięć targetów produktu (`target_id`, `width`, `height`).
+- **Towarzyszy:** `catalog.html` (katalog komponentów, `data-component-id`) i `index.html`. `preview-profile` (otoczka, tylko w `mode=user_preview`) przełącza target ramki podglądu.
 
 Wartości w px to px CSS przy DPR 1. Wartość bez zmiany w kolumnie mobile oznacza „jak wide”.
 
@@ -26,7 +26,7 @@ Wartości w px to px CSS przy DPR 1. Wartość bez zmiany w kolumnie mobile ozna
 
 Przedmiotem porównania aplikacji z prototypem jest powierzchnia robocza produktu, a nie całe okno, pasek debug, selektor profilu ani chrome hosta. Każdy profil produktu ma jeden stały rozmiar logiczny tej powierzchni (px CSS, DPR 1). Aplikacja ustawia swój odpowiadający obszar (AX identifier `element.product-work-surface`) na identyczny rozmiar.
 
-| `profile_id` | Klasa | `capture_surface.logical_size` (szer. × wys.) | Co obejmuje |
+| `target_id` | Klasa | `width × height` (szer. × wys.) | Co obejmuje |
 | --- | --- | ---: | --- |
 | `mac-wide` | `wide` | **1440 × 932** | Cały obszar roboczy okna produktu. Tło `#fffcf9` od krawędzi do krawędzi, w nim wyśrodkowana kolumna `product-surface` 1180 px o wysokości 932 px. Pasek tytułu okna macOS i chrome hosta nie wchodzą. |
 | `iphone-16` | `mobile` | **393 × 852** | Cały ekran aplikacji; `product-surface` = 393 × 852. Safe area jest wewnątrz powierzchni (w profilu przeglądarkowym 0). |
@@ -34,7 +34,7 @@ Przedmiotem porównania aplikacji z prototypem jest powierzchnia robocza produkt
 | `galaxy-s20` | `compact` | **360 × 800** | Cały ekran aplikacji; `product-surface` = 360 × 800. |
 | `iphone-16-pro-max` | `mobile` | **440 × 956** | Cały ekran aplikacji; `product-surface` = 440 × 956 (kolumna treści 440 px, poniżej progu 560 px). |
 
-- **Anchor:** `element.product-work-surface`, selektor `[data-element-id="element.product-work-surface"]`. W każdym z 74 stanów (`index.html?mode=capture&state={state_id}&target={target_id}`) jest dokładnie jeden. Ma `position: fixed; top: 0; left: 0` i szerokość oraz wysokość ustawione z `profiles[].capture_surface.logical_size` targetu. Jest przezroczysty, bez ramki, z `pointer-events: none` i `aria-hidden="true"`. Nie przyjmuje fokusu i nie ma treści ani akcji. Nie jest komponentem ani elementem UI produktu, więc nie ma go w `components[]`, `instances[]` ani `interactions[]`. Opisują go `profiles[].capture_surface` i `entry.capture_surface`.
+- **Anchor:** `element.product-work-surface`, selektor `[data-element-id="element.product-work-surface"]`. W każdym z 74 stanów (`index.html?mode=capture&state={state_id}&target={target_id}`) jest dokładnie jeden. Ma `position: fixed; top: 0; left: 0` i szerokość oraz wysokość ustawione z `targets[].width × height` targetu. Jest przezroczysty, bez ramki, z `pointer-events: none` i `aria-hidden="true"`. Po zakończeniu renderu ma `data-prototype-ready="true"`. Nie przyjmuje fokusu i nie ma treści ani akcji. Nie jest komponentem ani elementem UI produktu, więc nie ma go w katalogu komponentów. Jego rozmiar wynika z `targets[]` manifestu v3.
 - Anchor nie zmienia układu ani wyglądu (jest poza przepływem, bez tła). `product-surface` pozostaje selektorem stanu (`data-screen-id`, `data-state-id`, `data-fixture-id`).
 - W `mode=user_preview` anchor jest wewnątrz ramki produktu (`mode=capture`) o rozmiarze targetu. `preview-profile` i pasek wyboru stanu leżą poza nim.
 
@@ -165,7 +165,7 @@ Wszystkie klasy tak samo. Warstwa zajmuje cały obszar roboczy (`element.product
 Zachowanie: reklama pojawia się po zapisaniu odpowiedzi tutora kończącej co 10. pełną turę; licznik globalny, liczą się też tury treningu; zapis i zwiększenie licznika przed pokazaniem. Dostępne wyłącznie „Zamknij reklamę” i `Escape`; fokus startuje na przycisku i nie wychodzi poza niego. Zamknięcie natychmiast wraca do tej samej rozmowy albo treningu w tym samym miejscu, bez zmiany danych i licznika, bez nowej odpowiedzi; wypowiedź tutora odtwarza się dopiero po zamknięciu. Brak odliczania. Slot to neutralny placeholder `#f5f1ec` bez kreacji.
 
 ### 5.14 `mic-control`
-Jedna pigułka z etykietą (`labeled`) we wszystkich kontekstach: kompozytor, test mikrofonu, test STT. Skutki różne (patrz `interactions[]`). Zwykły `button`, bez `aria-pressed`. Ikona w okręgu przy lewej krawędzi, napis wyśrodkowany w pozostałej części. Szerokość: z treści, gdy obok stoi inny przycisk; 100% kolumny tylko, gdy przycisk stoi w wierszu sam (np. `Zakończ nagrywanie`, testy onboardingu na mobile). Etykieta się zawija. Stany: `ready` (teal 🎙) · `recording` (czerwony ■ z pulsującym pierścieniem) · `processing` („Rozpoznaję mowę”, jasne neutralne tło, trzy falujące kreski w okręgu; **nieaktywny**: disabled, aria-busy; bez ✕ i bez akcji anulowania) · `disabled`. `Nagraj ponownie` ma wygląd `ready`. Testy zachowują ID `mic-check-start/stop` i `speech-check-start/stop` oraz miernik w onboardingu; w kompozytorze miernika nie ma.
+Jedna pigułka z etykietą (`labeled`) we wszystkich kontekstach: kompozytor, test mikrofonu, test STT. Skutki różne (patrz `data-interaction-id` w DOM i `catalog.html`). Zwykły `button`, bez `aria-pressed`. Ikona w okręgu przy lewej krawędzi, napis wyśrodkowany w pozostałej części. Szerokość: z treści, gdy obok stoi inny przycisk; 100% kolumny tylko, gdy przycisk stoi w wierszu sam (np. `Zakończ nagrywanie`, testy onboardingu na mobile). Etykieta się zawija. Stany: `ready` (teal 🎙) · `recording` (czerwony ■ z pulsującym pierścieniem) · `processing` („Rozpoznaję mowę”, jasne neutralne tło, trzy falujące kreski w okręgu; **nieaktywny**: disabled, aria-busy; bez ✕ i bez akcji anulowania) · `disabled`. `Nagraj ponownie` ma wygląd `ready`. Testy zachowują ID `mic-check-start/stop` i `speech-check-start/stop` oraz miernik w onboardingu; w kompozytorze miernika nie ma.
 
 ### 5.15 `profile-level`
 Wybór poziomu: wide 4 opcje w siatce 2×2 (maks. 560 px), mobile/compact 1 kolumna, opcje 56 px.
@@ -181,7 +181,7 @@ Ruch w prototypie = CSS; ten sam ruch jako Lottie w `virtualtutor-ui-assets-r9-R
 | `voice-preview-indicator` | słupki „Odtwarzam” w `voice-option` | `vt-dot` 900 ms ease; 0/200/400 ms | 450 ms (27/54) |
 | `audio-level-meter` | tylko onboarding | bez animacji w pliku: wysokość = 6 + poziom × 34 px co 150 ms; ≥ 40 px = przesterowanie `#bd413f` | próbka `normal` (`quiet` w stanie „zbyt cicho”) |
 
-W `mode=capture` prototyp zatrzymuje ruch w tych klatkach przed sygnałem gotowości; miernik pokazuje poziomy z danych fixture stanu. Szczegóły i sekwencje danych: `components[].motion` i `components[].examples` w manifeście, `catalog.html` §9.
+W `mode=capture` prototyp zatrzymuje ruch w tych klatkach przed sygnałem gotowości; miernik pokazuje poziomy z danych fixture stanu. Szczegóły i sekwencje danych: `catalog.html` §9 (dane ruchu wbudowane w `index.html`).
 
 ### 5.17 Ikony (R9)
 Znaki Unicode i emoji (←, ▾, ⌄, ⌃, ✓, ▶, ■, 🎙, ⚠, ＋, ◎, 文, 🌐, ↻, ✎, ◆, △, ~, !, 🇺🇸, 🇬🇧) zastąpione własnymi ikonami SVG `vt-*` (siatka 24, obrys 2 px, `currentColor`; flagi 24×16). Rozmiary jak dotychczasowe glify (10–26 px, diagnostyka 38 px), kolor z kontekstu. Zmiana wyglądu wyłącznie w obrębie glifu; układ i odstępy bez zmian. Pliki i reguły: `virtualtutor-ui-assets-r9-RC1.zip`, `ASSETS.md`.
@@ -214,7 +214,7 @@ Znaki Unicode i emoji (←, ▾, ⌄, ⌃, ✓, ▶, ■, 🎙, ⚠, ＋, ◎, �
 
 ## 8. Capture przy odbiorze
 
-Kadr każdego zrzutu = prostokąt `element.product-work-surface` o rozmiarze `capture_surface.logical_size` profilu (§1.1). Klatka ruchu ustalona przez `mode=capture` (§5.16).
+Kadr każdego zrzutu = prostokąt `element.product-work-surface` o rozmiarze `width × height` targetu (§1.1). Klatka ruchu ustalona przez `mode=capture` (§5.16).
 
 - `mac-wide`: każdy stan.
 - `iphone-16`, `pixel-8`, `galaxy-s20`, `iphone-16-pro-max`: stan bazowy każdej rodziny oraz każdy stan z różnicą układu z §5 (np. `chat-profile-popover` → popover pod pigułką, `chat-transcribed` → pole nad wierszem akcji, `training-active` → karta zadania i `Zakończ trening` widoczne).

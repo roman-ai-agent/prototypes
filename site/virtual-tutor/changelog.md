@@ -1,3 +1,21 @@
+# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2
+
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` (`product/ux/prototypes/macos/r10-rc1/prototype/`) · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Brief:** `VT-DESIGNER-BRIEF-005`, standard `CANONICAL_PROTOTYPE_PACKAGE_STANDARD-V3`.
+
+## R10-RC2 (względem R10-RC1) — migracja techniczna do standardu v3, bez zmiany designu
+
+1. **Manifest v3.** `prototype-manifest.json` ma dokładnie pięć kluczy: `schema_version: 3`, `revision_id`, `id_migrations: []`, `targets[]` (`target_id`, `width`, `height`; 5 targetów, wymiary bez zmian) i `states[]` (`state_id`, `fixture_id`; 74 stany i fixture bez zmian, bez `target_ids` — wszystkie 370 par dozwolone). Usunięte: `base_revision`, `product`, `entry`, `profiles`, `screens`, `components`, `instances`, `state_templates`, `fixtures`, `responsive_rules`, `interactions`. Informacja o ekranach, komponentach, elementach i interakcjach pozostaje w DOM (`data-screen-id`, `data-state-id`, `data-component-id`, `data-element-id`, `data-interaction-id`), `catalog.html` i `responsive-spec.md`.
+2. **Migracje ID.** Brak nowych migracji (`id_migrations: []`). Historia 39 migracji z R5–R10-RC1 — sekcja „Historia migracji ID” na końcu pliku.
+3. **`index.html` — capture.** `index.html?mode=capture&state=<state_id>&target=<target_id>`: wymaga obu parametrów; każdy inny parametr, nieznany stan, nieznany target i para spoza `states[].target_ids` (gdy podane) dają jawny błąd (`data-prototype-state="__error__"`). Target z `targets[]`, rozmiar `element.product-work-surface` = `width × height`; dane z `assets/fixtures.json` przez `states[].fixture_id`. Manifest z `schema_version` innym niż 3 jest odrzucany.
+4. **`index.html` — podgląd.** `mode=user_preview` (i brak `mode`) przyjmuje opcjonalnie kompletną parę `state` + `target` i otwiera otoczkę z tą parą wybraną; bez obu — jak dotąd (`mac-wide`, `welcome`). Tylko jeden parametr z pary, nieznany stan lub target → jawny błąd. Pozostałe parametry (także `embed`, `profile`, `fixture`) są ignorowane. Wygląd otoczki bez zmian.
+5. **Dane wbudowane w `index.html`** zamiast usuniętych sekcji manifestu: stan startowy podglądu (`welcome`) i ścieżka `assets/fixtures.json`. Mapowanie stan → ekran (etykiety listy w podglądzie) i lista targetów otoczki były już wbudowane.
+6. **Dokumentacja.** `README.md` przepisany; `responsive-spec.md` i `catalog.html`: wyłącznie korekty odwołań do usuniętych sekcji manifestu i numer rewizji. Treść projektowa bez zmian.
+7. **Poprawka po zwrocie odbioru (gotowość na anchorze).** W `mode=capture` atrybut `data-prototype-ready="true"` jest ustawiany na jedynym anchorze `element.product-work-surface` dopiero po zakończeniu renderu (wcześniej tylko na `body`, przez co selektor gotowości wspólnego renderera nie był spełniony). Przy każdym ponownym renderze i błędzie anchor wraca do `false`. Atrybut na `body` pozostaje pomocniczo. UI, stany, fixture, ID, targety i manifest v3 bez zmian.
+8. **Bez zmian:** wygląd, zachowanie, treści, CSS, assety, ikony, `assets/fixtures.json` (bajtowo), 74 `state_id`, publiczne ID DOM, targety i wymiary.
+
+---
+
 # changelog — VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1
 
 - **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` · **base_revision:** `VT-VIRTUALTUTOR-PROTOTYPE-R9-RC2 (local working copy)` · **Status:** kandydat do odbioru.
@@ -218,3 +236,49 @@ Stany: 71 → 74 (nowe są stanami ekranu `chat-reply`, nie osobnymi ekranami; `
 3. **Liczby i URL:** 74 stany, 74 fixture, 30 ekranów; `?state=` bez `fixture` (README, manifest `url_contract`, komentarz `index.html`).
 4. **Opisy odziedziczone z RC1/RC2 usunięte lub oznaczone jako historyczne:** `Więcej` i `conversation-more` (katalog), zielony nagłówek treningu `#e8f4e6` (spec §5.2), miernik i „Słucham” w kompozytorze, `chat-sending` w warunkach zajętości i skutku „Wyślij”, arkusze w safe area i promieniach, liczby 72/75 i anulowanie w sekcjach R7-RC1 changelogu (adnotacje „stan R7-RC1”).
 5. **Narzędzia podglądu:** `technical_ui` obejmuje `preview-state-prev`, `preview-state-next`, `preview-state-counter`.
+
+## Historia migracji ID (R5–R10-RC1)
+
+Przeniesione z `id_migrations[]` manifestu R10-RC1. Manifest v3 zawiera wyłącznie migracje bieżącej rewizji.
+
+| from | to | rewizja | powód |
+| --- | --- | --- | --- |
+| `progress` | `conversation-complete` | R5.13 | semantic_correction: Stan oznacza zakończenie rozmowy, nie wyliczony postęp. Brak aliasu renderującego stary stan. |
+| `wizard-voice-f-missing` | `wizard-voice-unavailable-with-fallbacks` | R5.13 | screen_consolidation: Jeden ekran wizard-voice-unavailable; roznica to fixture fallbackVoices. |
+| `wizard-voice-handoff` | `wizard-voice-unavailable-empty` | R5.13 | screen_consolidation: Jak wyzej; pusty fixture nie renderuje listy. |
+| `voice-error-missing` | `voice-unavailable-icon` | R5.x | migracja elementu R5.x |
+| `voice-settings-handoff` | `voice-unavailable-icon` | R5.x | migracja elementu R5.x |
+| `voice-missing-heading` | `voice-unavailable-heading` | R5.x | migracja elementu R5.x |
+| `voice-settings-handoff-heading` | `voice-unavailable-heading` | R5.x | migracja elementu R5.x |
+| `voice-missing-body` | `voice-unavailable-description` | R5.x | migracja elementu R5.x |
+| `voice-settings-handoff-body` | `voice-unavailable-description` | R5.x | migracja elementu R5.x |
+| `conversation-complete (state_id)` | `null` | R6 | usunięty; po potwierdzeniu zakończenia → characters-select |
+| `conversation-complete-*` | `null` | R6 | R6: zmiana semantyki lub usunięcie |
+| `header-progress, header-progress-dot-1..4` | `null` | R6 | R6: zmiana semantyki lub usunięcie |
+| `debug-state-picker, debug-state-select` | `preview-state-select (powłoka, product_ui:false)` | R6 | R6: zmiana semantyki lub usunięcie |
+| `mic-icon` | `mic-check-stop[data-state=recording]` | R6 | R6: zmiana semantyki lub usunięcie |
+| `speech-icon` | `speech-check-stop[data-state=recording]` | R6 | R6: zmiana semantyki lub usunięcie |
+| `voice-sample-status` | `voice-option-<id>-preview (voice-preview-state)` | R6 | R6: zmiana semantyki lub usunięcie |
+| `voice-download-more-link` | `voice-add-voices-toggle + open-voice-settings` | R6 | R6: zmiana semantyki lub usunięcie |
+| `correction-wrong` | `null` | R6 | R6: zmiana semantyki lub usunięcie |
+| `welcome-wordmark` | `null` | R6 | duplikat app-wordmark |
+| `conversation-more (tylko wcześniejszy kandydat R6)` | `new-conversation-button + chat-finish widoczne bezpośrednio na mobile` | R6 | R6: zmiana semantyki lub usunięcie |
+| `translation-loading (fixture)` | `fx-chat-reply-plain-translation-loading` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC1 | B1: każda kombinacja stanu i nakładki ma własne fixture_id |
+| `translation-ready (fixture)` | `fx-chat-reply-plain-translation-ready` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC1 | B1 |
+| `translation-error (fixture)` | `fx-chat-reply-plain-translation-error` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC1 | B1 |
+| `{{ micButtonTestId }} (wpis manifestu RC3)` | `composer-mic-button + composer-stop-recording` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC1 | B3: dwa publiczne ID mikrofonu kompozytora, dwa kontrakty interakcji; ID w HTML bez zmian |
+| `chat-sending` | `chat-typing` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC2 | Jedno zapytanie HTTP do modelu: od kliknięcia Wyślij do odpowiedzi trwa jedno oczekiwanie (tutor pisze); aplikacja nie ma zdarzenia rozdzielającego „wysyłanie” od „pisania”. |
+| `chat-sending-status` | `null` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC2 | Usunięty razem ze stanem chat-sending (napis „Wysyłanie wypowiedzi”). |
+| `fx-chat-sending` | `null` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC2 | Fixture usuniętego stanu chat-sending. |
+| `composer-processing-status` | `composer-mic-button[data-state=processing]` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC2 | Napis „Rozpoznaję mowę” jest w przycisku mikrofonu (nieaktywny w processing); bez osobnego statusu z kropkami. |
+| `training-header-correction` | `training-task-sentence` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC2 | Tryb treningu 1c: zdanie przeniesione z nagłówka do przypiętej karty zadania; w nagłówku plakietka TRENING (training-mode-badge). |
+| `composer-recording-status` | `null` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC2 | Napis „Słucham” usunięty; stan nagrywania pokazuje przycisk „Zakończ nagrywanie”. |
+| `composer-meter` | `null` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC2 | Miernik poziomu usunięty z kompozytora (zostaje w testach onboardingu). |
+| `fx-chat-reply-plain-translation-loading (nakładka na chat-reply-plain, &fixture=)` | `chat-reply-plain-translation-loading (state_id) + fx-chat-reply-plain-translation-loading` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC5 | Decyzja B1 (po RC3): każdy stan używany w odbiorze otwieralny przez ?state=; jedno fixture na stan. fixture_id bez zmian. |
+| `fx-chat-reply-plain-translation-ready (nakładka na chat-reply-plain, &fixture=)` | `chat-reply-plain-translation-ready (state_id) + fx-chat-reply-plain-translation-ready` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC5 | Decyzja B1 (po RC3): każdy stan używany w odbiorze otwieralny przez ?state=; jedno fixture na stan. fixture_id bez zmian. |
+| `fx-chat-reply-plain-translation-error (nakładka na chat-reply-plain, &fixture=)` | `chat-reply-plain-translation-error (state_id) + fx-chat-reply-plain-translation-error` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC5 | Decyzja B1 (po RC3): każdy stan używany w odbiorze otwieralny przez ?state=; jedno fixture na stan. fixture_id bez zmian. |
+| `parametr URL fixture` | `null` | VT-VIRTUALTUTOR-PROTOTYPE-R7-RC5 | Usunięty; stan wybiera wyłącznie ?state=<state_id>. |
+| `ios-iphone-16-pro-max` | `iphone-16-pro-max` | VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1 | profile_rename: profile_id = target_id nazywa konkretne urządzenie używane do capture; wymiary, układ i wygląd bez zmian. |
+| `ios-iphone-15` | `iphone-16` | VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1 | profile_rename: profile_id = target_id nazywa konkretne urządzenie używane do capture; wymiary, układ i wygląd bez zmian. |
+| `android-pixel-8` | `pixel-8` | VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1 | profile_rename: profile_id = target_id nazywa konkretne urządzenie używane do capture; wymiary, układ i wygląd bez zmian. |
+| `android-galaxy-s20` | `galaxy-s20` | VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1 | profile_rename: profile_id = target_id nazywa konkretne urządzenie używane do capture; wymiary, układ i wygląd bez zmian. |

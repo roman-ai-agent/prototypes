@@ -1,8 +1,8 @@
-<!-- REVISION: VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1 | status: kandydat do odbioru | base_revision: VT-VIRTUALTUTOR-PROTOTYPE-R9-RC2 (local working copy)
-     Wejście:  index.html?mode=capture&state={state_id}&target={target_id} (czysty produkt) · index.html?mode=user_preview (otoczka ręcznego podglądu, product_ui: false; brak mode = user_preview)
+<!-- REVISION: VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2 | status: kandydat do odbioru | baza: VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1
+     Wejście:  index.html?mode=capture&state={state_id}&target={target_id} (czysty produkt) · index.html?mode=user_preview[&state={state_id}&target={target_id}] (otoczka ręcznego podglądu; brak mode = user_preview)
      Dane:     states[].fixture_id → assets/fixtures.json → fixtures[fixture_id].data
      Kontrakt: data-screen-id / data-state-id / data-fixture-id / data-component-id / data-element-id (+ data-variant, data-state, data-option, data-part).
-     Rejestr:  prototype-manifest.json (kanoniczny) · catalog.html · responsive-spec.md. -->
+     Rejestr:  prototype-manifest.json (manifest v3: targets[], states[]) · catalog.html · responsive-spec.md. -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +69,7 @@
     </sc-if>
     <sc-if value="{{ productVisible }}" hint-placeholder-val="{{ true }}">
     <div data-testid="app-viewport" data-ui-type="app_frame" data-ui-variant="viewport" style="--color-text-primary:#1b1f27;--color-text-secondary:#50565e;--color-text-tertiary:#6d7178;--color-text-subtle:#8a8f96;--color-text-accent:#914f2f;--color-text-success:#2f6b45;--color-action-primary-background:#286265;--color-action-primary-background-hover:#1f5053;--color-action-primary-text:#fefbf8;--color-action-destructive-background:#bd413f;--color-surface-default:#fefbf8;--color-surface-sunken:#f7f3ee;--color-surface-muted:#f5f1ec;--color-surface-primary-soft:#e4f2f2;--color-surface-primary-tint:#e0f3f4;--color-surface-primary-selected:#e0f3f4;--color-surface-accent-soft:#ffefe5;--color-surface-success-soft:#dcefe2;--color-surface-warning-icon:#ffece2;--color-surface-error-icon:#ffece2;--color-mic-active:#bd413f;--color-border-default:#e3ddd5;--color-border-strong:#dcd6cf;--color-border-radio:#b8b1a9;--color-step-completed:#286265;--color-step-future:#ece6dd;--color-action-primary-disabled:#b9cfd0;--color-shadow:oklch(30% 0.02 260);--radius-pill:100px;--radius-circle:50%;--radius-workarea:28px;--radius-card-tutor:20px;--radius-choice-card:16px;--radius-container-md:14px;--radius-container-sm:12px;--radius-container-xs:10px;--radius-bubble:18px;--radius-meter-bar:3px;--border-width-hairline:1px;--border-width-emphasis:1.5px;--border-width-radio:2px;--border-width-avatar:4px;--shadow-workarea:0 24px 60px -20px color-mix(in oklch, var(--color-shadow) 18%, transparent);--shadow-popover-menu:0 12px 28px -10px color-mix(in oklch, var(--color-shadow) 25%, transparent);--shadow-popover-confirm:0 14px 30px -10px color-mix(in oklch, var(--color-shadow) 25%, transparent);--shadow-cta-glow:0 10px 24px -10px oklch(40% 0.06 200 / 0.5);--width-copy-standard:44ch;--width-copy-narrow:42ch;--width-copy-compact:40ch;--width-heading-error:26ch;--width-chat-bubble:64ch;--type-kicker-size:13px;--type-kicker-weight:700;--type-kicker-tracking:.06em;--type-screen-title-size:22px;--type-screen-description-size:14.5px;--type-screen-description-line-height:1.6;width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;font-family:'Plus Jakarta Sans',system-ui,sans-serif;box-sizing:border-box;color:var(--color-text-primary);background:#fffcf9;" data-variant="{{ layoutClass }}" data-component-id="app-shell" data-element-id="app-shell">
-  <div data-element-id="element.product-work-surface" data-capture-surface="product-work-surface" data-product-ui="false" aria-hidden="true" style="position:fixed;top:0;left:0;width:{{ wsW }};height:{{ wsH }};margin:0;padding:0;border:0;background:transparent;pointer-events:none;"></div>
+  <div data-element-id="element.product-work-surface" data-capture-surface="product-work-surface" data-product-ui="false" aria-hidden="true" data-prototype-ready="{{ wsReady }}" style="position:fixed;top:0;left:0;width:{{ wsW }};height:{{ wsH }};margin:0;padding:0;border:0;background:transparent;pointer-events:none;"></div>
   <!-- The 1440x932 product work surface is compared 1:1 against Flutter. Its centered
        product column remains 1180px wide; native title bar and debug chrome are outside it. -->
   <div data-testid="app-workarea" data-component-id="product-surface" data-element-id="product-surface" data-screen-id="{{ screenId }}" data-state-id="{{ stateId }}" data-fixture-id="{{ fixtureId }}" data-variant="{{ layoutClass }}" data-ui-type="app_frame" data-ui-variant="workarea" style="width:100%;max-width:1180px;height:{{ surfaceH }};flex-shrink:0;position:relative;background:#fffcf9;overflow:hidden;display:flex;flex-direction:column;">
@@ -941,6 +941,8 @@ const LEVELS = [
 // prototype_manifest.json, wczytywany przez HTTP przy starcie. Panel, parametr URL
 // i window.VirtualTutorPrototype korzystają z tego samego, wczytanego rejestru.
 const MANIFEST_URL = './prototype-manifest.json';
+const FIXTURES_URL = './assets/fixtures.json';
+const INITIAL_STATE = 'welcome';
 const PROFILES = [
   { id: 'mac-wide', w: 1440, h: 932 },
   { id: 'iphone-16', w: 393, h: 852 }, { id: 'pixel-8', w: 412, h: 915 },
@@ -1071,25 +1073,25 @@ class Component extends DCLogic {
     const P0 = new URLSearchParams(location.search);
     // Dwa tryby: mode=capture (czysty produkt, wejście: state + target) oraz mode=user_preview
     // (otoczka ręcznego podglądu). Adresy legacy (embed, profile, fixture) nie są obsługiwane.
-    const mode = P0.get('mode') || 'user_preview';
-    this._mode = mode;
-    const legacy = ['embed', 'profile', 'fixture'].filter(k => P0.has(k));
-    if (legacy.length || mode === null || (mode !== 'capture' && mode !== 'user_preview')) {
-      this.failStartup('url', 'Nieobsługiwany adres prototypu.',
-        'Dozwolone: index.html?mode=capture&state={state_id}&target={target_id}, index.html?mode=user_preview albo index.html bez mode (= user_preview). Otrzymano: ' + (location.search || '(brak parametrów)'));
-      return;
-    }
+    const mode = P0.get('mode') || 'user_preview'; this._mode = mode;
+    // v3: mode=capture przyjmuje wyłącznie mode, state i target; mode=user_preview ignoruje nieznane parametry.
+    if (mode !== 'capture' && mode !== 'user_preview') { this.failStartup('url', 'Nieobsługiwany adres prototypu.', 'Dozwolone: index.html?mode=capture&state={state_id}&target={target_id} albo index.html?mode=user_preview[&state={state_id}&target={target_id}]; brak mode = user_preview. Otrzymano: ' + (location.search || '(brak parametrów)')); return; }
+    if (mode === 'capture') { const extra = [...new Set(P0.keys())].filter(k => k !== 'mode' && k !== 'state' && k !== 'target'); if (extra.length) { this.failStartup('url', 'Nieznany parametr adresu capture: ' + extra.join(', ') + '.', 'mode=capture przyjmuje wyłącznie mode, state i target. Otrzymano: ' + location.search); return; } }
     if (mode === 'user_preview') {
-      this.setState({ shell: true, shellProfile: 'mac-wide', shellState: null, shellFixture: '' });
+      const qs = P0.get('state'), qt = P0.get('target');
+      if ((qs === null) !== (qt === null)) { this.failStartup('url', 'Niekompletna para state + target.', 'mode=user_preview przyjmuje oba parametry albo żaden. Otrzymano: ' + location.search); return; }
+      if (qs !== null && !Object.prototype.hasOwnProperty.call(STATE_SCREEN, qs)) { this.failStartup('state', 'Nieznane ID stanu: "' + qs + '".', 'Dostępne ID: prototype-manifest.json → states[].', Object.keys(STATE_SCREEN)); return; }
+      if (qt !== null && !PROFILES.some(p => p.id === qt)) { this.failStartup('target', 'Nieznane ID targetu: "' + qt + '".', 'target_id = targets[].target_id: ' + PROFILES.map(p => p.id).join(', ') + '.'); return; }
+      this.setState({ shell: true, shellProfile: qt || 'mac-wide', shellState: qs, shellFixture: '' });
       window.addEventListener('message', (e) => { if (e.data && (e.data.vtPreviewStep === 1 || e.data.vtPreviewStep === -1)) this.shellStep(e.data.vtPreviewStep); });
       window.addEventListener('keydown', (e) => { if (e.target && /SELECT|INPUT|TEXTAREA/.test(e.target.tagName)) return; if (e.key === 'ArrowRight') { e.preventDefault(); this.shellStep(1); } else if (e.key === 'ArrowLeft') { e.preventDefault(); this.shellStep(-1); } });
-      fetch(MANIFEST_URL, { cache: 'no-store' }).then(r => r.json()).then(m => this.setState(st => ({ shellStates: m.states.map(s => ({ id: s.state_id, label: (s.screen_id || '') + ' · ' + s.state_id })), shellState: st.shellState || m.entry.initial_state }))).catch(() => {});
+      fetch(MANIFEST_URL, { cache: 'no-store' }).then(r => r.json()).then(m => this.setState(st => ({ shellStates: m.states.map(s => ({ id: s.state_id, label: (STATE_SCREEN[s.state_id] || '') + ' · ' + s.state_id })), shellState: st.shellState || INITIAL_STATE }))).catch(() => {});
       return;
     }
     this._onKey = (e) => { if (this.state.adStage === 'active') { if (e.key === 'Escape') { e.preventDefault(); this.closeAd(); return; } if (e.key === 'Tab') { e.preventDefault(); const b = document.querySelector('[data-element-id="conversation-ad-close"]'); if (b) b.focus(); return; } return; } if (e.key !== 'Escape') return; this.setState({ variantPopoverOpen: false, learnerPopoverOpen: false, newConvoConfirmOpen: false, finishConfirmOpen: false, moreOpen: false }); };
     window.addEventListener('keydown', this._onKey);
     if (window.parent !== window) window.addEventListener('keydown', (e) => { if (e.target && /SELECT|INPUT|TEXTAREA/.test(e.target.tagName)) return; if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); window.parent.postMessage({ vtPreviewStep: e.key === 'ArrowRight' ? 1 : -1 }, '*'); } });
-    // Układ wynika z jawnego targetu (profiles[].capture_surface.logical_size), nie z okna przeglądarki.
+    // Układ wynika z jawnego targetu (targets[].width × height), nie z okna przeglądarki.
     this.setState({ fixture: '' });
     window.VirtualTutorPrototype = {
       // Deterministyczna klatka animacji do capture: 'capture' = klatka z components[].motion.capture_frame_ms,
@@ -1139,7 +1141,7 @@ class Component extends DCLogic {
       this.failStartup('manifest', 'Manifest zawiera zduplikowane ID stanów.', [...new Set(dup)].join(', '));
       return;
     }
-    window.VirtualTutorPrototype.__m = manifest;
+    if (manifest.schema_version !== 3) { this.failStartup('manifest', 'Nieobsługiwany schema_version manifestu.', 'Oczekiwano 3, otrzymano: ' + manifest.schema_version); return; } window.VirtualTutorPrototype.__m = manifest;
     const params = new URLSearchParams(location.search);
     const requested = params.get('state');
     const targetId = params.get('target');
@@ -1155,29 +1157,15 @@ class Component extends DCLogic {
         'Sprawdź listę dostępnych ID w konsoli albo w prototype-manifest.json → states[].', ids);
       return;
     }
-    const prof = (manifest.profiles || []).find(p => p.profile_id === targetId && p.role === 'product' && p.capture_surface);
-    if (!prof) {
-      this.setState({ manifest });
-      this.failStartup('target', 'Nieznane ID targetu: "' + targetId + '".',
-        'target_id = profiles[].profile_id profilu produktu: ' + (manifest.profiles || []).filter(p => p.role === 'product').map(p => p.profile_id).join(', ') + '.');
-      return;
-    }
-    // Dane stanu: states[].fixture_id → fixtures[] (path) → fixtures[fixture_id].data.
-    const fixtureData = {};
-    try {
-      const paths = [...new Set((manifest.fixtures || []).map(f => f.path))];
-      for (const p of paths) {
-        const res = await fetch('./' + p, { cache: 'no-store' });
-        if (!res.ok) throw new Error(p + ': HTTP ' + res.status);
-        const j = await res.json();
-        for (const f of manifest.fixtures.filter(x => x.path === p)) if (j.fixtures && j.fixtures[f.fixture_id]) fixtureData[f.fixture_id] = j.fixtures[f.fixture_id];
-      }
-    } catch (e) {
+    const prof = (manifest.targets || []).find(t => t.target_id === targetId); if (!prof) { this.setState({ manifest }); this.failStartup('target', 'Nieznane ID targetu: "' + targetId + '".', 'target_id = targets[].target_id: ' + (manifest.targets || []).map(t => t.target_id).join(', ') + '.'); return; }
+    const stE = manifest.states.find(s => s.state_id === requested); if (Array.isArray(stE.target_ids) && !stE.target_ids.includes(targetId)) { this.setState({ manifest }); this.failStartup('target', 'Niedozwolona para state + target: "' + requested + '" + "' + targetId + '".', 'Dozwolone targety stanu: ' + stE.target_ids.join(', ') + '.'); return; }
+    // Dane stanu: states[].fixture_id → assets/fixtures.json → fixtures[fixture_id].data.
+    const fixtureData = {}; try { const res = await fetch(FIXTURES_URL, { cache: 'no-store' }); if (!res.ok) throw new Error('assets/fixtures.json: HTTP ' + res.status); const j = await res.json(); for (const s of manifest.states) if (j.fixtures && j.fixtures[s.fixture_id]) fixtureData[s.fixture_id] = j.fixtures[s.fixture_id]; } catch (e) {
       this.setState({ manifest });
       this.failStartup('fixture', 'Nie udało się wczytać danych fixture.', String(e && e.message || e));
       return;
     }
-    const ls = prof.capture_surface.logical_size;
+    const ls = { width: prof.width, height: prof.height };
     this.setState({ manifest, fixtureData, targetId, vw: ls.width, wsW: ls.width + 'px', wsH: ls.height + 'px' }, () => this.debugApply(requested));
   };
 
@@ -1186,11 +1174,10 @@ class Component extends DCLogic {
     console.error('VirtualTutorPrototype: ' + title + ' ' + detail);
     document.body.setAttribute('data-prototype-state', '__error__');
     document.body.setAttribute('data-prototype-ready', 'false');
-    this.setState({ startupError: { kind, title, detail } });
+    this.setState({ startupError: { kind, title, detail }, wsReady: 'false' });
   };
 
-  markNotReady = () => {
-    document.body.setAttribute('data-prototype-ready', 'false');
+  markNotReady = () => { document.body.setAttribute('data-prototype-ready', 'false'); if (this.state.wsReady === 'true') this.setState({ wsReady: 'false' });
   };
 
   // Gotowość: właściwy stan wybrany, fonty i obrazy wczytane, układ ustabilizowany.
@@ -1242,7 +1229,8 @@ class Component extends DCLogic {
     for (let k = 0; k < 2; k++) { await tick(); void document.documentElement.offsetHeight; }
     if (token !== this._readyToken) return;
     if (this._mode === 'capture') this.vtPauseMotion();
-    document.body.setAttribute('data-prototype-ready', 'true');
+    // v3: gotowość renderu na anchorze element.product-work-surface (atrybut na body pozostaje pomocniczo).
+    this.setState({ wsReady: 'true' }, () => { if (token !== this._readyToken) return; const ws = document.querySelector('[data-element-id="element.product-work-surface"]'); if (ws) ws.setAttribute('data-prototype-ready', 'true'); document.body.setAttribute('data-prototype-ready', 'true'); });
   };
   // mode=capture: animacje nieskończone zatrzymane w klatce components[].motion.capture_frame_ms
   // (VT_MOTION); dane fixture (np. poziomy miernika) pozostają bez zmian.
@@ -2263,7 +2251,7 @@ class Component extends DCLogic {
         pick: () => { this.setState({ shellProfile: p.id }); },
         bg: on ? '#fefbf8' : 'transparent', fg: on ? '#1b1f27' : '#fefbf8', border: on ? '#fefbf8' : '#4a515c' }; }),
       layoutClass: layoutOf(s.vw || 1440),
-      surfaceH: '100vh', wsW: s.wsW || '100%', wsH: s.wsH || '100%',
+      surfaceH: '100vh', wsW: s.wsW || '100%', wsH: s.wsH || '100%', wsReady: s.wsReady === 'true' ? 'true' : 'false',
       fixtureId: this.r7FixtureId(s), stateId: s.debugStateId || '', screenId: (STATE_SCREEN[s.debugStateId] || ''),
       debugPanelVisible: s.debugPanelVisible !== false,
       startupErrorTitle: s.startupError ? s.startupError.title : '',

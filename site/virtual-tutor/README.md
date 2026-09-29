@@ -1,11 +1,10 @@
-# VirtualTutor V4 — prototyp VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1
+# VirtualTutor V4 — prototyp VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` (ta sama w `prototype-manifest.json → revision_id`, `index.html`, `catalog.html`, `responsive-spec.md` i `changelog.md`). Nazwa pliku ZIP nie jest numerem wersji.
-- **base_revision:** `VT-VIRTUALTUTOR-PROTOTYPE-R9-RC2 (local working copy)` — `VirtualTutor-V4/product/ux/prototype/r9-rc2/`, nie historyczny ZIP R9-RC2.
-- **Standard:** `CLD-PROTOTYPE-TECHNICAL-STANDARD-004`, brief `VT-DESIGNER-BRIEF-004`.
-- **Status:** kandydat do odbioru.
-- **Zakres R10-RC1:** migracja techniczna formatu. Wygląd i zachowanie produktu bez zmian względem R9-RC2. Zmienione: kontrakt URL, fixture jako dane JSON, kształt manifestu, ID profili. Szczegóły: `changelog.md`.
-- **Osobny pakiet assetów:** `virtualtutor-ui-assets-r9-RC1.zip` (bez zmian). Nie wchodzi do tej paczki; prototyp ma te same ikony osadzone lokalnie.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2` (ta sama w `prototype-manifest.json → revision_id`, `index.html`, `catalog.html`, `responsive-spec.md` i `changelog.md`).
+- **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` — `product/ux/prototypes/macos/r10-rc1/prototype/`.
+- **Brief / standard:** `VT-DESIGNER-BRIEF-005`, `CANONICAL_PROTOTYPE_PACKAGE_STANDARD-V3`.
+- **Status:** kandydat do odbioru, niezaakceptowany.
+- **Zakres:** migracja techniczna do manifestu v3. Wygląd, zachowanie, treści, fixture, targety, 74 stany i publiczne ID DOM bez zmian. Szczegóły: `changelog.md`.
 
 ## Uruchomienie
 
@@ -14,71 +13,40 @@ cd prototype
 python3 -m http.server 8000
 ```
 
-Otwórz `http://localhost:8000/index.html` (= `?mode=user_preview`). Przez `file://` prototyp pokazuje ekran diagnostyczny. Paczka działa bez sieci: fonty, portrety, React/ReactDOM i runtime są wbudowane w `index.html` i `catalog.html`.
+Otwórz `http://localhost:8000/index.html` (= `mode=user_preview`). Przez `file://` prototyp pokazuje ekran diagnostyczny. Fonty, portrety, React/ReactDOM i runtime są wbudowane; paczka działa bez sieci.
 
 | Plik | Rola |
 | --- | --- |
-| `index.html` | Produkt (74 stany, 30 ekranów); tryby `capture` i `user_preview` |
-| `catalog.html` | Katalog komponentów = `components[]` (33) |
-| `prototype-manifest.json` | Manifest kanoniczny (`schema_version: "1.0"`, 15 sekcji) |
-| `responsive-spec.md` | Specyfikacja responsywności. Maszynowo: `responsive_rules.rules[]` |
-| `assets/fixtures.json` | Dane 74 fixture: `{ "fixtures": { "<fixture_id>": { "data": { … } } } }` |
-| `changelog.md` | Zmiany R10-RC1 i historia, migracje ID |
+| `index.html` | Produkt: 74 stany, tryby `capture` i `user_preview` |
+| `catalog.html` | Katalog komponentów (`data-component-id`) |
+| `prototype-manifest.json` | Manifest v3: `schema_version`, `revision_id`, `id_migrations`, `targets`, `states` |
+| `responsive-spec.md` | Specyfikacja responsywności dla człowieka |
+| `assets/fixtures.json` | Rejestr danych `{ "fixtures": { … } }`, 74 wpisy |
+| `changelog.md` | Zmiany R10-RC2, historia rewizji i migracji ID |
 | `checksums.sha256` | SHA-256 pozostałych 7 plików |
 
-## Kontrakt URL
+## Adresy
 
-- **Capture:** `entry.capture_url_template` = `index.html?mode=capture&state={state_id}&target={target_id}`. Czysty produkt, bez otoczki. `target_id` = `profiles[].profile_id`. Układ i rozmiar obszaru roboczego wynikają z `capture_surface.logical_size` targetu, nie z okna przeglądarki.
-- **Podgląd:** `entry.user_preview_url` = `index.html?mode=user_preview`. Stan i target wybiera się w otoczce; adres się nie zmienia.
-- **Domyślny tryb:** brak `mode` = `user_preview` (samo `index.html`, także z parametrami dodanymi przez podgląd aplikacji Claude). Jawny `mode` jest zawsze respektowany; do zrzutów ustawia się `mode=capture`.
-- **Adresy legacy usunięte:** `?embed=1&state=…&profile=…`. Parametry `embed`, `profile`, `fixture` lub nieznany `mode` dają ekran diagnostyczny (`data-prototype-state="__error__"`); w `mode=capture` także brak lub nieznany `state` / `target`.
-- **Gotowość:** `entry.ready_selector` = `body[data-prototype-ready="true"]`, z `data-prototype-state="<state_id>"`.
-- **Selektor stanu:** `states[].selector` = `[data-component-id="product-surface"][data-state-id="<state_id>"]`.
-- **Obszar roboczy:** `[data-element-id="element.product-work-surface"]` — jeden na stan, nieinteraktywny, `aria-hidden`.
-- **Fixture:** manifest → `states[].fixture_id` → `fixtures[].path` → `fixtures[fixture_id].data`. Każdy stan ma dokładnie jedno fixture `fx-<state_id>`.
-- **Klatka capture:** w `mode=capture` animacje nieskończone zatrzymane w `components[].motion.capture_frame_ms` przed sygnałem gotowości.
-- **API pomocnicze (niekontraktowe):** `window.VirtualTutorPrototype`.
+- **Capture:** `index.html?mode=capture&state=<state_id>&target=<target_id>`. Wymaga obu parametrów; każdy inny parametr, nieznany stan lub target albo niedozwolona para → jawny błąd (`body[data-prototype-state="__error__"]`). Po gotowości: dokładnie jeden nieinteraktywny `[data-element-id="element.product-work-surface"]` o rozmiarze `targets[].width × height` z `data-prototype-ready="true"` (selektor gotowości: `[data-element-id="element.product-work-surface"][data-prototype-ready="true"]`); pomocniczo także `body[data-prototype-ready="true"]` i `data-prototype-state="<state_id>"`.
+- **Podgląd:** `index.html` lub `index.html?mode=user_preview`, opcjonalnie z kompletną parą `&state=<state_id>&target=<target_id>`. Tylko jeden z pary, nieznany stan lub target → błąd; pozostałe parametry są ignorowane. Nie jest częścią kontraktu capture.
+- **Pary:** wszystkie 74 × 5 (`states[]` bez `target_ids`).
 
 ## Targety
 
-| `target_id` | Rozmiar | Dawne ID |
-| --- | --- | --- |
-| `mac-wide` | 1440×932 | — |
-| `iphone-16` | 393×852 | `ios-iphone-15` |
-| `pixel-8` | 412×915 | `android-pixel-8` |
-| `galaxy-s20` | 360×800 | `android-galaxy-s20` |
-| `iphone-16-pro-max` | 440×956 | `ios-iphone-16-pro-max` |
+| `target_id` | `width × height` |
+| --- | --- |
+| `mac-wide` | 1440×932 |
+| `iphone-16` | 393×852 |
+| `pixel-8` | 412×915 |
+| `galaxy-s20` | 360×800 |
+| `iphone-16-pro-max` | 440×956 |
 
-## Raport kontroli R10-RC1
+## Raport kontroli (minimalna kontrola eksportu, 29.09.2026; po zwrocie odbioru)
 
-### Wykonane (kontrola danych na plikach paczki, 28–29.09.2026)
-
-**Manifest**
-- JSON poprawny; 15 sekcji w kolejności standardu; `schema_version` `1.0`, `revision_id` R10-RC1.
-- 74 stany (unikalne), 30 ekranów (każdy stan ma istniejący ekran), 33 komponenty, 202 instancji (0 zduplikowanych `element_id`), 66 interakcji, 5 szablonów stanów.
-- 74 fixture 1:1 ze stanami: `fixture_id` = `fx-<state_id>` w 74/74; każde `fixtures[].path` = `assets/fixtures.json`; 74/74 wpisów z `data` w pliku, 0 nadmiarowych.
-- `id_migrations[]`: 39 wpisów (35 historycznych + 4 migracje profili R10-RC1: `ios-iphone-15` → `iphone-16`, `android-pixel-8` → `pixel-8`, `android-galaxy-s20` → `galaxy-s20`, `ios-iphone-16-pro-max` → `iphone-16-pro-max`); `mac-wide` bez migracji.
-- 5 profili `role: product`; `capture_surface.logical_size` = `viewport` w 5/5.
-- `entry.capture_url_template` i `entry.user_preview_url` zgodne z kontraktem; `components[app-shell].configuration` = `?mode=capture|user_preview (brak mode = user_preview)`, `?state`, `?target`.
-- Anchor `element.product-work-surface`: 1 instancja w `instances[]` (`product_ui: false`, bez interakcji, `visibility` = 74 stany × 5 targetów); dokładnie 1 wystąpienie w każdej z 370 par `state_id + profile_id`, zgodne z `profiles[].capture_surface` (element_id, selector, logical_size = viewport). Poprawka po odbiorze: w pierwszym wydaniu R10-RC1 manifest nie deklarował tej instancji. HTML bez zmian.
-- Integralność odwołań: każdy stan i target w `instances[].visibility` istnieje; każde `interaction_id` instancji istnieje; każda interakcja wskazuje istniejącą instancję.
-
-**Adresy legacy i stare ID**
-- 0 wystąpień `embed=1`, `?profile=` / `&profile=` i starych ID profili w `index.html`, `catalog.html`, `responsive-spec.md` oraz w manifeście poza `id_migrations[].from`.
-- Stare ID występują w `changelog.md` (opis migracji i historia) oraz w tabeli „Targety” powyżej.
-
-**Dokumenty**
-- `README.md`, `changelog.md`, `responsive-spec.md`: rewizja R10-RC1, base_revision R9-RC2 (local working copy).
-- `checksums.sha256`: wygenerowany dla 7 plików.
-
-**Paczka ZIP**
-- Katalog główny ZIP-a: `prototype/` z 8 plikami (7 plików + `checksums.sha256`). Poprawka po odbiorze: pierwsze wydanie miało root `r10-out/prototype/`. Nie sprawdzono rozpakowania ani zgodności sum po rozpakowaniu — to kontrola odbierającego.
-
-### Do wykonania przez odbierającego
-
-1. Otwarcie 74 stanów × 5 targetów (370 uruchomień) przez `capture_url_template`: sygnał gotowości, błędy konsoli, obecność jednego `element.product-work-surface` w DOM każdego stanu, elementy wychodzące poza obszar roboczy. Nie wykonano po stronie Designera.
-2. Spakowanie paczki, rozpakowanie, zgodność `checksums.sha256` i uruchomienie `index.html` z rozpakowanej kopii.
-
-**Liczby:** 74 stanów · 30 ekranów · 33 komponentów · 202 instancji · 66 interakcji · 74 fixture · 39 migracji ID · 5 targetów.
-
-**Status:** kandydat do odbioru.
+- **Układ ZIP-a i checksumy:** katalog główny `prototype/` z 8 plikami standardu (`assets/fixtures.json` jako jedyny plik w `assets/`). `checksums.sha256` obejmuje 7 pozostałych plików; sumy policzone na plikach tuż przed spakowaniem i zweryfikowane 7/7. Rozpakowania gotowego ZIP-a nie wykonano.
+- **Manifest v3:** JSON parsuje się; dokładnie 5 kluczy w kolejności standardu; `schema_version: 3`; `id_migrations: []`; 5 targetów z polami `target_id`, `width`, `height` i wymiarami zgodnymi z briefem; 74 unikalne stany z polami `state_id`, `fixture_id`, identyczne (ID i `fixture_id`, ta sama kolejność) z R10-RC1; każdy `fixture_id` wskazuje wpis z `data` w `assets/fixtures.json` (74/74). `assets/fixtures.json` bajtowo bez zmian względem R10-RC1.
+- **Zasoby lokalne:** 0 odwołań do zewnętrznych adresów (`http(s)://`, `//`) w `src`, `href`, `url()`, `@import` i `fetch` w `index.html` i `catalog.html`.
+- **Smoke test capture — rzeczywisty adres standardowy** (bez otoczki podglądu; dokument otwarty bezpośrednio pod `index.html?mode=capture&state=chat-reply-plain-translation-ready&target=mac-wide`, okno 1440×932): selektor `[data-element-id="element.product-work-surface"][data-prototype-ready="true"]` wyrenderowany po ~5 s i stabilny po kolejnych 1,5 s; 1 × anchor, 1440×932, `pointer-events: none`, `aria-hidden="true"`; `data-prototype-state` zgodny, ekran `chat-reply`, układ `wide`; brak otoczki podglądu i `data-prototype-tool`; brak błędów konsoli.
+- **Smoke test negatywny:** `mode=capture` z dodatkowymi parametrami (`t`, `srcmap`, `_wr`) → jawny błąd „Nieznany parametr adresu capture”.
+- **Smoke test podglądu:** `mode=user_preview&state=chat-reply-plain-translation-ready&target=iphone-16` → otoczka z wybranym stanem (lista 74 stanów) i targetem `iphone-16`.
+- **Nie wykonano (poza zakresem briefu):** pełna macierz 74 × 5, zrzuty, porównanie pikselowe, ręczny przegląd.
