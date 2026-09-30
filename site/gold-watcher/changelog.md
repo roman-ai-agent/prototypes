@@ -1,5 +1,39 @@
 # Changelog — Gold Watcher
 
+## r2.4 — 2026-09-30
+
+- **revision_id:** r2.4
+- **Baza:** r2.3
+- **Zakres:**
+  - target `mac-wide` ma wysokość 900, czyli realną wysokość treści okna aplikacji na typowym laptopie;
+  - zagęszczony układ wide;
+  - kraje pierwszego etapu: Polska, Finlandia, Francja.
+  - Telefony: układ bez zmian.
+
+### Target
+- `mac-wide`: 1440×932 → **1440×900**. `target_id` bez zmian, zmienia się tylko geometria; `id_migrations: []`.
+
+### Układ wide (tylko `mac-wide`)
+- Cała treść `gold-overview` mieści się w 900 px bez przewijania we wszystkich stanach dozwolonych na `mac-wide`, poza `gold-overview.source-error`. Tam baner błędu zostaje u góry i przesuwa kolumny, a przewijanie jest dopuszczalne (decyzja użytkownika).
+- **Wykresy:** price-chart 300 → 256 px, purchasing-power-chart 240 → 204 px.
+- **Marginesy i odstępy:** margines treści 32 → 24, odstęp między kolumnami i kartami 24 → 16.
+- **Lewa kolumna:** 368 → 420 px, a z otwartym panelem progu 320 → 360 px. Mniej zawijania tekstu w sygnale i szczegółach.
+- **price-summary:** padding 22 → 18, odstęp 14 → 10, cena 52 → 46 px.
+- **purchasing-power-summary i karty wykresów:** padding 20 → 16; odstęp w purchasing-power-summary 12 → 10.
+
+### Kraje
+- W selectorze, danych i katalogu zostały tylko: **Polska — Warszawa (PLN)**, **Finlandia — Helsinki (EUR)** i **Francja — Paryż (EUR)**.
+- Usunięto USA — Waszyngton D.C. i Belgię — Brukselę.
+- `country_id` / `data-option`: `PL`, `FI`, `FR` (wcześniej `PL`, `US`, `BE`).
+- **`assets/fixtures.json` → `shared_series`:**
+  - dodano `housing_fi` (42 kwartały od 2016-03-31) i `housing_fr` (34 kwartały od 2018-03-31);
+  - dodano `fx_eur`, wspólny kurs EUR/USD dla FI i FR (wartości dotychczasowego `fx_be`);
+  - usunięto `housing_us`, `housing_be` i `fx_be`.
+  - Dane mieszkań FI i FR są ilustracyjne, a nie źródłowe. Początek historii jest taki jak dla usuniętych krajów, więc obszar „brak danych” nadal występuje.
+- Każdy fixture wskazuje nowe `countries`. Pozostałe dane fixture'ów są bez zmian.
+
+---
+
 ## r2.3 — 2026-09-29
 
 - **revision_id:** r2.3

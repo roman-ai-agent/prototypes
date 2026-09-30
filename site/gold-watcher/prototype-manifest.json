@@ -1,12 +1,12 @@
 {
   "schema_version": 3,
-  "revision_id": "r2.3",
+  "revision_id": "r2.4",
   "id_migrations": [],
   "targets": [
     {
       "target_id": "mac-wide",
       "width": 1440,
-      "height": 932
+      "height": 900
     },
     {
       "target_id": "iphone-16",
