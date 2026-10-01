@@ -1,5 +1,33 @@
 # Changelog — Gold Watcher
 
+## r2.8 — 2026-10-01
+
+- **revision_id:** r2.8
+- **Baza:** r2.7, opublikowana i niezmieniona. Wszystkie poprawki r2.7 zostają.
+- **Zakres:** znacznik publikacji na wykresie g/m² oraz ujednolicenie katalogu komponentów.
+
+### Wykres g/m²: tylko znaczniki publikacji
+- Wykres g/m² nie ma markerów ani tekstów sygnału. Sygnały i próg alertu dotyczą wyłącznie serii ceny złota.
+- Dni publikacji danych mieszkaniowych oznacza turkusowy romb 7 px z białą obwódką 1,5 px. Wcześniej było to koło 8 px, podobne do markera sygnału. Ten sam romb jest w legendzie „publikacja”.
+- Romb ma atrybut pomocniczy `data-part="pp-publication-marker"`.
+- Działa tak samo w prototypie i w katalogu.
+
+### Katalog komponentów: tooltipy zgodne z r2.7
+- Data ma format `YYYY-MM-DD UTC`.
+- Wiersz sygnału na wykresie ceny ma treść `Spadek <drawdown> (próg: <threshold>)`, bez „Sygnał · spadek” i bez „●”. Wykres g/m² ma tylko datę i wartość.
+- Typografia i wygląd są takie jak w prototypie:
+  - data 12 px / 400;
+  - wartość i wiersz spadku 12,5 px / 700;
+  - tło #0b1b2b, padding 6×10 px, line-height 1,4.
+- Górna krawędź tooltipu jest na wysokości górnej krawędzi karty wykresu. Tooltip nie zasłania danych. W tym celu nagłówek karty (tytuł i legenda) ma dwa wiersze, tak jak w prototypie.
+- Punkty hovera w katalogu mają ten sam wygląd co w prototypie: pełne kropki 7 px w kolorze serii.
+
+### Bez zmian
+- Dane, fixture'y, stany, targety, scenariusze capture i markery sygnału na wykresie ceny.
+- Publiczne ID. Nie było migracji ID: `id_migrations: []`.
+
+---
+
 ## r2.7 — 2026-10-01
 
 - **revision_id:** r2.7

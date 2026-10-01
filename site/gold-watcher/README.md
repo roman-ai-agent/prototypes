@@ -1,14 +1,12 @@
-# Gold Watcher — prototyp r2.7
+# Gold Watcher — prototyp r2.8
 
-Klikalny kontrakt designu i zachowania, a nie kod aplikacji. Baza: r2.6.
+Klikalny kontrakt designu i zachowania, a nie kod aplikacji. Baza: r2.7.
 
-Zmiana: jednolite tooltipy wykresów ceny i g/m² na wszystkich targetach.
-- Data ma format `YYYY-MM-DD UTC`.
-- Data i wartość mają wspólną typografię.
-- W dniu sygnału tooltip ma jeden wiersz `Spadek <drawdown> (próg: <threshold>)` z aktualnym progiem roboczym.
-- Górna krawędź tooltipu jest na wysokości górnej krawędzi komponentu wykresu, a tooltip nie zasłania danych.
+Zmiany:
+- Na wykresie g/m² dni publikacji danych mieszkaniowych oznacza turkusowy romb, także w legendzie. Wykres g/m² nie ma sygnałów, bo sygnały dotyczą wyłącznie ceny złota.
+- Katalog komponentów pokazuje tooltipy w aktualnym formacie z r2.7.
 
-Scenariusze capture z r2.6 działają bez zmian, zmienia się tylko ich widoczny wynik. Historia zmian jest w `changelog.md`.
+Historia zmian jest w `changelog.md`.
 
 ## Uruchomienie
 Prototyp trzeba otworzyć przez lokalny serwer HTTP, bo `index.html` wczytuje `prototype-manifest.json` i `assets/fixtures.json`. Przykład:
@@ -53,17 +51,13 @@ Potem otwórz `http://localhost:8000/index.html`. Otwarcie przez `file://` końc
 ## Raport kontroli
 Kontrola eksportu z 2026-10-01. Wynik: **pozytywny**.
 - **Archiwum i checksumy — OK.** ZIP zawiera wyłącznie katalog `prototype/` z 8 plikami. `checksums.sha256` pokrywa 7 pozostałych plików i wszystkie sumy się zgadzają.
-- **Manifest — OK.** `schema_version: 3`, `revision_id: "r2.7"`, 16 stanów i `id_migrations: []`. Fixture'y są bez zmian.
-- **`price-chart-hover-normal` — OK.**
-  - Anchor ma `data-prototype-ready="true"` i `data-capture-scenario-id`.
-  - Tooltip ceny: `2026-01-10 UTC / 3 477,88 USD/oz`.
-  - Tooltip g/m²: `2026-01-10 UTC / 42,85 g/m² · interpolacja`.
-  - Górne krawędzie są równe komponentom (różnica 0,0 px). Odstęp od obszaru danych: 21,2 px i 23,2 px.
-- **`price-chart-hover-signal` — OK.**
-  - Tooltip ceny: `2025-11-08 UTC / 3 306,96 USD/oz / Spadek 8,05% (próg: 5,0%)`.
-  - Górna krawędź jest równa komponentowi. Odstęp od obszaru danych: 2,7 px. Tooltip g/m² ma odstęp 23,2 px.
-  - Typografia: data 12 px / 400, wartość i spadek 12,5 px / 700, tak samo w obu tooltipach.
-- **Pozostałe sprawdzenia — OK.**
-  - `intraday-rebound` na `galaxy-s20`: `2026-09-23 UTC / 116,49 USD/g / Spadek 5,20% (próg: 5,0%)`. Górna krawędź jest równa komponentowi, a tooltip nie zasłania danych.
-  - Podgląd progu na `mac-wide`: przy progu roboczym 9,0% markery są przeliczone, a tooltip pokazuje `(próg: 9,0%)`.
+- **Manifest — OK.** `schema_version: 3`, `revision_id: "r2.8"`, 16 stanów i `id_migrations: []`. Fixture'y są bez zmian.
+- **Capture — OK.** Sprawdziłem wszystkie 74 dozwolone pary stan–target (w tym 24 stany `*-housing-details-expanded` na telefonach) oraz oba scenariusze hovera.
+  - Każda para ma `data-prototype-ready="true"`, rozmiar targetu i brak narzędzi `user_preview` w DOM.
+  - Błędy zwracają odpowiednio `unknown-capture-scenario` i `capture-scenario-unavailable`.
+- **Wykres g/m² — OK.** We wszystkich stanach z danymi są 4 romby publikacji w zakresie 360 dni. Na wykresie g/m² nie ma ani markera, ani tekstu sygnału.
+- **Katalog — OK.**
+  - Tooltip ceny: `2026-02-19 UTC / 3 261,08 USD/oz / Spadek 8,19% (próg: 5,0%)`.
+  - Tooltip g/m²: `2026-02-19 UTC / 46,56 g/m² · interpolacja`.
+  - Górna krawędź tooltipu jest na wysokości górnej krawędzi karty, a tooltip nie zasłania danych. Legenda „publikacja” ma romb.
 - **Konsola i układ — OK.** Brak błędów konsoli, a automatyczny przegląd strony zakończył się bez zgłoszeń.
