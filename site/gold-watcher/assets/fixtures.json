@@ -10967,6 +10967,41 @@
       "unit": "PLN/m²",
       "quarters": [
         {
+          "period_end": "2011-06-30",
+          "published_at": "2011-08-15",
+          "price_per_m2_local": 6399.31
+        },
+        {
+          "period_end": "2011-09-30",
+          "published_at": "2011-11-15",
+          "price_per_m2_local": 6527.57
+        },
+        {
+          "period_end": "2011-12-31",
+          "published_at": "2012-02-15",
+          "price_per_m2_local": 6635.8
+        },
+        {
+          "period_end": "2012-03-31",
+          "published_at": "2012-05-16",
+          "price_per_m2_local": 6755.46
+        },
+        {
+          "period_end": "2012-06-30",
+          "published_at": "2012-08-15",
+          "price_per_m2_local": 6898.9
+        },
+        {
+          "period_end": "2012-09-30",
+          "published_at": "2012-11-15",
+          "price_per_m2_local": 7014.2
+        },
+        {
+          "period_end": "2012-12-31",
+          "published_at": "2013-02-15",
+          "price_per_m2_local": 7114.1
+        },
+        {
           "period_end": "2013-03-31",
           "published_at": "2013-05-16",
           "price_per_m2_local": 7236.9580678965085
@@ -16724,6 +16759,101 @@
       "unit": "EUR/m²",
       "quarters": [
         {
+          "period_end": "2011-06-30",
+          "published_at": "2011-08-15",
+          "price_per_m2_local": 3801.07
+        },
+        {
+          "period_end": "2011-09-30",
+          "published_at": "2011-11-15",
+          "price_per_m2_local": 3832.58
+        },
+        {
+          "period_end": "2011-12-31",
+          "published_at": "2012-02-15",
+          "price_per_m2_local": 3837.85
+        },
+        {
+          "period_end": "2012-03-31",
+          "published_at": "2012-05-16",
+          "price_per_m2_local": 3854.39
+        },
+        {
+          "period_end": "2012-06-30",
+          "published_at": "2012-08-15",
+          "price_per_m2_local": 3875.73
+        },
+        {
+          "period_end": "2012-09-30",
+          "published_at": "2012-11-15",
+          "price_per_m2_local": 3875.61
+        },
+        {
+          "period_end": "2012-12-31",
+          "published_at": "2013-02-15",
+          "price_per_m2_local": 3901.86
+        },
+        {
+          "period_end": "2013-03-31",
+          "published_at": "2013-05-16",
+          "price_per_m2_local": 3930.96
+        },
+        {
+          "period_end": "2013-06-30",
+          "published_at": "2013-08-15",
+          "price_per_m2_local": 3964.8
+        },
+        {
+          "period_end": "2013-09-30",
+          "published_at": "2013-11-15",
+          "price_per_m2_local": 3988.96
+        },
+        {
+          "period_end": "2013-12-31",
+          "published_at": "2014-02-15",
+          "price_per_m2_local": 3989.16
+        },
+        {
+          "period_end": "2014-03-31",
+          "published_at": "2014-05-16",
+          "price_per_m2_local": 3987.69
+        },
+        {
+          "period_end": "2014-06-30",
+          "published_at": "2014-08-15",
+          "price_per_m2_local": 4000.39
+        },
+        {
+          "period_end": "2014-09-30",
+          "published_at": "2014-11-15",
+          "price_per_m2_local": 4000.07
+        },
+        {
+          "period_end": "2014-12-31",
+          "published_at": "2015-02-15",
+          "price_per_m2_local": 4037.27
+        },
+        {
+          "period_end": "2015-03-31",
+          "published_at": "2015-05-16",
+          "price_per_m2_local": 4042.4
+        },
+        {
+          "period_end": "2015-06-30",
+          "published_at": "2015-08-15",
+          "price_per_m2_local": 4048.19
+        },
+        {
+          "period_end": "2015-09-30",
+          "published_at": "2015-11-15",
+          "price_per_m2_local": 4086.02
+        },
+        {
+          "period_end": "2015-12-31",
+          "published_at": "2016-02-15",
+          "price_per_m2_local": 4086.33
+        },
+        {
           "period_end": "2016-03-31",
           "published_at": "2016-05-16",
           "price_per_m2_local": 4121.15
@@ -16939,6 +17069,141 @@
       "currency": "EUR",
       "unit": "EUR/m²",
       "quarters": [
+        {
+          "period_end": "2011-06-30",
+          "published_at": "2011-08-15",
+          "price_per_m2_local": 5882.62
+        },
+        {
+          "period_end": "2011-09-30",
+          "published_at": "2011-11-15",
+          "price_per_m2_local": 5987.9
+        },
+        {
+          "period_end": "2011-12-31",
+          "published_at": "2012-02-15",
+          "price_per_m2_local": 6109.64
+        },
+        {
+          "period_end": "2012-03-31",
+          "published_at": "2012-05-16",
+          "price_per_m2_local": 6200.19
+        },
+        {
+          "period_end": "2012-06-30",
+          "published_at": "2012-08-15",
+          "price_per_m2_local": 6299.44
+        },
+        {
+          "period_end": "2012-09-30",
+          "published_at": "2012-11-15",
+          "price_per_m2_local": 6410.46
+        },
+        {
+          "period_end": "2012-12-31",
+          "published_at": "2013-02-15",
+          "price_per_m2_local": 6516.14
+        },
+        {
+          "period_end": "2013-03-31",
+          "published_at": "2013-05-16",
+          "price_per_m2_local": 6606.23
+        },
+        {
+          "period_end": "2013-06-30",
+          "published_at": "2013-08-15",
+          "price_per_m2_local": 6721.59
+        },
+        {
+          "period_end": "2013-09-30",
+          "published_at": "2013-11-15",
+          "price_per_m2_local": 6860.58
+        },
+        {
+          "period_end": "2013-12-31",
+          "published_at": "2014-02-15",
+          "price_per_m2_local": 6963.27
+        },
+        {
+          "period_end": "2014-03-31",
+          "published_at": "2014-05-16",
+          "price_per_m2_local": 7101.3
+        },
+        {
+          "period_end": "2014-06-30",
+          "published_at": "2014-08-15",
+          "price_per_m2_local": 7206.62
+        },
+        {
+          "period_end": "2014-09-30",
+          "published_at": "2014-11-15",
+          "price_per_m2_local": 7319.64
+        },
+        {
+          "period_end": "2014-12-31",
+          "published_at": "2015-02-15",
+          "price_per_m2_local": 7454.96
+        },
+        {
+          "period_end": "2015-03-31",
+          "published_at": "2015-05-16",
+          "price_per_m2_local": 7554.22
+        },
+        {
+          "period_end": "2015-06-30",
+          "published_at": "2015-08-15",
+          "price_per_m2_local": 7669.3
+        },
+        {
+          "period_end": "2015-09-30",
+          "published_at": "2015-11-15",
+          "price_per_m2_local": 7762.52
+        },
+        {
+          "period_end": "2015-12-31",
+          "published_at": "2016-02-15",
+          "price_per_m2_local": 7912.63
+        },
+        {
+          "period_end": "2016-03-31",
+          "published_at": "2016-05-16",
+          "price_per_m2_local": 8073.15
+        },
+        {
+          "period_end": "2016-06-30",
+          "published_at": "2016-08-15",
+          "price_per_m2_local": 8235.43
+        },
+        {
+          "period_end": "2016-09-30",
+          "published_at": "2016-11-15",
+          "price_per_m2_local": 8404.79
+        },
+        {
+          "period_end": "2016-12-31",
+          "published_at": "2017-02-15",
+          "price_per_m2_local": 8567
+        },
+        {
+          "period_end": "2017-03-31",
+          "published_at": "2017-05-16",
+          "price_per_m2_local": 8730.4
+        },
+        {
+          "period_end": "2017-06-30",
+          "published_at": "2017-08-15",
+          "price_per_m2_local": 8835.72
+        },
+        {
+          "period_end": "2017-09-30",
+          "published_at": "2017-11-15",
+          "price_per_m2_local": 8953.01
+        },
+        {
+          "period_end": "2017-12-31",
+          "published_at": "2018-02-15",
+          "price_per_m2_local": 9131.62
+        },
         {
           "period_end": "2018-03-31",
           "published_at": "2018-05-16",

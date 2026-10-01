@@ -1,10 +1,8 @@
-# Gold Watcher — prototyp r2.8
+# Gold Watcher — prototyp r2.12
 
-Klikalny kontrakt designu i zachowania, a nie kod aplikacji. Baza: r2.7.
+Klikalny kontrakt designu i zachowania, a nie kod aplikacji. Baza: r2.11.
 
-Zmiany:
-- Na wykresie g/m² dni publikacji danych mieszkaniowych oznacza turkusowy romb, także w legendzie. Wykres g/m² nie ma sygnałów, bo sygnały dotyczą wyłącznie ceny złota.
-- Katalog komponentów pokazuje tooltipy w aktualnym formacie z r2.7.
+Zmiana: dni publikacji na wykresie g/m² oznacza kółko 11 px, zbudowane jak marker sygnału na wykresie złota (obwódka 2 px i białe halo). Ma turkusową obwódkę i ciemny środek #0f4c45. Legenda „publikacja” ma to samo kółko. Prototyp otwiera się także z pliku i dopasowuje się do okna.
 
 Historia zmian jest w `changelog.md`.
 
@@ -13,7 +11,7 @@ Prototyp trzeba otworzyć przez lokalny serwer HTTP, bo `index.html` wczytuje `p
 ```
 cd prototype && python3 -m http.server 8000
 ```
-Potem otwórz `http://localhost:8000/index.html`. Otwarcie przez `file://` kończy się błędem `fixtures-unavailable`.
+Potem otwórz `http://localhost:8000/index.html`. Od r2.11 prototyp otwiera się także po kliknięciu pliku (`file://`). Używa wtedy kopii manifestu i fixture'ów wbudowanej w `index.html` przy eksporcie. Przez HTTP wczytuje pliki z paczki.
 
 ## Tryby
 - **capture:** `index.html?mode=capture&state=<state_id>&target=<target_id>`.
@@ -51,13 +49,9 @@ Potem otwórz `http://localhost:8000/index.html`. Otwarcie przez `file://` końc
 ## Raport kontroli
 Kontrola eksportu z 2026-10-01. Wynik: **pozytywny**.
 - **Archiwum i checksumy — OK.** ZIP zawiera wyłącznie katalog `prototype/` z 8 plikami. `checksums.sha256` pokrywa 7 pozostałych plików i wszystkie sumy się zgadzają.
-- **Manifest — OK.** `schema_version: 3`, `revision_id: "r2.8"`, 16 stanów i `id_migrations: []`. Fixture'y są bez zmian.
-- **Capture — OK.** Sprawdziłem wszystkie 74 dozwolone pary stan–target (w tym 24 stany `*-housing-details-expanded` na telefonach) oraz oba scenariusze hovera.
-  - Każda para ma `data-prototype-ready="true"`, rozmiar targetu i brak narzędzi `user_preview` w DOM.
-  - Błędy zwracają odpowiednio `unknown-capture-scenario` i `capture-scenario-unavailable`.
-- **Wykres g/m² — OK.** We wszystkich stanach z danymi są 4 romby publikacji w zakresie 360 dni. Na wykresie g/m² nie ma ani markera, ani tekstu sygnału.
-- **Katalog — OK.**
-  - Tooltip ceny: `2026-02-19 UTC / 3 261,08 USD/oz / Spadek 8,19% (próg: 5,0%)`.
-  - Tooltip g/m²: `2026-02-19 UTC / 46,56 g/m² · interpolacja`.
-  - Górna krawędź tooltipu jest na wysokości górnej krawędzi karty, a tooltip nie zasłania danych. Legenda „publikacja” ma romb.
+- **Manifest — OK.** `schema_version: 3`, `revision_id: "r2.12"`, 16 stanów i `id_migrations: []`. Fixture'y są bez zmian.
+- **Capture — OK.**
+  - Wszystkie 74 dozwolone pary stan–target i oba scenariusze hovera mają `data-prototype-ready="true"`.
+  - Błędy zwracają `unknown-capture-scenario` i `capture-scenario-unavailable`.
+- **Znacznik publikacji — OK.** Na wykresie i w legendzie, we wszystkich stanach i na wszystkich targetach oraz w katalogu, kółko ma 11×11 px, border-radius 50% i środek #0f4c45. Na wykresie g/m² nie ma elementów sygnału.
 - **Konsola i układ — OK.** Brak błędów konsoli, a automatyczny przegląd strony zakończył się bez zgłoszeń.

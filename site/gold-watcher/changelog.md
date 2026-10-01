@@ -1,5 +1,121 @@
 # Changelog — Gold Watcher
 
+## r2.12 — 2026-10-01
+
+- **revision_id:** r2.12
+- **Baza:** r2.11.
+- **Zakres:** wyłącznie kształt znacznika publikacji na wykresie g/m² i w jego legendzie. Zmianę zlecił bezpośrednio użytkownik. Dotyczy wszystkich targetów, wszystkich stanów i katalogu.
+
+### Znacznik publikacji
+- Romb zastąpiłem kółkiem o tej samej budowie co marker sygnału na wykresie złota:
+  - 11×11 px łącznie z obwódką;
+  - obwódka 2 px w kolorze serii #14b8a6;
+  - białe halo 2 px.
+- Środek kółka jest ciemny turkusowy (#0f4c45). Odróżnia to publikację od sygnału, który ma pomarańczową obwódkę.
+- Legenda „publikacja” ma identyczne kółko. Atrybuty `data-part` się nie zmieniły: `pp-publication-marker` i `pp-publication-legend`.
+
+### Bez zmian
+- Dane, fixture'y, stany, targety, scenariusze capture, tooltipy i wykres ceny złota.
+- Publiczne ID. Nie było migracji ID: `id_migrations: []`.
+
+---
+
+## r2.11 — 2026-10-01
+
+- **revision_id:** r2.11
+- **Baza:** r2.10.
+- **Zakres:** brief 012 i odpowiedzi Lidera: znaczenie serii g/m² i znaczniki. Dodatkowo podgląd dopasowuje się do okna i otwiera się z pliku.
+
+### Wykres g/m² (`element.purchasing-power-chart`), wszystkie targety i stany
+- Linia ciągła oznacza wynik liczony z interpolowanej ceny mieszkania między publikacjami.
+- Linia przerywana oznacza odcinek od ostatniej publikacji do dziś, liczony z ostatniej znanej ceny mieszkania (`carried_forward`).
+- Legenda ma dokładnie 3 pozycje, w tej kolejności:
+  1. `interpolacja ceny mieszkania`;
+  2. `ostatnia znana cena mieszkania`;
+  3. `publikacja`.
+- Z legendy i z wykresu usunąłem oznaczenie „brak danych” (kreskowany pas i opis).
+- **Tooltip g/m²:** dopiski `· interpolacja ceny mieszkania`, `· publikacja` i `· ostatnia znana cena mieszkania`.
+- Stany `gold-overview.empty-range` i `gold-overview.empty-range-housing-details-expanded` są bez zmian. Ich panel i ID zostają.
+
+### Znaczniki
+- **Romb publikacji, na wykresie i w legendzie:**
+  - kwadrat **11×11 CSS px przed obrotem o 45°**, czyli obrys około 15,6 px;
+  - ciemny turkusowy środek #0f4c45 i biała obwódka 1,5 px.
+- **Koło sygnału:** widoczny rozmiar **11 px** na wykresie i w legendzie. W r2.10 w legendzie miało 10 px.
+
+### Fixture
+- Ceny mieszkań PL, FI i FR rozszerzyłem wstecz do kwartału kończącego się 2011-06-30, czyli pokrywają cały zakres złota od 2011-09-28.
+  - Dodane kwartały: PL 7, FI 19, FR 27.
+  - Wartości są syntetyczne i ekstrapolowane wstecz ze średniego tempa zmian pierwszych 8 kwartałów.
+- Zakres „Pełna” jest ciągły i ma wspólną oś czasu z wykresem ceny złota.
+- Pozostałe dane bez zmian.
+
+### Podgląd (`user_preview`)
+- Powierzchnia targetu skaluje się do wielkości okna (maksymalnie 1:1), więc cały ekran jest widoczny bez przewijania. `mode=capture` zawsze renderuje 1:1.
+- `index.html` zawiera kopię `prototype-manifest.json` i `assets/fixtures.json` utworzoną przy eksporcie. Prototyp otwiera się więc także po kliknięciu pliku (`file://`).
+  - Przez HTTP nadal wczytuje pliki z paczki, które pozostają źródłem danych.
+  - Kopia jest z nimi identyczna, a ich sumy są w `checksums.sha256`.
+
+### Bez zmian
+- Wykres ceny złota, markery sygnału na wykresie, punkty hovera i tooltipy ceny.
+- Stany, targety i scenariusze capture.
+- Publiczne ID. Nie było migracji ID: `id_migrations: []`.
+
+---
+
+## r2.10 — 2026-10-01
+
+- **revision_id:** r2.10
+- **Baza:** r2.9.
+- **Zakres:** ujednolicenie znaczników na obu wykresach i w legendach. Dotyczy wszystkich targetów, wszystkich stanów i katalogu.
+
+### Zasada rozmiaru
+- Koło sygnału i romb publikacji mają ten sam widoczny obrys, bez białego halo:
+  - na wykresie: **11 px**;
+  - w legendzie: **10 px**, czyli o 1 px mniej.
+- Obrys rombu to jego przekątna, czyli obrys po obrocie o 45°.
+
+### Romb publikacji (wykres g/m²)
+- **Na wykresie** (`pp-publication-marker`):
+  - kwadrat 7,78 px obrócony o 45°, czyli obrys 11 px (w r2.9: 11 px przed obrotem, około 15,6 px obrysu);
+  - **ciemny turkusowy środek #0f4c45** i biała obwódka 1,5 px.
+  - Romb jest teraz wyraźnie widoczny na jasnoturkusowej linii serii (#14b8a6).
+- **W legendzie** (`pp-publication-legend`): ten sam wygląd, kwadrat 7,07 px, czyli obrys 10 px.
+
+### Koło sygnału (wykres ceny)
+- Prototyp bez zmian: 11 px na wykresie, 10 px w legendzie.
+- Katalog ma teraz legendę „sygnał” identyczną z prototypem: 10 px, białe halo 2 px i jasnopomarańczowy pierścień 1 px. Wcześniej miał tu inną wersję, o obrysie około 13 px.
+- Katalog: marker sygnału na wykresie ma teraz 11 px łącznie z obwódką, tak jak w prototypie. Wcześniej miał 15 px, bo obwódka powiększała go poza 11 px.
+- Legenda „sygnał” ma atrybut pomocniczy `data-part="signal-legend"`.
+
+### Bez zmian
+- Dane, fixture'y, stany, targety i interakcje.
+- Wykres g/m² nadal nie ma sygnałów.
+- Wykres ceny złota, markery sygnału na wykresie, punkty hovera i tooltipy.
+- Publiczne ID. Nie było migracji ID: `id_migrations: []`.
+
+---
+
+## r2.9 — 2026-10-01
+
+- **revision_id:** r2.9
+- **Baza:** r2.8.
+- **Zakres:** wyłącznie rozmiar rombu publikacji danych mieszkaniowych w `element.purchasing-power-chart`. Dotyczy wszystkich targetów, wszystkich stanów i katalogu.
+
+### Znacznik publikacji
+- **Wykres** (`data-part="pp-publication-marker"`): romb 7×7 → **11×11 CSS px**. Element ma 11×11 px przed obrotem o 45°; po obrocie jego obrys ma około 15,6 px.
+- **Legenda „publikacja”** (`data-part="pp-publication-legend"`): romb 7×7 → **10×10 CSS px**.
+- Turkusowe wypełnienie (#14b8a6) i biała obwódka 1,5 px na wykresie bez zmian. Znacznik jest wyśrodkowany na punkcie publikacji.
+- Katalog komponentów ma ten sam wygląd. Dodałem tam atrybuty `data-part` dla rombów.
+
+### Bez zmian
+- Dane, fixture'y, stany, targety i interakcje.
+- Wykres g/m² nadal nie ma sygnałów. Romb oznacza wyłącznie publikację.
+- Wykres ceny złota, markery sygnału, punkty hovera i tooltipy.
+- Publiczne ID. Nie było migracji ID: `id_migrations: []`.
+
+---
+
 ## r2.8 — 2026-10-01
 
 - **revision_id:** r2.8

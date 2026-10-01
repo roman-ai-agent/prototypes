@@ -1,4 +1,4 @@
-# Gold Watcher r2.8 — specyfikacja responsywności
+# Gold Watcher r2.12 — specyfikacja responsywności
 
 Reguły rysowania wybiera jawny `target_id` (5 targetów produktu); układ wynika z szerokości targetu. Viewport capture jest tylko technicznym wymiarem renderowania.
 
