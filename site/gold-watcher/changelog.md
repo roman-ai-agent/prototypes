@@ -1,5 +1,84 @@
 # Changelog — Gold Watcher
 
+## r2.7 — 2026-10-01
+
+- **revision_id:** r2.7
+- **Baza:** r2.6. Wszystkie poprawki r2.6 zostają bez zmian, w tym scenariusze capture hovera i panel progu z r2.5.
+- **Zakres:** wyłącznie tooltipy wykresu ceny i wykresu g/m², na wszystkich targetach.
+
+### Treść
+- Data ma zawsze format `YYYY-MM-DD UTC`. Usunięte zostały teksty „zamknięcie UTC” i „ostatni odczyt HH:MM UTC”.
+- Tooltip ceny ma datę i cenę dnia. W dniu sygnału ma też jeden pomarańczowy, pogrubiony wiersz `Spadek <drawdown> (próg: <threshold>)`.
+  - `drawdown` pochodzi z markera wskazanego dnia i ma 2 miejsca po przecinku.
+  - `threshold` to aktualny próg roboczy, a podczas edycji panelu niezapisany próg podglądu. Markery są liczone dla tego samego progu.
+- Usunięte zostały: wiersz „Bieżący próg”, słowo „Sygnał”, tekst „zamknięcie dnia” i prefiks „●”.
+- `gold-overview.intraday-rebound` ma ten sam układ co zwykły sygnał dzienny: data, cena dnia i wiersz spadku. Godziny 10:00 i 14:00 UTC zostały usunięte.
+- Tooltip g/m² ma datę i wartość. Opis rodzaju wartości (publikacja, interpolacja albo wartość utrzymana) jest bez zmian.
+
+### Typografia (wspólna dla obu wykresów, zwykłego tooltipu i tooltipu sygnału)
+- Data: 12 px, waga 400, kolor #cbd5e1.
+- Wartość i wiersz spadku: 12,5 px, waga 700. Na wykresie g/m² wartość ma teraz 12,5 px zamiast 13 px.
+- Kontener: line-height 1,4, padding 6×10 px, odstęp 1 px. Wcześniej line-height 1,45 i padding 8×10 px. Zmiana pozwala, żeby trzywierszowy tooltip sygnału zmieścił się nad obszarem danych na `mac-wide`.
+
+### Pozycja
+- Górna krawędź każdego tooltipu jest na wysokości górnej krawędzi własnego komponentu wykresu (`top: -1px` względem obramowania), na wszystkich targetach. Tooltip może zasłonić tytuł i legendę, ale nie obszar danych, osie ani marker.
+- Poziomo bez zmian: na `mac-wide` środek tooltipu jest nad wskazanym dniem, w granicach 15–85% obszaru danych. Na telefonach tooltip jest na środku obszaru danych.
+- Kontrola `mode=capture` dla obu scenariuszy sprawdza górną krawędź i brak zasłonięcia danych. Jeśli warunek nie jest spełniony, zwraca błąd `render-invalid`.
+- Nowe atrybuty pomocnicze `data-part`: `tooltip-date`, `tooltip-value`, `tooltip-signal`, `price-chart-area`, `pp-chart-area`.
+
+### Bez zmian
+- Dane, fixture'y, wykresy, markery, punkty hovera, stany, targety i scenariusze capture.
+- Publiczne ID. Nie było migracji ID: `id_migrations: []`.
+
+---
+
+## r2.6 — 2026-10-01
+
+- **revision_id:** r2.6
+- **Baza:** r2.5 (z panelem „Próg sygnału” z r2.5)
+- **Zakres:** dwa scenariusze capture hovera wykresów na `gold-overview.ready` / `mac-wide`.
+
+### Scenariusze capture
+- Nowy, opcjonalny parametr `capture_scenario` w `mode=capture`:
+  - `price-chart-hover-normal`: 2026-01-10, zwykły dzień bez sygnału;
+  - `price-chart-hover-signal`: 2025-11-08, dzień sygnału (spadek 8,05%, próg 5,0%).
+- Oba wykresy wskazują ten sam dzień: pionowa linia, punkt hovera i tooltip na każdym wykresie.
+- Po renderze anchor ma `data-prototype-ready="true"` i `data-capture-scenario-id` z dosłowną wartością parametru.
+- Bez parametru capture działa jak w r2.5. Gdy scenariusz jest nieznany, zwraca błąd `unknown-capture-scenario`. Gdy para stan–target nie jest dozwolona, zwraca błąd `capture-scenario-unavailable`. Żaden z błędów nie przełącza na zwykły widok.
+- Dane scenariuszy są w `assets/fixtures.json` → `capture_scenarios`. Każdy scenariusz wskazuje istniejący fixture `default` i ustala kraj PL, zakres 360, jednostkę USD/oz, próg 5% i dzień hovera.
+- Scenariusze nie są wpisami `states[]`. Manifest pozostaje minimalny i zmienia się w nim tylko `revision_id`.
+
+### Hover (user_preview i capture)
+- Punkt hovera jest mały i wypełniony kolorem serii: niebieski na wykresie ceny, turkusowy na wykresie g/m². Ma 7 px i białą obwódkę 1,5 px. Wcześniej był to pierścień 12 px.
+- Pomarańczowy marker sygnału nie zmienia się. Punkt hovera jest osobnym wskaźnikiem na linii danych.
+- Położenie tooltipów się nie zmienia.
+- Dodane atrybuty pomocnicze `data-part`: `price-hover-line`, `price-hover-point`, `pp-hover-line`, `pp-hover-point`, `pp-tooltip`. Marker sygnału ma też `data-day`.
+
+### Bez zmian
+- Publiczne `state_id`, `element_id`, `component_id`, `interaction_id` i targety. Nie było migracji ID: `id_migrations: []`.
+- Stany, układ, panel progu z r2.5, telefony i dane mockowe.
+
+---
+
+## r2.5 — 2026-09-30
+
+- **revision_id:** r2.5
+- **Baza:** r2.4
+- **Zakres:** wyłącznie panel progu sygnału (`element.alert-settings-panel`, wariant side-panel) na `mac-wide`.
+
+### Panel „Próg sygnału” (mac-wide)
+- **Wysokość:** według treści zamiast pełnej wysokości ekranu. Przyciski Anuluj i Zapisz są tuż pod treścią, a nie przy dolnej krawędzi, i nie trzeba przewijać, żeby je kliknąć.
+- **Położenie:** 12 px od prawej krawędzi i 12 px pod paskiem aplikacji (top 76), wysokość maksymalnie 100% − 100 px.
+- **Wygląd:** szerokość 400 → 388 px, promień 16, obramowanie 1 px, cień.
+- **Pomiar w 1440×900:** panel zajmuje 76–601 px, Anuluj i Zapisz kończą się na 586 px. W oknie 1500×760 w `user_preview` przyciski są widoczne nad paskiem debug.
+- **Bez zmian:** treść, kolejność, zachowanie i niemodalność panelu, a także zwężenie treści o 400 px.
+
+### Bez zmian
+- Telefony: bottom-sheet i DOM identyczne z r2.4.
+- `mac-wide` poza panelem, stany, fixture'y, kraje, publiczne ID i `id_migrations: []`.
+
+---
+
 ## r2.4 — 2026-09-30
 
 - **revision_id:** r2.4

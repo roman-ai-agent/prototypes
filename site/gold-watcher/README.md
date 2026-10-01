@@ -1,6 +1,14 @@
-# Gold Watcher — prototyp r2.4
+# Gold Watcher — prototyp r2.7
 
-Klikalny kontrakt designu i zachowania, a nie kod aplikacji. Baza: r2.3. Zmiany: `mac-wide` 1440×900 z zagęszczonym układem wide, bez przewijania poza `source-error`, oraz kraje Polska, Finlandia i Francja. Telefony bez zmian. Historia zmian jest w `changelog.md`.
+Klikalny kontrakt designu i zachowania, a nie kod aplikacji. Baza: r2.6.
+
+Zmiana: jednolite tooltipy wykresów ceny i g/m² na wszystkich targetach.
+- Data ma format `YYYY-MM-DD UTC`.
+- Data i wartość mają wspólną typografię.
+- W dniu sygnału tooltip ma jeden wiersz `Spadek <drawdown> (próg: <threshold>)` z aktualnym progiem roboczym.
+- Górna krawędź tooltipu jest na wysokości górnej krawędzi komponentu wykresu, a tooltip nie zasłania danych.
+
+Scenariusze capture z r2.6 działają bez zmian, zmienia się tylko ich widoczny wynik. Historia zmian jest w `changelog.md`.
 
 ## Uruchomienie
 Prototyp trzeba otworzyć przez lokalny serwer HTTP, bo `index.html` wczytuje `prototype-manifest.json` i `assets/fixtures.json`. Przykład:
@@ -13,7 +21,13 @@ Potem otwórz `http://localhost:8000/index.html`. Otwarcie przez `file://` końc
 - **capture:** `index.html?mode=capture&state=<state_id>&target=<target_id>`.
   - Renderuje wyłącznie `element.product-work-surface` w rozmiarze targetu, 1:1, w pozycji 0,0.
   - Gotowość: `data-prototype-ready="true"` na anchorze.
-  - Błąd: `[data-prototype-error]` z jednym z kodów: `missing-parameter`, `unknown-state`, `unknown-target`, `state-unavailable-for-target`, `fixtures-unavailable`, `render-invalid`.
+  - Błąd: `[data-prototype-error]` z jednym z kodów: `missing-parameter`, `unknown-state`, `unknown-target`, `state-unavailable-for-target`, `unknown-capture-scenario`, `capture-scenario-unavailable`, `fixtures-unavailable`, `render-invalid`.
+- **capture_scenario (opcjonalny):** wybiera stan prezentacji interakcji po nazwie. Bez tego parametru capture renderuje zwykły widok.
+  - `index.html?mode=capture&state=gold-overview.ready&target=mac-wide&capture_scenario=price-chart-hover-normal`: 2026-01-10, zwykły dzień bez sygnału.
+  - `index.html?mode=capture&state=gold-overview.ready&target=mac-wide&capture_scenario=price-chart-hover-signal`: 2025-11-08, dzień sygnału. Marker sygnału wygląda zwykle. Tooltip ceny pokazuje `2025-11-08 UTC`, cenę i `Spadek 8,05% (próg: 5,0%)`.
+  - W obu scenariuszach oba wykresy wskazują ten sam dzień. Każdy ma pionową linię, mały punkt hovera w kolorze serii i tooltip. Ten sam wygląd ma zwykły hover w `user_preview`.
+  - Po renderze anchor ma `data-prototype-ready="true"` i `data-capture-scenario-id` równe wartości parametru.
+  - Scenariusze są zdefiniowane w `assets/fixtures.json` → `capture_scenarios`. Nie są stanami (`states[]`).
 - **user_preview:** `index.html?mode=user_preview&state=<state_id>&target=<target_id>`.
   - Bez parametrów otwiera `gold-overview.ready` na `mac-wide`.
   - Dolny panel narzędzi: link do katalogu, EKRAN / STAN (lista, ‹ ›, ← / →) i wybór targetu.
@@ -37,18 +51,19 @@ Potem otwórz `http://localhost:8000/index.html`. Otwarcie przez `file://` końc
 `data-screen-id`, `data-state-id`, `data-element-id`, `data-component-id`, `data-interaction-id`, `data-variant`. Narzędzia `user_preview` mają `data-prototype-tool` i nie istnieją w `mode=capture`.
 
 ## Raport kontroli
-Kontrola eksportu z 2026-09-30. Wynik: **pozytywny**.
+Kontrola eksportu z 2026-10-01. Wynik: **pozytywny**.
 - **Archiwum i checksumy — OK.** ZIP zawiera wyłącznie katalog `prototype/` z 8 plikami. `checksums.sha256` pokrywa 7 pozostałych plików i wszystkie sumy się zgadzają.
-- **Manifest — OK.** `schema_version: 3`, `revision_id: "r2.4"` i `id_migrations: []`. `mac-wide` ma 1440×900, 16 stanów, a każdy `fixture_id` i każda wskazana seria istnieją w `assets/fixtures.json`.
-- **mac-wide 1440×900 — OK.** W `mode=capture` zmierzono wysokość treści we wszystkich 10 stanach dozwolonych na `mac-wide`:
-  - 9 stanów mieści się w 900 bez przewijania; najwyższa kolumna kończy się na 864;
-  - `source-error` ma 950: baner u góry, przewijanie jest dopuszczalne.
-  - Powierzchnia ma 1440×900, bez powielonych `data-element-id` / `data-interaction-id`.
-- **Telefony bez zmian — OK.** Znormalizowany DOM powierzchni jest identyczny z r2.3 dla `ready` (iphone-16), `stale-housing-details-expanded` (galaxy-s20), `alert-settings-editing` (pixel-8), `empty-range` (iphone-16-pro-max) i `source-error` (iphone-16).
-- **Kraje — OK.**
-  - Selector na mac-wide i lista na telefonie pokazują wyłącznie: Polska · Warszawa · PLN, Finlandia · Helsinki · EUR, Francja · Paryż · EUR.
-  - Po przełączeniu na FI i FR karty i wykres siły nabywczej przeliczają się bez wartości NaN czy undefined, a kurs pokazuje 1 USD = 0,8600 EUR.
-  - W prototypie, danych i katalogu nie ma USA ani Belgii.
-- **Błędne parametry — OK.** `missing-parameter`, `unknown-state`, `unknown-target` i `state-unavailable-for-target` działają jak w r2.3.
-- **user_preview — OK.** Domyślnie `ready` na `mac-wide`, a karta targetu pokazuje 1440×900.
-- **Konsola i układ — OK.** Poza zamierzonymi błędami dla błędnych parametrów nie ma błędów konsoli, a automatyczny przegląd strony zakończył się bez zgłoszeń.
+- **Manifest — OK.** `schema_version: 3`, `revision_id: "r2.7"`, 16 stanów i `id_migrations: []`. Fixture'y są bez zmian.
+- **`price-chart-hover-normal` — OK.**
+  - Anchor ma `data-prototype-ready="true"` i `data-capture-scenario-id`.
+  - Tooltip ceny: `2026-01-10 UTC / 3 477,88 USD/oz`.
+  - Tooltip g/m²: `2026-01-10 UTC / 42,85 g/m² · interpolacja`.
+  - Górne krawędzie są równe komponentom (różnica 0,0 px). Odstęp od obszaru danych: 21,2 px i 23,2 px.
+- **`price-chart-hover-signal` — OK.**
+  - Tooltip ceny: `2025-11-08 UTC / 3 306,96 USD/oz / Spadek 8,05% (próg: 5,0%)`.
+  - Górna krawędź jest równa komponentowi. Odstęp od obszaru danych: 2,7 px. Tooltip g/m² ma odstęp 23,2 px.
+  - Typografia: data 12 px / 400, wartość i spadek 12,5 px / 700, tak samo w obu tooltipach.
+- **Pozostałe sprawdzenia — OK.**
+  - `intraday-rebound` na `galaxy-s20`: `2026-09-23 UTC / 116,49 USD/g / Spadek 5,20% (próg: 5,0%)`. Górna krawędź jest równa komponentowi, a tooltip nie zasłania danych.
+  - Podgląd progu na `mac-wide`: przy progu roboczym 9,0% markery są przeliczone, a tooltip pokazuje `(próg: 9,0%)`.
+- **Konsola i układ — OK.** Brak błędów konsoli, a automatyczny przegląd strony zakończył się bez zgłoszeń.

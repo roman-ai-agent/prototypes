@@ -1,4 +1,4 @@
-# Gold Watcher r2.4 — specyfikacja responsywności
+# Gold Watcher r2.7 — specyfikacja responsywności
 
 Reguły rysowania wybiera jawny `target_id` (5 targetów produktu); układ wynika z szerokości targetu. Viewport capture jest tylko technicznym wymiarem renderowania.
 
@@ -18,7 +18,7 @@ Grupy targetów używane w tabelach: **wide** = `mac-wide`; **mobile** = `iphone
 | gold-overview | mac-wide | Treść max 1216 px (+2×24 margines), 2 kolumny: lewa 420 (360), prawa fluid, odstęp 16 | Lewa: price-summary → signal-status → purchasing-power-summary. Prawa: range-selector → price-chart → purchasing-power-chart | Pełne warianty; panel progu = side-panel 400 px, treść się zwęża | Całość w 900 px bez scrolla (poza source-error); scroll tylko przy niższym oknie |
 | gold-overview | iphone-16, pixel-8, iphone-16-pro-max | 1 kolumna, margines 16, odstęp 12, max 560 | pasek → country-selector → price-summary → signal-status → range-selector → price-chart → purchasing-power-summary → purchasing-power-chart | Warianty mobile; panel progu = bottom-sheet | Pasek sticky 56; range-selector sticky pod paskiem; cena + sygnał bez scrolla |
 | gold-overview | galaxy-s20 | jak mobile, treść 328 | jak mobile | compact: cena 34, wykresy 180/160, przycisk progu pod tekstem sygnału (100%), trigger kraju bez waluty | jak mobile |
-| gold-overview.alert-settings-editing (panel progu) | mac-wide | Panel 400 px przy prawej krawędzi, pełna wysokość; treść 1040 px | nagłówek → opis → threshold-input → podgląd → uwaga lokalna → stopka (Anuluj, Zapisz) po prawej | side-panel, niemodalny; wykres z podglądem markerów widoczny | Scroll w panelu, stopka przypięta |
+| gold-overview.alert-settings-editing (panel progu) | mac-wide | Panel 388 px, 12 px od prawej krawędzi i od paska (top 76), wysokość według treści, max 100% − 100 px, promień 16; treść 1040 px | nagłówek → opis → threshold-input → podgląd → uwaga lokalna → stopka (Anuluj, Zapisz) po prawej, tuż pod treścią | side-panel, niemodalny; wykres z podglądem markerów widoczny | Bez scrolla w 900 px (Anuluj/Zapisz ok. 586 px); scroll w panelu tylko gdy treść przekroczy max |
 | gold-overview.alert-settings-editing (panel progu) | mobile-* | Pełna szerokość, max 85% wysokości, zaokrąglenie 22 | uchwyt → nagłówek → threshold-input → podgląd → uwaga → stopka Anuluj \| Zapisz (1:1) | bottom-sheet, modalny, tło przyciemnione, treść pod spodem inert | Stopka nad safe area; Esc / tło / Anuluj zamyka |
 | app-shell (pasek) | wide / mobile | 64 / 56 px, szerokość treści | wide: nazwa · country-selector · [odstęp] · freshness · Odśwież. mobile: nazwa · Odśwież (ikona 44) | mobile: country-selector przeniesiony do treści | Sticky |
 | country-selector | wide / mobile / compact | wide 3 × min 132, wys. 44; mobile 100%, wys. 48 | wide: pasek; mobile: pierwszy element treści | segmented / select (lista rozwijana pod przyciskiem, opcje 48) | — |
@@ -46,7 +46,7 @@ Grupy targetów używane w tabelach: **wide** = `mac-wide`; **mobile** = `iphone
 | element.alert-settings-open | galaxy-s20 | 100% × 44 | W signal-status, pod tekstem | secondary | min. wys. 44 |
 | element.pp-details-toggle | mac-wide | — | — | Ukryty (szczegóły zawsze widoczne) | — |
 | element.pp-details-toggle | mobile-* | auto | W purchasing-power-summary, pod wartością | Widoczny, quiet | min. wys. 44 |
-| element.alert-settings-panel | mac-wide | 400 px, pełna wysokość | Prawa krawędź | side-panel, niemodalny | Scroll w panelu, stopka przypięta |
+| element.alert-settings-panel | mac-wide | 388 px, wysokość według treści | Prawa krawędź, 12 px od krawędzi i paska | side-panel, niemodalny | Stopka tuż pod treścią |
 | element.alert-settings-panel | mobile-* | 100%, max 85% wysokości | Dół ekranu | bottom-sheet, modalny | Stopka nad safe area |
 
 ## Widoczność stanów
