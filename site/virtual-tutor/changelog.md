@@ -1,4 +1,58 @@
-# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2
+# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3
+
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Źródła zmian:** brief korekt R11 po audycie Lidera (pkt 1–13) oraz uwagi i decyzje Lidera z podglądu, które mają pierwszeństwo tam, gdzie się z briefem nie zgadzają. Rewizja R11-RC2 była wersją pośrednią; jej zmiany zawiera ta rewizja.
+- **Paczka:** 10 plików — 8 plików standardu oraz `assets/voice_help/open-voice-details-compact.png` i `assets/voice_help/download-voice-compact.png` (decyzja Lidera). Wszystkie 9 plików poza `checksums.sha256` w checksumach.
+
+## R11-RC3 (względem R11-RC1) — zmienione stany i elementy
+
+### Wizard i ekran powitalny
+- **`welcome`** — `welcome-subtitle`: złamanie po „—”, obie linie wyśrodkowane (wyjątek Lidera od pkt 13).
+- **`wizard-choose-variant`** — `choose-variant-us` / `choose-variant-uk`: wspólny komponent `primary-cta[primary]` (turkusowy), dwa równorzędne przyciski; wcześniej lokalne `choice_card`. Dodane publiczne ID `choose-variant-heading`.
+- **Wszystkie `wizard-*`, `wizard-summary`, `variant-gate`** — tytuły i opisy bez `max-width`; zdania opisów w osobnych wierszach. `max-width` zostaje dla list, fraz STT i szarego pola `wizard-stt-result-mismatch`.
+- **Token `--width-copy-standard`**: 44ch → 55ch (globalnie). **Token `--width-heading-error`** usunięty — nieużywany (pkt 6 briefu w tej części nieaktualny).
+- **Pigułka wariantu `variant-pill`** — nie występuje w żadnym stanie `wizard-*`, w pytaniach o profil (`profile-name*`, `profile-age*`, `profile-level`) ani w edycji profilu (`profile-edit-*`); na wyborze tutora tylko po zakończonym onboardingu (`characters-returning` tak, `characters` nie); w rozmowie i treningu bez zmian.
+
+### Lista głosów (wszystkie 8 stanów `wizard-voice-*`)
+- `voice-source-note` złamany po „—”; `voice-source-note` i `voice-unavailable-description` na tokenach opisu ekranu (`--type-screen-description-*`).
+- `voice-list-scroll`: 338 → **368 px**. Strzałka przy „Przewiń listę, aby zobaczyć wszystkie głosy” usunięta; podpowiedź pod listą także przy scrollu wynikającym z rozwiniętego calloutu.
+- **`voice-download-callout`** (element `voice-add-voices`): pierwszy zwykły element listy, bez `sticky`; rozwinięty domyślnie, gdy brak głosów wybranego wariantu, zwinięty, gdy istnieje pasujący głos. 4 kroki z briefu; ilustracje pod krokami 2 i 3 — pliki bez zmian, statyczne, nieklikalne, skalowane w CSS (`width: 100%; max-width: 560px`). Nowe ID: `voice-settings-steps`, `voice-help-open-details`, `voice-help-download`.
+- **Grupa „Inne akcenty angielskie”** zawiera drugi wariant (dla US: głosy UK, „akcent brytyjski”; dla UK: głosy US, „akcent amerykański”) i pozostałe akcenty.
+- **`wizard-voice-unavailable-with-fallbacks`** — fixture: brak głosów English US, lista: English UK + inne akcenty; callout rozwinięty.
+- **`wizard-voice-unavailable-empty`** — fixture: brak jakichkolwiek głosów angielskich; pusta lista z komunikatem; callout rozwinięty.
+- **`wizard-voice-sample-error`** — fixture: błąd próbki w pierwszym widocznym wierszu (`voice-option-us-f-ava`).
+
+### Profil
+- **`profile-level`, `profile-edit-level`** — `profile-level-legend`: `width: 100%; max-width: 900px`.
+- **`profile-edit-level`** — wybór poziomu zapisuje od razu; `profile-edit-save` (`Zapisz`) usunięty; `profile-edit-cancel` jako obrysowana pigułka `primary-cta[secondary]`.
+
+### Rozmowa i trening
+- **`chat-reply-*`** — `translation-card` (loading, ready, error) z tą samą lewą krawędzią i szerokością co `supplemental-tutor-card[notice]` (24 px; w drugiej gałęzi było 48 px).
+- **`chat-reply-both` i pozostałe stany rozmowy** — strumień `chat-messages` otwiera się przewinięty na sam dół: widoczny najniższy element ostatniej odpowiedzi (tłumaczenie, small correction, dialect).
+- **`chat-reply-error`, `training-tutor-reply-error`, `chat-reply-plain-translation-error`** — jedna wizualna karta błędu (tło, obramowanie, typografia, główna akcja `primary-cta[primary]`). Tutor: „Nie udało się uzyskać odpowiedzi tutora.”, akcje „Spróbuj ponownie” i „Popraw wiadomość” (nowe ID `chat-reply-edit`, `training-tutor-reply-edit`). Tłumaczenie: „Nie udało się przetłumaczyć odpowiedzi.”, tylko „Spróbuj ponownie”. „Ponów” usunięty. W błędzie tutora i treningu composer ukryty; „Popraw wiadomość” ukrywa kartę i pokazuje composer z zachowaną treścią.
+- **`characters-returning`** — plakietka `OSTATNIO` nad avatarem (`z-index`, w układzie wąskim `position: relative`).
+- **`chat-variant-switched`** — fixture wskazuje English UK; pigułka w headerze: `English UK`.
+- **Pkt 13** — opisy zawijają się naturalnie, bez dzielenia słów; ręczne łamania wyłącznie jako wyjątki Lidera powyżej.
+
+### Otoczka podglądu (poza produktem i capture)
+- Pole „Uwagi do stanu” (zapis w przeglądarce, „Kopiuj (N)”, „Wyczyść”); pasek w 2 wierszach; lewa krawędź ramki osiągalna przy oknie węższym niż target.
+
+### Chronione bez zmian
+74 `state_id`, 5 targetów (`mac-wide` 1440×900), schema manifestu v3 (`id_migrations: []` — żadne publiczne ID nie zostało zastąpione), `element.product-work-surface` i kontrakt capture. Zachowane publiczne ID m.in.: `choose-variant-us`, `choose-variant-uk`, `welcome-subtitle`, `voice-list-scroll`, `voice-add-voices`, `voice-add-voices-toggle`, `voice-settings-instruction`, `open-voice-settings`, `voice-list-scroll-hint`, `voice-list-empty`, `profile-level-legend`, `profile-edit-cancel`, `chat-reply-error`, `chat-reply-retry`, `training-tutor-reply-error`, `training-tutor-reply-retry`, `variant-pill`. Usunięte: `profile-edit-save` (pkt 7 briefu). Fixture zmienione wyłącznie w stanach: `wizard-voice-unavailable-with-fallbacks`, `wizard-voice-unavailable-empty`, `wizard-voice-sample-error`, `chat-variant-switched`.
+
+---
+
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2` (zaakceptowana) · **Status:** kandydat do odbioru, niezaakceptowany.
+
+## R11-RC1 (względem R10-RC2) — rozmiar targetu `mac-wide`
+
+1. **`mac-wide`: 1440×932 → 1440×900.** `target_id` bez zmian; bez `id_migrations`, aliasów i kompatybilności wstecznej (`id_migrations: []`). Pozostałe targety bez zmian.
+2. **Zaktualizowane deklaracje rozmiaru:** `prototype-manifest.json → targets[mac-wide].height`, lista targetów otoczki podglądu w `index.html` (przycisk profilu i ramka), lista profili w `catalog.html`, komentarze referencyjne w `index.html`, `responsive-spec.md` (tabela profili, tabela obszaru roboczego, wysokość `product-surface`), `README.md`. Rozmiar anchoru w capture wynika z `targets[]` bez dodatkowych zmian kodu.
+3. **Fit i scroll na `mac-wide` (pomiar DOM 74 stanów, 932 vs 900, bez zrzutów):** żaden stan nie zaczął się przewijać ani nie wychodzi poza obszar roboczy; brak przewijania dokumentu. 15 stanów przewijało się wewnętrznie już przy 932 i nadal się przewija — ich obszar przewijania jest o 32 px niższy, reguły responsywności bez zmian: `characters`, `characters-returning` (`characters-catalog`); `chat-reply-correction`, `chat-reply-dialect`, `chat-reply-both`, `chat-new-conversation-confirm`, `chat-profile-popover` (`chat-messages`); `wizard-voice-f`, `wizard-voice-m`, `wizard-voice-sample-playing`, `wizard-voice-sample-error`, `wizard-voice-unavailable-with-fallbacks`, `wizard-voice-unavailable-empty`, `wizard-voice-change-only`, `wizard-voice-change-only-selected` (`voice-list-scroll`). Lista głosów (`voice-list-scroll`, 336 px) i pozostałe stany bez zmiany geometrii w pionie poza wysokością kolumny.
+4. **Bez zmian:** treść, komponenty, CSS, 74 stany, `assets/fixtures.json` (bajtowo), publiczne ID, zachowanie UI, kontrakt URL.
+
+---
+
 
 - **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` (`product/ux/prototypes/macos/r10-rc1/prototype/`) · **Status:** kandydat do odbioru, niezaakceptowany.
 - **Brief:** `VT-DESIGNER-BRIEF-005`, standard `CANONICAL_PROTOTYPE_PACKAGE_STANDARD-V3`.

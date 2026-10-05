@@ -1,19 +1,14 @@
-# VirtualTutor V4 — prototyp VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2
+# VirtualTutor V4 — prototyp VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2` (ta sama w `prototype-manifest.json → revision_id`, `index.html`, `catalog.html`, `responsive-spec.md` i `changelog.md`).
-- **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` — `product/ux/prototypes/macos/r10-rc1/prototype/`.
-- **Brief / standard:** `VT-DESIGNER-BRIEF-005`, `CANONICAL_PROTOTYPE_PACKAGE_STANDARD-V3`.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` (ta sama w `prototype-manifest.json → revision_id`, `index.html`, `catalog.html`, `responsive-spec.md` i `changelog.md`).
+- **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1`.
+- **Standard:** `process/docs/prototype-package-standard.md` (manifest v3); paczka 10 plików — wyjątek Lidera dla `assets/voice_help/*.png`.
 - **Status:** kandydat do odbioru, niezaakceptowany.
-- **Zakres:** migracja techniczna do manifestu v3. Wygląd, zachowanie, treści, fixture, targety, 74 stany i publiczne ID DOM bez zmian. Szczegóły: `changelog.md`.
+- **Zakres:** korekty R11 po audycie Lidera i uwagi Lidera z podglądu. Szczegóły: `changelog.md`.
 
 ## Uruchomienie
 
-```
-cd prototype
-python3 -m http.server 8000
-```
-
-Otwórz `http://localhost:8000/index.html` (= `mode=user_preview`). Przez `file://` prototyp pokazuje ekran diagnostyczny. Fonty, portrety, React/ReactDOM i runtime są wbudowane; paczka działa bez sieci.
+Sposób uruchamiania prototypu jest opisany w narzędziach procesu.
 
 | Plik | Rola |
 | --- | --- |
@@ -21,9 +16,10 @@ Otwórz `http://localhost:8000/index.html` (= `mode=user_preview`). Przez `file:
 | `catalog.html` | Katalog komponentów (`data-component-id`) |
 | `prototype-manifest.json` | Manifest v3: `schema_version`, `revision_id`, `id_migrations`, `targets`, `states` |
 | `responsive-spec.md` | Specyfikacja responsywności dla człowieka |
+| `assets/voice_help/*.png` | 2 ilustracje `voice-download-callout` (pliki bez zmian) |
 | `assets/fixtures.json` | Rejestr danych `{ "fixtures": { … } }`, 74 wpisy |
-| `changelog.md` | Zmiany R10-RC2, historia rewizji i migracji ID |
-| `checksums.sha256` | SHA-256 pozostałych 7 plików |
+| `changelog.md` | Zmiany R11-RC3, historia rewizji i migracji ID |
+| `checksums.sha256` | SHA-256 pozostałych 9 plików |
 
 ## Adresy
 
@@ -35,18 +31,22 @@ Otwórz `http://localhost:8000/index.html` (= `mode=user_preview`). Przez `file:
 
 | `target_id` | `width × height` |
 | --- | --- |
-| `mac-wide` | 1440×932 |
+| `mac-wide` | 1440×900 |
 | `iphone-16` | 393×852 |
 | `pixel-8` | 412×915 |
 | `galaxy-s20` | 360×800 |
 | `iphone-16-pro-max` | 440×956 |
 
-## Raport kontroli (minimalna kontrola eksportu, 29.09.2026; po zwrocie odbioru)
+## Raport kontroli (proporcjonalna kontrola eksportu, 04.10.2026)
 
-- **Układ ZIP-a i checksumy:** katalog główny `prototype/` z 8 plikami standardu (`assets/fixtures.json` jako jedyny plik w `assets/`). `checksums.sha256` obejmuje 7 pozostałych plików; sumy policzone na plikach tuż przed spakowaniem i zweryfikowane 7/7. Rozpakowania gotowego ZIP-a nie wykonano.
-- **Manifest v3:** JSON parsuje się; dokładnie 5 kluczy w kolejności standardu; `schema_version: 3`; `id_migrations: []`; 5 targetów z polami `target_id`, `width`, `height` i wymiarami zgodnymi z briefem; 74 unikalne stany z polami `state_id`, `fixture_id`, identyczne (ID i `fixture_id`, ta sama kolejność) z R10-RC1; każdy `fixture_id` wskazuje wpis z `data` w `assets/fixtures.json` (74/74). `assets/fixtures.json` bajtowo bez zmian względem R10-RC1.
-- **Zasoby lokalne:** 0 odwołań do zewnętrznych adresów (`http(s)://`, `//`) w `src`, `href`, `url()`, `@import` i `fetch` w `index.html` i `catalog.html`.
-- **Smoke test capture — rzeczywisty adres standardowy** (bez otoczki podglądu; dokument otwarty bezpośrednio pod `index.html?mode=capture&state=chat-reply-plain-translation-ready&target=mac-wide`, okno 1440×932): selektor `[data-element-id="element.product-work-surface"][data-prototype-ready="true"]` wyrenderowany po ~5 s i stabilny po kolejnych 1,5 s; 1 × anchor, 1440×932, `pointer-events: none`, `aria-hidden="true"`; `data-prototype-state` zgodny, ekran `chat-reply`, układ `wide`; brak otoczki podglądu i `data-prototype-tool`; brak błędów konsoli.
-- **Smoke test negatywny:** `mode=capture` z dodatkowymi parametrami (`t`, `srcmap`, `_wr`) → jawny błąd „Nieznany parametr adresu capture”.
-- **Smoke test podglądu:** `mode=user_preview&state=chat-reply-plain-translation-ready&target=iphone-16` → otoczka z wybranym stanem (lista 74 stanów) i targetem `iphone-16`.
-- **Nie wykonano (poza zakresem briefu):** pełna macierz 74 × 5, zrzuty, porównanie pikselowe, ręczny przegląd.
+- **Układ ZIP-a:** katalog główny `prototype/`, 10 plików: 8 plików standardu + `assets/voice_help/open-voice-details-compact.png` (560×100) i `assets/voice_help/download-voice-compact.png` (560×112), bez zmian względem plików źródłowych.
+- **Checksumy:** `checksums.sha256` obejmuje 9 plików; zweryfikowane 9/9 na plikach, z których budowany jest ZIP. Rozpakowania gotowego ZIP-a nie wykonano.
+- **Manifest v3:** JSON parsuje się; dokładnie 5 kluczy; `schema_version: 3`; `revision_id` = `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3`; `id_migrations: []`; 5 targetów (`mac-wide` 1440×900); 74 unikalne stany, każdy `fixture_id` ma dane w `assets/fixtures.json` (74 wpisy).
+- **Zasoby lokalne:** 0 odwołań zewnętrznych w `index.html` i `catalog.html`; oba obrazy `voice_help` odwołują się do plików obecnych w paczce.
+- **Smoke test zmienionego zakresu** (05.10.2026; każdy stan otwarty świeżo pod rzeczywistym adresem `index.html?mode=capture&state=<state_id>&target=<target_id>`, okno 1440×900, pomiar DOM po selektorze gotowości anchoru; 0 błędów konsoli we wszystkich):
+  - `chat-reply-error` (`mac-wide`): gotowość po ~2,3 s; 1 × anchor; karta błędu `chat-reply-error` — tło #ffece2, obramowanie 1 px #f5cebd, promień 14 px; tekst „Nie udało się uzyskać odpowiedzi tutora.”; „Spróbuj ponownie” (`primary-cta[primary]`) i „Popraw wiadomość” (`primary-cta[secondary]`); brak „Ponów”; composer ukryty; karta widoczna w strumieniu, strumień przewinięty na dół. Po „Popraw wiadomość”: karta znika, composer widoczny z zachowaną treścią.
+  - `training-tutor-reply-error` (`mac-wide`): ta sama karta (tło, obramowanie, promień, akcje); composer ukryty; po „Popraw wiadomość” composer z zachowaną treścią.
+  - `chat-reply-plain-translation-error` (`mac-wide`): ta sama karta; tekst „Nie udało się przetłumaczyć odpowiedzi.”, tylko „Spróbuj ponownie”; lewa krawędź i szerokość identyczne z `supplemental-tutor-card[notice]` (202 px / 724 px).
+  - `chat-variant-switched` (`mac-wide`): gotowość po ~2,5 s; 1 × anchor; komunikat „Od teraz: English UK”; pigułka `variant-pill` widoczna z tekstem „English UK”.
+  - Wcześniej w tej rewizji: `wizard-voice-unavailable-with-fallbacks` (`mac-wide`) i `characters-returning` (`galaxy-s20`) — bez zgłoszonych problemów.
+- **Nie wykonano:** capture 74 × 5, zrzuty, porównania pikselowe, porównanie aplikacja ↔ prototyp.

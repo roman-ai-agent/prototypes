@@ -1,6 +1,6 @@
 # VirtualTutor V4 — responsive-spec R10
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC2` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R10-RC1` (R10-RC2 nie zmienia geometrii ani wyglądu; zmieniony wyłącznie format manifestu do standardu v3) · **Status:** kandydat do odbioru.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` (geometria targetów bez zmian; lista głosów 368 px, callout w liście — §5.12) · **Status:** kandydat do odbioru.
 - **Target (R10):** `target_id` = `targets[].target_id`. W `mode=capture` klasa układu (§2) wynika z `targets[].width` jawnego targetu, nie z okna przeglądarki; środowisko capture ustawia viewport na `targets[].width × height` targetu.
 - **Zakres R9:** (1) `advertisement-screen` pełnoekranowy (§5.13); (2) komponenty dynamiczne z regułami ruchu i klatką capture (§5.16); (3) własne ikony SVG zamiast znaków Unicode/emoji (§5.17); (4) usunięte wejście ekranu (fade 0,4–0,5 s). Pozostała geometria, kolejność, widoczność i minima bez zmian względem R8-RC2. `capture_surface` bez zmian (§1.1).
 - **Targety:** `targets[]` manifestu zawiera pięć targetów produktu (`target_id`, `width`, `height`).
@@ -16,7 +16,7 @@ Wartości w px to px CSS przy DPR 1. Wartość bez zmiany w kolumnie mobile ozna
 
 | `profile_id` | Viewport | Klasa układu | Rola |
 | --- | ---: | --- | --- |
-| `mac-wide` | 1440×932 | `wide` | `role: product`. Wymagany profil odbioru. |
+| `mac-wide` | 1440×900 | `wide` | `role: product`. Wymagany profil odbioru. |
 | `iphone-16` | 393×852 | `mobile` | `role: product`. Wymagany. |
 | `pixel-8` | 412×915 | `mobile` | `role: product`. Wymagany. |
 | `galaxy-s20` | 360×800 | `compact` | `role: product`. Wymagany. |
@@ -28,7 +28,7 @@ Przedmiotem porównania aplikacji z prototypem jest powierzchnia robocza produkt
 
 | `target_id` | Klasa | `width × height` (szer. × wys.) | Co obejmuje |
 | --- | --- | ---: | --- |
-| `mac-wide` | `wide` | **1440 × 932** | Cały obszar roboczy okna produktu. Tło `#fffcf9` od krawędzi do krawędzi, w nim wyśrodkowana kolumna `product-surface` 1180 px o wysokości 932 px. Pasek tytułu okna macOS i chrome hosta nie wchodzą. |
+| `mac-wide` | `wide` | **1440 × 900** | Cały obszar roboczy okna produktu. Tło `#fffcf9` od krawędzi do krawędzi, w nim wyśrodkowana kolumna `product-surface` 1180 px o wysokości 900 px. Pasek tytułu okna macOS i chrome hosta nie wchodzą. |
 | `iphone-16` | `mobile` | **393 × 852** | Cały ekran aplikacji; `product-surface` = 393 × 852. Safe area jest wewnątrz powierzchni (w profilu przeglądarkowym 0). |
 | `pixel-8` | `mobile` | **412 × 915** | Cały ekran aplikacji; `product-surface` = 412 × 915. |
 | `galaxy-s20` | `compact` | **360 × 800** | Cały ekran aplikacji; `product-surface` = 360 × 800. |
@@ -149,7 +149,7 @@ Wide: 6 segmentów (znacznik 18 px + etykieta 11.5/700) w wierszu z zawijaniem, 
 Panel: jedna kolumna wyśrodkowana, tekst wyśrodkowany, maks. szerokość treści 54ch (wide) / 100% (mobile). Nagłówek 21 → 20 px (compact). Start/stop testu: `mic-control[labeled]` (§5.14). Miernik: 20 słupków stale; szerokość słupka 5 px (wide, mobile) / 4 px (compact); gap 4. Ten sam komponent obsługuje wariant `error` (B6).
 
 ### 5.12 `voice-selector`, `voice-option`
-Viewport listy ma **338 px wysokości we wszystkich klasach** (E3). Szerokość: wide `min(100%, 560px)`, mobile/compact 100% kolumny. Odtwarzanie i błąd próbki zmieniają tylko wiersz (`voice-preview-state`), nigdy wysokość listy. Wiersz `voice-option` ma min. 56 px (wide) / 60 px (mobile). Na compact nazwa zawija się, a `voice-preview-state` zostaje po prawej.
+Viewport listy ma **368 px wysokości we wszystkich klasach** (E3). Szerokość: wide `min(100%, 560px)`, mobile/compact 100% kolumny. Odtwarzanie i błąd próbki zmieniają tylko wiersz (`voice-preview-state`), nigdy wysokość listy. Wiersz `voice-option` ma min. 56 px (wide) / 60 px (mobile). Na compact nazwa zawija się, a `voice-preview-state` zostaje po prawej. Pierwszym zwykłym elementem listy (bez `sticky`) jest `voice-download-callout` (`voice-add-voices`): domyślnie rozwinięty, gdy brak głosu wybranego wariantu, zwinięty, gdy pasujący głos istnieje; rozwinięcie przesuwa głosy w dół. Ilustracje kroków 2 i 3: `width: 100%; max-width: 560px; height: auto`. Podpowiedź przewijania pod listą także wtedy, gdy scroll wynika z rozwiniętego calloutu.
 
 ### 5.13 `advertisement-screen` (R9: pełny ekran)
 Wszystkie klasy tak samo. Warstwa zajmuje cały obszar roboczy (`element.product-work-surface`, §1.1) i przykrywa wszystko: nie ma `top-header` (znak VIRTUALTUTOR, `Wstecz`, pigułki) ani rozmowy.
@@ -228,6 +228,6 @@ Kadr każdego zrzutu = prostokąt `element.product-work-surface` o rozmiarze `wi
 5. `tutor-card[row]` na mobile (§5.9).
 6. Reklama na pełnym obszarze roboczym, slot bez proporcji, „Zamknij reklamę” jako tekst w prawym górnym rogu (§5.13, R9).
 7. `mic-control[labeled]` jako jedyny wariant: kompozytor i testy onboardingu, ze skutkami zależnymi od kontekstu; `processing` nieaktywny bez anulowania (§5.14).
-8. `voice-selector`: przypięty wiersz `voice-add-voices` z instrukcją (§5.12).
+8. `voice-selector`: pierwszy element listy `voice-download-callout` (`voice-add-voices`) z instrukcją i ilustracjami, bez `sticky` (§5.12).
 9. `welcome-tutors`: 12 portretów w układzie 7 + 5 (124 px wide, 56/50 px mobile).
 10. Menu i potwierdzenia na telefonie jako popovery pod wyzwalaczem, bez arkusza i przyciemnienia (§5.4, §5.5).

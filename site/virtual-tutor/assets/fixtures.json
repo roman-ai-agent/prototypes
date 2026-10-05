@@ -2713,7 +2713,7 @@
         "composerMode": "idle",
         "composerText": "",
         "sampleVoiceId": null,
-        "sampleFailedId": "other-f-tessa",
+        "sampleFailedId": "us-f-ava",
         "ttsPlaying": null,
         "variantGate": null,
         "chatVariantNote": null,
@@ -2841,7 +2841,7 @@
             6
           ],
           "resultStatus": null,
-          "voiceStepSelectedId": "other-f-tessa",
+          "voiceStepSelectedId": "us-f-ava",
           "listenedVoiceIds": {},
           "voiceSettingsHandoff": false,
           "voiceMissing": {},
@@ -2989,7 +2989,9 @@
           "voiceStepSelectedId": null,
           "listenedVoiceIds": {},
           "voiceSettingsHandoff": false,
-          "voiceMissing": {},
+          "voiceMissing": {
+            "US_F": true
+          },
           "isVoiceChangeOnly": false
         }
       }
@@ -3135,7 +3137,9 @@
           "listenedVoiceIds": {},
           "voiceSettingsHandoff": false,
           "voiceMissing": {
-            "US_F": true
+            "US_F": true,
+            "UK_F": true,
+            "OTHER_F": true
           },
           "isVoiceChangeOnly": false
         }
@@ -6253,11 +6257,11 @@
         "addVoicesOpen": null,
         "screen": "chat",
         "appConfig": {
-          "variant": "US",
+          "variant": "UK",
           "micDone": true,
           "sttDone": {
             "US": true,
-            "UK": false
+            "UK": true
           },
           "voices": {
             "US_F": {
@@ -6268,8 +6272,14 @@
               "id": "us-m-evan",
               "name": "Evan"
             },
-            "UK_F": null,
-            "UK_M": null
+            "UK_F": {
+              "id": "uk-f-kate",
+              "name": "Kate"
+            },
+            "UK_M": {
+              "id": "uk-m-daniel",
+              "name": "Daniel"
+            }
           }
         },
         "selectedIdx": 1,
