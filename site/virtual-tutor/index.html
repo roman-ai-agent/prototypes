@@ -1,4 +1,4 @@
-<!-- REVISION: VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3 | status: zaakceptowany przez Użytkownika 05.10.2026 | baza: VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1
+<!-- REVISION: VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6 | status: kandydat do odbioru | baza: VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1
      Wejście:  index.html?mode=capture&state={state_id}&target={target_id} (czysty produkt) · index.html?mode=user_preview[&state={state_id}&target={target_id}] (otoczka ręcznego podglądu; brak mode = user_preview)
      Dane:     states[].fixture_id → assets/fixtures.json → fixtures[fixture_id].data
      Kontrakt: data-screen-id / data-state-id / data-fixture-id / data-component-id / data-element-id (+ data-variant, data-state, data-option, data-part).
@@ -94,9 +94,7 @@
         </div>
         <div data-element-id="app-wordmark" data-testid="app-wordmark" data-ui-type="wordmark" data-ui-variant="header" style="font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--color-text-secondary);">VIRTUALTUTOR</div>
         <div style="width:{{ c6.hdrSide }};flex:none;display:flex;justify-content:flex-end;gap:8px;">
-          <sc-if value="{{ c6.stepLabelInHeader }}" hint-placeholder-val="{{ false }}">
-            <div data-element-id="wizard-step-label" data-testid="wizard-step-label" data-ui-type="text" data-ui-variant="meta_accent" style="font-size:12px;font-weight:700;color:var(--color-action-primary-background);">{{ wStepText }}</div>
-          </sc-if>
+          
           <!-- R6: kropki postępu poza onboardingiem usunięte (brief §6.2) -->
         </div>
       </div>
@@ -202,7 +200,7 @@
                 <li data-element-id="progress-segment-{{ seg.n }}" data-testid="progress-segment-{{ seg.n }}" data-part="segment" data-state="{{ seg.uiState }}" aria-label="{{ seg.label }}" style="display:flex;align-items:center;"><span data-ui-part="mark" data-ui-paint-aspects="surface foreground" style="width:18px;height:18px;border-radius:50%;background:{{ seg.dotBg }};color:{{ seg.dotColor }};display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;"><sc-if value="{{ seg.markCheck }}" hint-placeholder-val="{{ false }}"><svg data-icon="vt-check" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="display:block;flex:none;stroke-width:2.6;"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if><sc-if value="{{ seg.markNum }}" hint-placeholder-val="{{ true }}">{{ seg.mark }}</sc-if></span><sc-if value="{{ seg.notLast }}" hint-placeholder-val="{{ true }}"><span data-part="connector" style="width:18px;height:2px;background:{{ seg.lineBg }};"></span></sc-if></li>
               </sc-for>
             </ol>
-            <div data-part="caption" style="width:100%;font-size:12px;font-weight:700;text-align:center;"><span style="color:#286265;">{{ wStepText }}</span> · {{ wActiveSegLabel }}</div>
+            <div data-part="caption" style="width:100%;font-size:12px;font-weight:700;text-align:center;"><span style="color:#286265;">{{ wActiveSegLabel }}</span></div>
           </div>
           </sc-if>
           </sc-if>
@@ -215,7 +213,7 @@
               <p data-element-id="{{ wError.testid }}-body" data-testid="{{ wError.testid }}-body" data-ui-type="text" data-ui-variant="panel_body" role="status" aria-live="polite" style="margin:0;max-width:none;white-space:pre-line;font-size:14px;line-height:1.6;color:var(--color-text-secondary);">{{ wError.body }}</p>
               <button data-component-id="primary-cta" data-element-id="{{ wError.actionTestid }}" data-ui-part="container" data-ui-paint-aspects="surface foreground" data-testid="{{ wError.actionTestid }}" data-ui-type="button" data-ui-variant="primary" onClick="{{ wError.action }}" style="all:unset;cursor:pointer;box-sizing:border-box;width:{{ c6.ctaW }};max-width:100%;text-align:center;text-wrap:balance;padding:16px 32px;border-radius:var(--radius-pill);background:var(--color-action-primary-background);color:var(--color-action-primary-text);font-size:14.5px;font-weight:600;">{{ wError.actionLabel }}</button>
               <sc-if value="{{ wErrorHasSecondary }}" hint-placeholder-val="{{ false }}">
-                <button data-component-id="primary-cta" data-element-id="{{ wError.secondaryTestid }}" data-ui-part="container" data-ui-paint-aspects="surface border" data-testid="{{ wError.secondaryTestid }}" data-ui-type="button" data-ui-variant="secondary" onClick="{{ wRecheck }}" style="all:unset;cursor:pointer;box-sizing:border-box;width:{{ c6.ctaW }};max-width:100%;text-align:center;text-wrap:balance;padding:16px 32px;border-radius:var(--radius-pill);border:var(--border-width-emphasis) solid var(--color-border-strong);background:var(--color-surface-default);font-size:14px;font-weight:700;color:var(--color-text-secondary);" style-hover="border-color:oklch(60% 0.06 200);"><span data-ui-part="label" data-ui-paint-aspects="foreground">{{ wError.secondaryLabel }}</span></button>
+                <button data-component-id="primary-cta" data-element-id="{{ wError.secondaryTestid }}" data-ui-part="container" data-ui-paint-aspects="surface border" data-testid="{{ wError.secondaryTestid }}" data-ui-type="button" data-ui-variant="secondary" onClick="{{ wErrorSecondary }}" style="all:unset;cursor:pointer;box-sizing:border-box;width:{{ c6.ctaW }};max-width:100%;text-align:center;text-wrap:balance;padding:16px 32px;border-radius:var(--radius-pill);border:var(--border-width-emphasis) solid var(--color-border-strong);background:var(--color-surface-default);font-size:14px;font-weight:700;color:var(--color-text-secondary);" style-hover="border-color:oklch(60% 0.06 200);"><span data-ui-part="label" data-ui-paint-aspects="foreground">{{ wError.secondaryLabel }}</span></button>
               </sc-if>
             </sc-if>
 
@@ -447,9 +445,7 @@
                       <div style="height:12px;"></div>
                       <button data-element-id="learner-profile-edit-name" data-testid="learner-profile-edit-name" onClick="{{ startProfileEditName }}" style="all:unset;cursor:pointer;height:{{ c6.popBtnH }};display:flex;align-items:center;justify-content:center;border-radius:100px;background:#286265;color:#fefbf8;font-size:13px;font-weight:700;">Zmień imię</button>
                       <button data-element-id="learner-profile-edit-age" data-testid="learner-profile-edit-age" onClick="{{ startProfileEditAge }}" style="all:unset;cursor:pointer;height:{{ c6.popBtnH }};display:flex;align-items:center;justify-content:center;border-radius:100px;background:#286265;color:#fefbf8;font-size:13px;font-weight:700;">Zmień wiek</button>
-                      <button data-element-id="learner-profile-edit-level" data-testid="learner-profile-edit-level" onClick="{{ startProfileEditLevel }}" style="all:unset;cursor:pointer;height:{{ c6.popBtnH }};display:flex;align-items:center;justify-content:center;border-radius:100px;background:#286265;color:#fefbf8;font-size:13px;font-weight:700;">Zmień poziom</button>
-                    </div>
-                  </sc-if>
+                      <button data-element-id="learner-profile-edit-level" data-testid="learner-profile-edit-level" onClick="{{ startProfileEditLevel }}" style="all:unset;cursor:pointer;height:{{ c6.popBtnH }};display:flex;align-items:center;justify-content:center;border-radius:100px;background:#286265;color:#fefbf8;font-size:13px;font-weight:700;">Zmień poziom</button> <button data-component-id="primary-cta" data-element-id="profile-menu-cancel" data-testid="profile-menu-cancel" data-ui-type="button" data-ui-variant="secondary" onClick="{{ closeLearnerPopover }}" style="all:unset;cursor:pointer;box-sizing:border-box;height:{{ c6.popBtnH }};display:flex;align-items:center;justify-content:center;border-radius:100px;border:var(--border-width-emphasis) solid var(--color-border-strong);background:var(--color-surface-default);color:var(--color-text-secondary);font-size:13px;font-weight:700;" style-hover="border-color:oklch(60% 0.06 200);">Anuluj</button> </div> </sc-if>
                 </div>
               </sc-if>
               <sc-if value="{{ c6.showClearWide }}" hint-placeholder-val="{{ false }}">
@@ -842,6 +838,7 @@ const VOICES = {
 };
 // Voices with an accent that doesn't match either learning variant. Shown as a separate,
 // clearly-labelled group below — never mixed into the primary US/UK list, never ranked.
+const ACCENT_GROUP = { 'akcent australijski': 'Głosy English Australia', 'akcent irlandzki': 'Głosy English Ireland', 'akcent południowoafrykański': 'Głosy English South Africa', 'akcent indyjski': 'Głosy English India' };
 const OTHER_ACCENT_VOICES = {
   F: [{ id: 'other-f-charlotte', name: 'Charlotte', accentLabel: 'akcent australijski' }, { id: 'other-f-karen', name: 'Karen', accentLabel: 'akcent australijski' }, { id: 'other-f-moira', name: 'Moira', accentLabel: 'akcent irlandzki' }, { id: 'other-f-tessa', name: 'Tessa', accentLabel: 'akcent południowoafrykański' }],
   M: [{ id: 'other-m-lee', name: 'Lee', accentLabel: 'akcent australijski' }, { id: 'other-m-rishi', name: 'Rishi', accentLabel: 'akcent indyjski' }, { id: 'other-m-gordon', name: 'Gordon', accentLabel: 'akcent australijski' }]
@@ -986,12 +983,12 @@ const ERROR_DEFS = {
   // Cisza i zbyt cichy sygnal sa wynikami pomiaru, nie bledami uprawnienia ani urzadzenia.
   micNoSignal: { title: 'Nie wykrywam dźwięku',
     body: 'Mikrofon działa, ale podczas próby nie wykryliśmy dźwięku. Sprawdź, czy wybrany mikrofon nie jest wyciszony, i spróbuj ponownie.',
-    actionLabel: 'Spróbuj ponownie', stage: 'result', check: 'mic', kind: 'retry',
-    testid: 'mic-result-no-signal', actionTestid: 'retry-check' },
+    actionLabel: 'Spróbuj ponownie', secondaryLabel: 'Otwórz ustawienia wejścia dźwięku', secondaryKind: 'settings',
+    stage: 'result', check: 'mic', kind: 'retry', testid: 'mic-result-no-signal', actionTestid: 'retry-check', secondaryTestid: 'open-sound-input-settings' },
   micTooQuiet: { title: 'Nagranie było zbyt ciche',
     body: 'Sygnał był wykrywany, ale zbyt cichy, aby dokończyć test. Spróbuj ponownie i mów nieco głośniej.',
-    actionLabel: 'Spróbuj ponownie', stage: 'result', check: 'mic', kind: 'retry',
-    testid: 'mic-result-too-quiet', actionTestid: 'retry-check' },
+    actionLabel: 'Spróbuj ponownie', secondaryLabel: 'Otwórz ustawienia wejścia dźwięku', secondaryKind: 'settings',
+    stage: 'result', check: 'mic', kind: 'retry', testid: 'mic-result-too-quiet', actionTestid: 'retry-check', secondaryTestid: 'open-sound-input-settings' },
   sttEmpty: { title: 'Rozpoznawanie nie zwróciło wyniku',
     body: 'Nie udało się uchwycić żadnej wypowiedzi. Przeczytaj zdanie jeszcze raz, trochę głośniej.',
     actionLabel: 'Spróbuj ponownie', stage: 'result', check: 'stt', kind: 'retry',
@@ -1359,6 +1356,8 @@ class Component extends DCLogic {
   };
 
   toggleLearnerPopover = () => this.setState(s => ({ learnerPopoverOpen: !s.learnerPopoverOpen }));
+  // „Anuluj” w menu profilu: zamyka popover bez zmiany profilu.
+  closeLearnerPopover = () => this.setState({ learnerPopoverOpen: false });
   // Editing re-asks the three turns WITHOUT discarding anything: each field arrives prefilled and
   // "Anuluj zmianę" returns to the conversation with the previous values intact.
   // Edycja dotyczy dokladnie jednego pola. Wejscie zapisuje migawke profilu, zeby anulowanie
@@ -1718,6 +1717,9 @@ class Component extends DCLogic {
     this.wPatch({ errorKind: null, step: def2Back ? w.step - 2 : w.step });
   };
   wRecheck = () => this.wPatch({ waiting: false, errorKind: null });
+  // Akcja dodatkowa ekranu błędu: „Sprawdź ponownie” przy uprawnieniach; przy wyniku pomiaru mikrofonu
+  // „Otwórz ustawienia wejścia dźwięku” otwiera ustawienia systemowe (w prototypie: przekazanie do systemu, ekran zostaje).
+  wErrorSecondary = () => { const def = ERROR_DEFS[this.state.wizard.errorKind]; if (def && def.secondaryKind === 'settings') { this.wPatch({ soundInputSettingsHandoff: true }); return; } this.wRecheck(); };
 
   // Sample playback has exactly three states: idle, playing, failed. Nothing is remembered between
   // visits — no "listened" marker, no history. Clicking a row starts its sample and marks it as the
@@ -1733,8 +1735,8 @@ class Component extends DCLogic {
     }, 2000);
   };
   wRetrySample = () => { const id = this.state.sampleFailedId; if (id) this.wPickVoice(id); };
-  // Inne akcenty angielskie: drugi wariant (US↔UK) + pozostałe akcenty; voiceMissing ukrywa grupę ("US_F", "UK_F", "OTHER_F").
-  wOtherVoices(w, item) { const g = item.gender; const ov = w.variant === 'US' ? 'UK' : 'US'; const vm = w.voiceMissing || {}; const second = vm[ov + '_' + g] ? [] : VOICES[ov][g].map(v => ({ ...v, accentLabel: ov === 'UK' ? 'akcent brytyjski' : 'akcent amerykański' })); const rest = vm['OTHER_' + g] ? [] : OTHER_ACCENT_VOICES[g]; return second.concat(rest); }
+  // Głosy zastępcze: drugi wariant (US↔UK) + pozostałe akcenty, każdy z nagłówkiem grupy; voiceMissing ukrywa grupę ("US_F", "UK_F", "OTHER_F").
+  wOtherVoices(w, item) { const g = item.gender; const ov = w.variant === 'US' ? 'UK' : 'US'; const vm = w.voiceMissing || {}; const second = vm[ov + '_' + g] ? [] : VOICES[ov][g].map(v => ({ ...v, groupLabel: 'Głosy ' + VARIANT_LABEL[ov] })); const rest = vm['OTHER_' + g] ? [] : OTHER_ACCENT_VOICES[g].map(v => ({ ...v, groupLabel: ACCENT_GROUP[v.accentLabel] || 'Głosy English' })); return second.concat(rest); }
   wVoiceCandidates(w, item) { const missing = !!w.voiceMissing[w.variant + '_' + item.gender]; return (missing ? [] : VOICES[w.variant][item.gender]).concat(this.wOtherVoices(w, item)); }
   wListen = () => {
     const w = this.state.wizard; const item = w.plan[w.step];
@@ -1906,10 +1908,9 @@ class Component extends DCLogic {
       rows.push({ isGroupHeader: true, isVoice: false, key: 'variant', label: 'Głosy ' + VARIANT_LABEL[w.variant] });
       primary.forEach(v => rows.push(toOption(v, null)));
     }
-    if (others.length) {
-      rows.push({ isGroupHeader: true, isVoice: false, key: 'other', label: 'Inne akcenty angielskie' });
-      others.forEach(v => rows.push(toOption(v, v.accentLabel)));
-    }
+    // Głosy zastępcze grupowane nagłówkami per konkretny akcent (drugi wariant pierwszy); bez akcentu w wierszu.
+      const groups = []; others.forEach(v => { let gr = groups.find(x => x.label === v.groupLabel); if (!gr) { gr = { label: v.groupLabel, voices: [] }; groups.push(gr); } gr.voices.push(v); });
+      groups.forEach((gr, gi) => { rows.push({ isGroupHeader: true, isVoice: false, key: 'accent-' + gi, label: gr.label }); gr.voices.forEach(v => rows.push(toOption(v, null))); });
     const playing = flat.find(v => v.id === sampleVoiceId);
     return {
       wVoiceList: rows, wVoiceMissing: missing, wVoiceCount: flat.length,
@@ -2010,7 +2011,7 @@ class Component extends DCLogic {
       // Jednoetapowy ekran zmiany glosu z rozmowy nie pokazuje ani wiersza krokow,
       // ani licznika "Krok 1 z 1" — nie ma postepu do zakomunikowania.
       wStepperVisible: !w.isVoiceChangeOnly,
-      wShowNormal, wRecheck: this.wRecheck,
+      wShowNormal, wRecheck: this.wRecheck, wErrorSecondary: this.wErrorSecondary,
       wIsChooseVariant: kind === 'chooseVariant',
       wIsMicIntro: kind === 'micIntro', wIsMicActive: kind === 'micActive', wIsMicResult: kind === 'micResult',
       wIsSttIntro: kind === 'sttIntro', wIsSttActive: kind === 'sttActive', wIsSttResult: kind === 'sttResult',
@@ -2279,7 +2280,7 @@ class Component extends DCLogic {
       ...this.buildVariantGateVals(s),
       ...this.buildChatVals(s),
       c6: this.r6ChatVals(s),
-      goToCharacters: this.goToCharacters, sendMessage: this.sendMessage, toggleCorrection: this.toggleCorrection,
+      goToCharacters: this.goToCharacters, closeLearnerPopover: this.closeLearnerPopover, sendMessage: this.sendMessage, toggleCorrection: this.toggleCorrection,
       finishConversation: this.finishConversation, continueChat: this.continueChat, goBack: this.goBack
     };
   }

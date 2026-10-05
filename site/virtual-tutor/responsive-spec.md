@@ -1,6 +1,6 @@
 # VirtualTutor V4 — responsive-spec R10
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` (geometria targetów bez zmian; lista głosów 368 px, callout w liście — §5.12) · **Status:** zaakceptowany przez Użytkownika 05.10.2026.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` (geometria targetów bez zmian) · **Status:** kandydat do odbioru.
 - **Target (R10):** `target_id` = `targets[].target_id`. W `mode=capture` klasa układu (§2) wynika z `targets[].width` jawnego targetu, nie z okna przeglądarki; środowisko capture ustawia viewport na `targets[].width × height` targetu.
 - **Zakres R9:** (1) `advertisement-screen` pełnoekranowy (§5.13); (2) komponenty dynamiczne z regułami ruchu i klatką capture (§5.16); (3) własne ikony SVG zamiast znaków Unicode/emoji (§5.17); (4) usunięte wejście ekranu (fade 0,4–0,5 s). Pozostała geometria, kolejność, widoczność i minima bez zmian względem R8-RC2. `capture_surface` bez zmian (§1.1).
 - **Targety:** `targets[]` manifestu zawiera pięć targetów produktu (`target_id`, `width`, `height`).
@@ -54,7 +54,7 @@ Wszystkie klasy mają tę samą podróż użytkownika, te same stany, `state_id`
 
 1. **Bez skalowania.** Nie ma `transform: scale`, `zoom` ani przeliczania rozmiaru czcionek względem viewportu. Zmiany typografii wymienia wyłącznie §6.
 2. **Bez obcinania.** Etykiety przycisków i pigułek nie mają `ellipsis`, `nowrap` z `overflow: hidden` ani stałej szerokości. Za brak miejsca odpowiada kontener: zawija, przenosi do kolejnego wiersza albo do `anchored-menu` (E1).
-3. **Bez ukrywania treści wymaganej.** Treść może zmienić pozycję, ale nie znika. Jedyny wyjątek to etykieta `Krok n z m` w `top-header` na mobile: przenosi się do podpisu `onboarding-stepper`, więc się nie powiela.
+3. **Bez ukrywania treści wymaganej.** Treść może zmienić pozycję, ale nie znika. (Etykieta `Krok n z m` usunięta w R11-RC4 — nie występuje w żadnej klasie.)
 4. **Cele dotykowe na mobile i compact** mają co najmniej 44×44 px. Jeśli element jest wizualnie mniejszy (`replay-button` 25 px, `pill-button` 32 px), obszar trafienia rozszerza się niewidoczną ramką. Sąsiednie obszary trafienia nie mogą się nakładać, więc odstęp między nimi wynosi co najmniej 8 px.
 5. **Tło.** `product-surface` = `#fffcf9` od krawędzi do krawędzi we wszystkich klasach. Nie ma szarego tła, karty, ramki, cienia ani rogów (brief §6.1).
 6. **Scroll.** Każdy ekran ma jeden pionowy obszar przewijania. Nagłówki i kompozytor są `sticky` (§5). Na mobile nigdzie nie ma poziomego scrolla.
@@ -79,7 +79,7 @@ Kolumny: **kolumny/szerokości · kolejność/pozycja · widoczność/wariant ·
 | --- | --- | --- |
 | Kolumny | Trzy strefy 110 px \| auto \| 110 px: `Wstecz`, wordmark, prawa strefa. | Trzy strefy auto \| 1fr \| auto, wysokość 56 px. |
 | Kolejność | Wiersz pigułek konwersacji (wariant, głos) wyśrodkowany pod wordmarkiem. | Bez zmian. Wiersz pigułek zawija się (`flex-wrap`, gap 8). |
-| Widoczność | Prawa strefa: `Krok n z m` tylko w onboardingu. Poza onboardingiem prawa strefa jest pusta (brak kropek postępu, brief §6.2). Wariant `advertisement` nie ma wiersza pigułek. | `Krok n z m` przenosi się do `onboarding-stepper` (§3.3). |
+| Widoczność | Prawa strefa pusta we wszystkich ekranach (bez etykiety kroku (brak kropek postępu, brief §6.2). Wariant `advertisement` nie ma wiersza pigułek. | Bez zmian. |
 | Scroll | `sticky` top. | `sticky` top. |
 | Minima | — | `Wstecz` ma zawsze ikonę i tekst. Cel dotykowy 44 px. |
 
@@ -143,7 +143,7 @@ Na 360 px: kolumna 328 px → tura 315 px → karta pomocnicza 291 px. Przy tej 
 | Minima | Opis: `min-height` = 3 linie (4.5em), bez `line-clamp`. Wiersz siatki wyrównuje wysokość kart (`align-items: stretch`), CTA przyklejone do dołu (`margin-top: auto`). | CTA 48 px. Opis zawija się bez limitu linii, bez rezerwy (każda karta to osobny wiersz). |
 
 ### 5.10 `onboarding-stepper`
-Wide: 6 segmentów (znacznik 18 px + etykieta 11.5/700) w wierszu z zawijaniem, gap 14. **Mobile i compact:** 6 znaczników 18 px połączonych linią 2 px, pod nimi jedna linia podpisu `Krok n z 6 · <etykieta bieżąca>`. Odpowiedź E4 dotyczyła compact. Rozszerzam to na całe mobile, bo pełna lista etykiet (ok. 540 px) nie mieści się także w 393–440 px. **Do akceptacji.**
+Wide: 6 segmentów (znacznik 18 px + etykieta 11.5/700) w wierszu z zawijaniem, gap 14. **Mobile i compact:** 6 znaczników 18 px połączonych linią 2 px, pod nimi jedna linia podpisu z etykietą bieżącego etapu (bez `Krok n z 6`). Odpowiedź E4 dotyczyła compact. Rozszerzam to na całe mobile, bo pełna lista etykiet (ok. 540 px) nie mieści się także w 393–440 px. **Do akceptacji.**
 
 ### 5.11 `system-check-panel`, `audio-level-meter`
 Panel: jedna kolumna wyśrodkowana, tekst wyśrodkowany, maks. szerokość treści 54ch (wide) / 100% (mobile). Nagłówek 21 → 20 px (compact). Start/stop testu: `mic-control[labeled]` (§5.14). Miernik: 20 słupków stale; szerokość słupka 5 px (wide, mobile) / 4 px (compact); gap 4. Ten sam komponent obsługuje wariant `error` (B6).
@@ -219,7 +219,7 @@ Kadr każdego zrzutu = prostokąt `element.product-work-surface` o rozmiarze `wi
 - `mac-wide`: każdy stan.
 - `iphone-16`, `pixel-8`, `galaxy-s20`, `iphone-16-pro-max`: stan bazowy każdej rodziny oraz każdy stan z różnicą układu z §5 (np. `chat-profile-popover` → popover pod pigułką, `chat-transcribed` → pole nad wierszem akcji, `training-active` → karta zadania i `Zakończ trening` widoczne).
 
-## 9. Punkty przyjętej rewizji
+## 9. Punkty kandydata (wymagają odbioru)
 
 1. `onboarding-stepper[marks]` na całym mobile (< 900 px) (§5.10).
 2. Akcje rozmowy na mobile widoczne bezpośrednio (`Wyczyść rozmowę`, `Zakończ rozmowę`), profil w osobnym wierszu (§5.2). Bez `Więcej`.

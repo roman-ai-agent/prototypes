@@ -3285,7 +3285,7 @@
             6
           ],
           "resultStatus": null,
-          "voiceStepSelectedId": null,
+          "voiceStepSelectedId": "us-m-evan",
           "listenedVoiceIds": {},
           "voiceSettingsHandoff": false,
           "voiceMissing": {},

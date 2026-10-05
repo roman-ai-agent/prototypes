@@ -1,10 +1,10 @@
-# VirtualTutor V4 — prototyp VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3
+# VirtualTutor V4 — prototyp VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` (ta sama w `prototype-manifest.json → revision_id`, `index.html`, `catalog.html`, `responsive-spec.md` i `changelog.md`).
-- **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1`.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6` (ta sama w `prototype-manifest.json → revision_id`, `index.html`, `catalog.html`, `responsive-spec.md` i `changelog.md`).
+- **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC5`.
 - **Standard:** `process/docs/prototype-package-standard.md` (manifest v3); paczka 10 plików — wyjątek Lidera dla `assets/voice_help/*.png`.
-- **Status:** zaakceptowany przez Użytkownika 05.10.2026.
-- **Zakres:** korekty R11 po audycie Lidera i uwagi Lidera z podglądu. Szczegóły: `changelog.md`.
+- **Status:** kandydat do odbioru, niezaakceptowany.
+- **Zakres:** `wizard-voice-m` z zaznaczonym głosem (bez odtwarzania), aby widoczny był przycisk „Ten głos mi odpowiada”. Szczegóły: `changelog.md`.
 
 ## Uruchomienie
 
@@ -37,16 +37,13 @@ Sposób uruchamiania prototypu jest opisany w narzędziach procesu.
 | `galaxy-s20` | 360×800 |
 | `iphone-16-pro-max` | 440×956 |
 
-## Raport kontroli (proporcjonalna kontrola eksportu, 04.10.2026)
+## Raport kontroli (kontrola eksportu R11-RC6, 06.10.2026)
 
-- **Układ ZIP-a:** katalog główny `prototype/`, 10 plików: 8 plików standardu + `assets/voice_help/open-voice-details-compact.png` (560×100) i `assets/voice_help/download-voice-compact.png` (560×112), bez zmian względem plików źródłowych.
+- **Struktura ZIP-a:** katalog główny `prototype/`, 10 plików (8 plików standardu + 2 obrazy `assets/voice_help/`).
 - **Checksumy:** `checksums.sha256` obejmuje 9 plików; zweryfikowane 9/9 na plikach, z których budowany jest ZIP. Rozpakowania gotowego ZIP-a nie wykonano.
-- **Manifest v3:** JSON parsuje się; dokładnie 5 kluczy; `schema_version: 3`; `revision_id` = `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3`; `id_migrations: []`; 5 targetów (`mac-wide` 1440×900); 74 unikalne stany, każdy `fixture_id` ma dane w `assets/fixtures.json` (74 wpisy).
-- **Zasoby lokalne:** 0 odwołań zewnętrznych w `index.html` i `catalog.html`; oba obrazy `voice_help` odwołują się do plików obecnych w paczce.
-- **Smoke test zmienionego zakresu** (05.10.2026; każdy stan otwarty świeżo pod rzeczywistym adresem `index.html?mode=capture&state=<state_id>&target=<target_id>`, okno 1440×900, pomiar DOM po selektorze gotowości anchoru; 0 błędów konsoli we wszystkich):
-  - `chat-reply-error` (`mac-wide`): gotowość po ~2,3 s; 1 × anchor; karta błędu `chat-reply-error` — tło #ffece2, obramowanie 1 px #f5cebd, promień 14 px; tekst „Nie udało się uzyskać odpowiedzi tutora.”; „Spróbuj ponownie” (`primary-cta[primary]`) i „Popraw wiadomość” (`primary-cta[secondary]`); brak „Ponów”; composer ukryty; karta widoczna w strumieniu, strumień przewinięty na dół. Po „Popraw wiadomość”: karta znika, composer widoczny z zachowaną treścią.
-  - `training-tutor-reply-error` (`mac-wide`): ta sama karta (tło, obramowanie, promień, akcje); composer ukryty; po „Popraw wiadomość” composer z zachowaną treścią.
-  - `chat-reply-plain-translation-error` (`mac-wide`): ta sama karta; tekst „Nie udało się przetłumaczyć odpowiedzi.”, tylko „Spróbuj ponownie”; lewa krawędź i szerokość identyczne z `supplemental-tutor-card[notice]` (202 px / 724 px).
-  - `chat-variant-switched` (`mac-wide`): gotowość po ~2,5 s; 1 × anchor; komunikat „Od teraz: English UK”; pigułka `variant-pill` widoczna z tekstem „English UK”.
-  - Wcześniej w tej rewizji: `wizard-voice-unavailable-with-fallbacks` (`mac-wide`) i `characters-returning` (`galaxy-s20`) — bez zgłoszonych problemów.
-- **Nie wykonano:** capture 74 × 5, zrzuty, porównania pikselowe, porównanie aplikacja ↔ prototyp.
+- **Manifest v3:** JSON parsuje się; dokładnie 5 kluczy; `schema_version: 3`; `revision_id` = `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6`; `id_migrations: []`; 5 targetów; 74 stany, każdy `fixture_id` ma dane w `assets/fixtures.json`.
+- **Lokalne zasoby:** 0 odwołań zewnętrznych w `index.html` i `catalog.html`.
+- **Smoke test** (świeże otwarcie `index.html?mode=capture&state=<state_id>&target=mac-wide`, okno 1440×900; 0 błędów konsoli):
+  - `wizard-voice-m`: `voice-option-us-m-evan` zaznaczony (`data-ui-state="selected"`) i widoczny w liście; brak odtwarzania („Odtwarzam” nieobecne); `voice-confirm` „Ten głos mi odpowiada” widoczny w obszarze roboczym.
+  - `wizard-voice-f`: bez zaznaczenia i bez `voice-confirm` (bez zmian).
+- **Nie wykonano:** capture 74 × 5, zrzuty, porównania pikselowe.

@@ -1,6 +1,43 @@
-# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3
+# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` · **Status:** zaakceptowany przez Użytkownika 05.10.2026.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC5` · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Źródło zmiany:** decyzja Lidera z podglądu.
+
+## R11-RC6 (względem R11-RC5) — widoczny przycisk „Ten głos mi odpowiada”
+
+1. **`wizard-voice-m`** — fixture: zaznaczony głos `us-m-evan` (Evan, pierwszy wiersz listy, `data-ui-state="selected"`), bez odtwarzania próbki (`sampleVoiceId: null`). Dzięki temu na ekranie widoczny jest przycisk `voice-confirm` „Ten głos mi odpowiada”. Stan nadal przedstawia listę głosów męskich drugiego kroku głosu.
+2. **Bez zmian:** `wizard-voice-f` pozostaje stanem początkowym listy bez zaznaczenia (bez przycisku); `wizard-voice-sample-playing` (odtwarzanie), `wizard-voice-sample-error`, `wizard-voice-unavailable-*`, `wizard-voice-change-only*` bez zmian.
+3. **Numer rewizji** RC6 w `prototype-manifest.json`, komentarzu `REVISION` w `index.html`, `catalog.html`, `responsive-spec.md`, `README.md`, `changelog.md`. Kod i UI `index.html` bez zmian.
+
+**Chronione bez zmian:** 74 `state_id`, 5 targetów, interakcje, publiczne `element_id` (`id_migrations: []`), `voice-download-callout`, `assets/voice_help/*`. Zmieniony jest wyłącznie fixture `fx-wizard-voice-m` w `assets/fixtures.json`.
+
+---
+
+- **Brief:** `VT-DESIGNER-BRIEF-006` — korekta katalogu po odbiorze R11-RC4.
+
+## R11-RC5 (względem R11-RC4) — wyłącznie `catalog.html`
+
+1. **Katalog listy głosów (`voice-selector` / `voice-option`):** usunięty przykład zbiorczej grupy „INNE AKCENTY ANGIELSKIE” z wierszem „Karen · akcent australijski”. Zamiast niego grupy per konkretny akcent, w zapisie ekranów produktu: „Głosy English UK” (Kate), „Głosy English Australia” (Karen, Charlotte), „Głosy English Ireland” (Moira), „Głosy English South Africa” (Tessa). „Głosy English India” nie jest pokazany — przykład katalogu używa głosów kobiecych, a w danych ten akcent występuje tylko dla głosów męskich.
+2. **Nagłówki grup w katalogu** zapisane jak na ekranach produktu, bez drukowanych liter — także istniejący „GŁOSY ENGLISH US” → „Głosy English US”.
+3. **Wiersze głosów w przykładzie** zawierają wyłącznie nazwę głosu i akcję „Odsłuchaj”, bez nazwy akcentu.
+4. **Numer rewizji** zaktualizowany do RC5 w `catalog.html`, `prototype-manifest.json` (`revision_id`), `responsive-spec.md`, `README.md`, `changelog.md` oraz w komentarzu `REVISION` w `index.html` (decyzja Lidera: jedyna zmiana w `index.html`).
+
+**Bez zmian:** kod, UI i zachowania `index.html`; `assets/fixtures.json`; `assets/voice_help/*`; 74 `state_id`, 5 targetów, interakcje; `voice-download-callout`; publiczne `element_id` (`id_migrations: []`). Zmiany R11-RC4 (`open-sound-input-settings`, `profile-menu-cancel`, usunięcie `wizard-step-label`) pozostają.
+
+---
+
+
+## R11-RC4 (względem R11-RC3) — 4 zmiany ze zgodności aplikacja ↔ prototyp
+
+1. **`wizard-mic-error-no-signal`, `wizard-mic-error-too-quiet`** — dodany secondary button „Otwórz ustawienia wejścia dźwięku” (`primary-cta[secondary]`, nowe ID `open-sound-input-settings`) obok „Spróbuj ponownie” (`retry-check`, bez zmian). Akcja otwiera ustawienia wejścia dźwięku (w prototypie: przekazanie do ustawień systemowych, ekran błędu zostaje).
+2. **Listy głosów z fallbackami** (`wizard-voice-*`) — usunięta zbiorcza grupa „Inne akcenty angielskie” (zastępuje zapis z R11-RC3). Głosy zastępcze grupowane nagłówkami per akcent: „Głosy English UK” / „Głosy English US” (drugi wariant), „Głosy English Australia”, „Głosy English Ireland”, „Głosy English South Africa”, „Głosy English India”. Wiersze głosów bez dopisanego akcentu. `voice-download-callout` bez zmian (pierwszy element listy; zwinięty przy dostępnym właściwym głosie, rozwinięty przy jego braku).
+3. **`chat-profile-popover`** — dodany „Anuluj” (ID `profile-menu-cancel`, `primary-cta[secondary]`): zamyka popover bez zmiany profilu.
+4. **Pasek postępu onboardingu** — usunięta etykieta „Krok n z 6”: z prawej strefy `top-header` (`wizard-step-label`, wide) i z podpisu `onboarding-stepper` (mobile/compact; podpis pokazuje tylko etykietę bieżącego etapu). Sam pasek etapów bez zmian. `catalog.html` i `responsive-spec.md` zaktualizowane.
+
+**Chronione bez zmian:** 74 `state_id`, 5 targetów, manifest v3 (`id_migrations: []`), `assets/fixtures.json` (bez zmian względem R11-RC3), publiczne ID poza: dodane `open-sound-input-settings`, `profile-menu-cancel`; usunięte `wizard-step-label`.
+
+---
+
 - **Źródła zmian:** brief korekt R11 po audycie Lidera (pkt 1–13) oraz uwagi i decyzje Lidera z podglądu, które mają pierwszeństwo tam, gdzie się z briefem nie zgadzają. Rewizja R11-RC2 była wersją pośrednią; jej zmiany zawiera ta rewizja.
 - **Paczka:** 10 plików — 8 plików standardu oraz `assets/voice_help/open-voice-details-compact.png` i `assets/voice_help/download-voice-compact.png` (decyzja Lidera). Wszystkie 9 plików poza `checksums.sha256` w checksumach.
 
