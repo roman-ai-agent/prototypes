@@ -1,6 +1,6 @@
 # changelog — VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` · **Status:** zaakceptowany przez Użytkownika 05.10.2026.
 - **Źródła zmian:** brief korekt R11 po audycie Lidera (pkt 1–13) oraz uwagi i decyzje Lidera z podglądu, które mają pierwszeństwo tam, gdzie się z briefem nie zgadzają. Rewizja R11-RC2 była wersją pośrednią; jej zmiany zawiera ta rewizja.
 - **Paczka:** 10 plików — 8 plików standardu oraz `assets/voice_help/open-voice-details-compact.png` i `assets/voice_help/download-voice-compact.png` (decyzja Lidera). Wszystkie 9 plików poza `checksums.sha256` w checksumach.
 

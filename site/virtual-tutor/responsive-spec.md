@@ -1,6 +1,6 @@
 # VirtualTutor V4 — responsive-spec R10
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` (geometria targetów bez zmian; lista głosów 368 px, callout w liście — §5.12) · **Status:** kandydat do odbioru.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` (geometria targetów bez zmian; lista głosów 368 px, callout w liście — §5.12) · **Status:** zaakceptowany przez Użytkownika 05.10.2026.
 - **Target (R10):** `target_id` = `targets[].target_id`. W `mode=capture` klasa układu (§2) wynika z `targets[].width` jawnego targetu, nie z okna przeglądarki; środowisko capture ustawia viewport na `targets[].width × height` targetu.
 - **Zakres R9:** (1) `advertisement-screen` pełnoekranowy (§5.13); (2) komponenty dynamiczne z regułami ruchu i klatką capture (§5.16); (3) własne ikony SVG zamiast znaków Unicode/emoji (§5.17); (4) usunięte wejście ekranu (fade 0,4–0,5 s). Pozostała geometria, kolejność, widoczność i minima bez zmian względem R8-RC2. `capture_surface` bez zmian (§1.1).
 - **Targety:** `targets[]` manifestu zawiera pięć targetów produktu (`target_id`, `width`, `height`).
@@ -219,7 +219,7 @@ Kadr każdego zrzutu = prostokąt `element.product-work-surface` o rozmiarze `wi
 - `mac-wide`: każdy stan.
 - `iphone-16`, `pixel-8`, `galaxy-s20`, `iphone-16-pro-max`: stan bazowy każdej rodziny oraz każdy stan z różnicą układu z §5 (np. `chat-profile-popover` → popover pod pigułką, `chat-transcribed` → pole nad wierszem akcji, `training-active` → karta zadania i `Zakończ trening` widoczne).
 
-## 9. Punkty kandydata (wymagają odbioru)
+## 9. Punkty przyjętej rewizji
 
 1. `onboarding-stepper[marks]` na całym mobile (< 900 px) (§5.10).
 2. Akcje rozmowy na mobile widoczne bezpośrednio (`Wyczyść rozmowę`, `Zakończ rozmowę`), profil w osobnym wierszu (§5.2). Bez `Więcej`.

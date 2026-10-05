@@ -3,7 +3,7 @@
 - **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC3` (ta sama w `prototype-manifest.json → revision_id`, `index.html`, `catalog.html`, `responsive-spec.md` i `changelog.md`).
 - **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1`.
 - **Standard:** `process/docs/prototype-package-standard.md` (manifest v3); paczka 10 plików — wyjątek Lidera dla `assets/voice_help/*.png`.
-- **Status:** kandydat do odbioru, niezaakceptowany.
+- **Status:** zaakceptowany przez Użytkownika 05.10.2026.
 - **Zakres:** korekty R11 po audycie Lidera i uwagi Lidera z podglądu. Szczegóły: `changelog.md`.
 
 ## Uruchomienie
