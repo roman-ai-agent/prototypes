@@ -1,57 +1,74 @@
-# Gold Watcher — prototyp r2.12
+# Gold Watcher — prototyp r3.3
 
-Klikalny kontrakt designu i zachowania, a nie kod aplikacji. Baza: r2.11.
-
-Zmiana: dni publikacji na wykresie g/m² oznacza kółko 11 px, zbudowane jak marker sygnału na wykresie złota (obwódka 2 px i białe halo). Ma turkusową obwódkę i ciemny środek #0f4c45. Legenda „publikacja” ma to samo kółko. Prototyp otwiera się także z pliku i dopasowuje się do okna.
-
-Historia zmian jest w `changelog.md`.
+Klikalny kontrakt designu i zachowania, nie kod aplikacji. Baza: `r3.2`. Poprawa skali osi Y wykresów i tytułu dokumentu (GW-DESIGNER-BRIEF-008-ANSWERS-1); stany, targety, fixture'y i treść bez zmian.
+- **`index.html`:** ekran `gold-overview` w 7 stanach na 5 targetach.
+- **`catalog.html`:** katalog z ponownie otwartym fragmentem `pain-chart` i nowym komponentem `chart-legend`.
 
 ## Uruchomienie
-Prototyp trzeba otworzyć przez lokalny serwer HTTP, bo `index.html` wczytuje `prototype-manifest.json` i `assets/fixtures.json`. Przykład:
 ```
-cd prototype && python3 -m http.server 8000
+cd prototype
+python3 -m http.server 8731 --bind 127.0.0.1
 ```
-Potem otwórz `http://localhost:8000/index.html`. Od r2.11 prototyp otwiera się także po kliknięciu pliku (`file://`). Używa wtedy kopii manifestu i fixture'ów wbudowanej w `index.html` przy eksporcie. Przez HTTP wczytuje pliki z paczki.
+- Ekran: `http://127.0.0.1:8731/index.html?mode=user_preview&state=gold-overview.ready&target=mac-wide`. Pasek narzędzi ma wybór stanu i targetu.
+- Katalog: `http://127.0.0.1:8731/catalog.html`.
 
-## Tryby
-- **capture:** `index.html?mode=capture&state=<state_id>&target=<target_id>`.
-  - Renderuje wyłącznie `element.product-work-surface` w rozmiarze targetu, 1:1, w pozycji 0,0.
-  - Gotowość: `data-prototype-ready="true"` na anchorze.
-  - Błąd: `[data-prototype-error]` z jednym z kodów: `missing-parameter`, `unknown-state`, `unknown-target`, `state-unavailable-for-target`, `unknown-capture-scenario`, `capture-scenario-unavailable`, `fixtures-unavailable`, `render-invalid`.
-- **capture_scenario (opcjonalny):** wybiera stan prezentacji interakcji po nazwie. Bez tego parametru capture renderuje zwykły widok.
-  - `index.html?mode=capture&state=gold-overview.ready&target=mac-wide&capture_scenario=price-chart-hover-normal`: 2026-01-10, zwykły dzień bez sygnału.
-  - `index.html?mode=capture&state=gold-overview.ready&target=mac-wide&capture_scenario=price-chart-hover-signal`: 2025-11-08, dzień sygnału. Marker sygnału wygląda zwykle. Tooltip ceny pokazuje `2025-11-08 UTC`, cenę i `Spadek 8,05% (próg: 5,0%)`.
-  - W obu scenariuszach oba wykresy wskazują ten sam dzień. Każdy ma pionową linię, mały punkt hovera w kolorze serii i tooltip. Ten sam wygląd ma zwykły hover w `user_preview`.
-  - Po renderze anchor ma `data-prototype-ready="true"` i `data-capture-scenario-id` równe wartości parametru.
-  - Scenariusze są zdefiniowane w `assets/fixtures.json` → `capture_scenarios`. Nie są stanami (`states[]`).
-- **user_preview:** `index.html?mode=user_preview&state=<state_id>&target=<target_id>`.
-  - Bez parametrów otwiera `gold-overview.ready` na `mac-wide`.
-  - Dolny panel narzędzi: link do katalogu, EKRAN / STAN (lista, ‹ ›, ← / →) i wybór targetu.
-  - Preferencje zapisuje w `localStorage` pod kluczem `gold-watcher.r1.prefs`, wyłącznie w tym trybie.
+Manifest i fixture są też wbudowane w oba pliki HTML jako kopia plików z paczki.
 
-## Stany i targety
-Źródłem listy jest `prototype-manifest.json` (`schema_version: 3`).
-- **Targety:** `mac-wide` 1440×900, `iphone-16` 393×852, `pixel-8` 412×915, `galaxy-s20` 360×800, `iphone-16-pro-max` 440×956.
-- **Stany:** 16, w tym 6 stanów `*-housing-details-expanded` dozwolonych wyłącznie na 4 telefonach.
+## Render
+- `index.html?mode=capture&state=<state_id>&target=<target_id>`.
+- Stany:
+  - `gold-overview.ready` — dziś, poza rynkiem, sekcje zwinięte, próg 20%;
+  - `gold-overview.ready-in-market` — 2024-09-30, w złocie;
+  - `gold-overview.details-expanded` — wszystkie sekcje i liczby rozwinięte, kalkulator 2000 / 10 lat z wykresem;
+  - `gold-overview.loading` — szkielet, „Odśwież” zajęty;
+  - `gold-overview.refreshing` — dane widoczne, „Odśwież” zajęty;
+  - `gold-overview.stale` — baner z czasem synchronizacji nad treścią;
+  - `gold-overview.unavailable` — karta „Brak danych” i „Spróbuj ponownie”.
+- Scenariusz `capture_scenario=price-chart-hover-normal` działa tylko z `gold-overview.ready` na `mac-wide`: dzień notowań 2026-01-09, zakres 1 rok. Tooltip pokazuje datę, cenę, średnią 50 i średnią 200.
+- Kody błędów:
+  - `missing-parameter`;
+  - `unknown-state`;
+  - `unknown-target`;
+  - `state-unavailable-for-target`;
+  - `unknown-capture-scenario`;
+  - `capture-scenario-unavailable`;
+  - `fixtures-unavailable`.
+- Anchor `element.product-work-surface` występuje dokładnie raz, ma rozmiar targetu i `data-prototype-ready="true"`. Strona przewija się wewnątrz anchoru, w jednym kontenerze.
 
-## Pliki
-- `index.html`: prototyp.
-- `catalog.html`: katalog komponentów.
-- `assets/fixtures.json`: jedyne źródło danych. `shared_series` zawiera wspólne serie, a `fixtures` jest rejestrem fixture'ów wskazywanych przez `states[].fixture_id`.
-- `prototype-manifest.json`: indeks stanów i targetów.
-- `responsive-spec.md`: reguły responsywności dla człowieka.
-- `changelog.md`: historia zmian.
-- `checksums.sha256`: SHA-256 pozostałych 7 plików.
+## Dane
+`assets/fixtures.json` zawiera jeden rejestr `fixtures`:
+- `default` — dane z 2026-10-15;
+- `in-market` — dane z 2024-09-30; seria to pierwsze `dni_serii` dni serii `default` (sprawdzone: wartości są identyczne);
+- `no-data`.
 
-## Publiczne atrybuty DOM
-`data-screen-id`, `data-state-id`, `data-element-id`, `data-component-id`, `data-interaction-id`, `data-variant`. Narzędzia `user_preview` mają `data-prototype-tool` i nie istnieją w `mode=capture`.
+Wartości pochodzą 1:1 z odświeżonych plików Lidera (`GW-DESIGNER-DATA-STRAZNIK-001*.json`, 2026-10-22), bez ręcznych poprawek tekstu. Pola bólu są dodatnie (spadek od szczytu w %).
+- daty jako przyrosty dni;
+- pasma tylko w oknach wykresu stanu;
+- przebiegi wartości 0/1;
+- słownik tekstów kalkulatora.
+
+Sprawdziłem, że po rozkodowaniu wartości są identyczne z plikami źródłowymi. Formatowanie liczb jest zgodne z `fmt`, `pc`, `dz` i `p0` prototypu (odpowiedź Lidera 4). Czas synchronizacji w wariancie stale to wartość przykładowa (`sync.example: true`).
 
 ## Raport kontroli
-Kontrola eksportu z 2026-10-01. Wynik: **pozytywny**.
-- **Archiwum i checksumy — OK.** ZIP zawiera wyłącznie katalog `prototype/` z 8 plikami. `checksums.sha256` pokrywa 7 pozostałych plików i wszystkie sumy się zgadzają.
-- **Manifest — OK.** `schema_version: 3`, `revision_id: "r2.12"`, 16 stanów i `id_migrations: []`. Fixture'y są bez zmian.
-- **Capture — OK.**
-  - Wszystkie 74 dozwolone pary stan–target i oba scenariusze hovera mają `data-prototype-ready="true"`.
-  - Błędy zwracają `unknown-capture-scenario` i `capture-scenario-unavailable`.
-- **Znacznik publikacji — OK.** Na wykresie i w legendzie, we wszystkich stanach i na wszystkich targetach oraz w katalogu, kółko ma 11×11 px, border-radius 50% i środek #0f4c45. Na wykresie g/m² nie ma elementów sygnału.
-- **Konsola i układ — OK.** Brak błędów konsoli, a automatyczny przegląd strony zakończył się bez zgłoszeń.
+Kontrola eksportu z 2026-10-22. Wynik: **pozytywny**.
+- **Archiwum i checksumy — OK.** ZIP zawiera wyłącznie katalog `prototype/` z 8 plikami ze standardu. `checksums.sha256` pokrywa 7 pozostałych plików i wszystkie sumy się zgadzają.
+- **Manifest — OK.** Dokładnie pola v3: `schema_version: 3`, `revision_id: "r3.3"`, `id_migrations: []`, 5 targetów i 7 stanów. Tytuł dokumentu: „Gold Watcher r3.3”.
+- **Capture — OK.** Wszystkie 35 par stan × target otwierają się deterministycznie:
+  - jeden anchor o rozmiarze targetu i `data-prototype-ready="true"`;
+  - brak `data-prototype-tool` i powielonych ID;
+  - brak poziomego przewijania strony na 360 px.
+- **Skala osi Y — OK.**
+  - **Spójność etykiet ze skalą:** we wszystkich 35 parach i w katalogu wszystkie etykiety każdego wykresu liniowego leżą na jednej prostej y = a − b·ln(v) (odchylenie maks. 0,00 px).
+  - **Wykres bólu:** „0%” leży na dolnej krawędzi pola, a etykieta progu paniki na czerwonej linii (maks. 1,0 px).
+- **Pomiar znanych wartości z danych.** Położenie z linii wobec położenia wynikającego z etykiet, w px od góry pola:
+
+  | stan @ target | status: kurs 4156 | status: średnia 200 | historia: kurs 4156 | wartość: Wytrwały pierwszy / ostatni | kalkulator: Wytrwały pierwszy / ostatni |
+  | --- | --- | --- | --- | --- | --- |
+  | ready @ mac-wide | 123 / 123 (0,4) | 90 / 90 (0,3) | 102 / 102 (0,3) | 182 / 181 (0,9) · 27 / 27 (0,1) | — |
+  | details-expanded @ mac-wide | 123 / 123 (0,4) | 90 / 90 (0,3) | 102 / 102 (0,3) | 182 / 181 (0,9) · 27 / 27 (0,1) | 173 / 172 (0,9) · 20 / 20 (0,1) |
+  | ready @ galaxy-s20 | 98 / 97 (0,4) | 72 / 71 (0,3) | 71 / 71 (0,3) | 155 / 154 (0,9) · 23 / 23 (0,1) | — |
+  | details-expanded @ galaxy-s20 | 98 / 97 (0,4) | 72 / 71 (0,3) | 71 / 71 (0,3) | 155 / 154 (0,9) · 23 / 23 (0,1) | 147 / 146 (0,9) · 17 / 17 (0,1) |
+
+  Maksymalna różnica wynosi 0,9 px (dopuszczalne 2 px). Na wykresie wartości widoczne są też etykiety poniżej 100.
+- **Interakcje, nazwy postaci i usunięte teksty — OK.** Bez zmian względem r3.2.
+- **Konsola — OK.** Brak błędów, a automatyczny przegląd strony zakończył się bez zgłoszeń.
