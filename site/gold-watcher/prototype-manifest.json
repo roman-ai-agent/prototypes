@@ -1,7 +1,16 @@
 {
   "schema_version": 3,
-  "revision_id": "r3.3",
-  "id_migrations": [],
+  "revision_id": "r3.4",
+  "id_migrations": [
+    {
+      "from": "element.market-assessment",
+      "to": "element.signal-status"
+    },
+    {
+      "from": "element.recent-period",
+      "to": "element.signal-status"
+    }
+  ],
   "targets": [
     {
       "target_id": "mac-wide",

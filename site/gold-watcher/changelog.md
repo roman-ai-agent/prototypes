@@ -1,5 +1,53 @@
 # Changelog — Gold Watcher
 
+## r3.4 — 2026-10-25
+
+- **revision_id:** r3.4
+- **Baza:** r3.3.
+- **Źródło:** GW-DESIGNER-BRIEF-010, odpowiedzi Lidera (1) i (2), eksport GW-DESIGNER-DATA-STRAZNIK-002*.json, zrzut GW-DESIGNER-DATA-TEKSTY-2026-10-24.txt. Referencja układu i zachowania: aplikacja z 24.10.2026 (`apps/web/src`).
+- **Klasyfikacja:** zmiana układu, treści i zachowania ekranu `gold-overview`; stany i targety bez zmian.
+- **Zasada (decyzja Użytkownika z 2026-10-25):** prototyp pokazuje ustawienia domyślne na minimalnym zestawie danych. Próg paniki 15% i 30%, inne lata i czasy kalkulatora oraz inne wiersze tabeli sytuacji są widoczne w swoich wariantach wyglądu, ale nie przełączają danych.
+
+### Układ
+- Jedna kolumna na wszystkich targetach: wstęp (tytuł i jedno zdanie na całą szerokość) → „Sygnał na dziś” → jeden wykres ceny → siedem sekcji rozwijanych, domyślnie zwiniętych: Po co mi Strażnik Trendu, Jak działa algorytm, Jak algorytm radzi sobie w różnych sytuacjach, Sprawdź dowolny rok kupna złota, Statystyka, Historia sygnałów, Złoto fizyczne.
+- Kurs w czarnym pasku nagłówka obok logo: „kurs N $ za uncję” na `mac-wide`, „N $/oz” na telefonach. Biała pigułka kursu usunięta.
+- Teksty sekcji Jak działa algorytm, Jak algorytm radzi sobie…, Złoto fizyczne na całą szerokość karty.
+- Nagłówek: tekst świeżości danych na telefonach zawija się przed datą; nie jest obcinany i nie nachodzi na „Odśwież” (dawny brief 009).
+
+### Komponenty
+- **`signal-status`** (`element.signal-status`): jedna karta na całą szerokość — etykieta, znak, jedno zdanie znaczenia, trzy statusy z objaśnieniem ✓ / ✕ / ○, zdania o ostatnim sygnale i 18 miesiącach, rozwijane „Liczby, na których opiera się sygnał” (5 akapitów). Treść stanu „w złocie” według GW-GUARDIAN-SIGNAL-001.
+- **`status-chart`** (`element.status-chart`) — **zmiana znaczenia:** zamiast wykresu stanu to jedyny wykres ceny z okresami 18 mies., 1, 3, 5, 10, 20, 30 lat i Całość, pięcioma warstwami (Średnie, Kupno i sprzedaż, Pas niepewności, Dołki, Okresy trzymania złota), nawigacją dat i legendą. Pas niepewności zastępuje szary pas.
+- **`price-chart`** (`element.price-chart`) — **zmiana znaczenia:** zamiast dolnego wykresu historii to część `status-chart` z przełącznikami, nawigacją i polem wykresu. Podpowiedź dnia: tylko data i cena z jednostką.
+- **Sygnały ▲/▼ na wykresach wartości i bólu** w sytuacjach i kalkulatorze; znacznik pierwszego kupna zawsze widoczny.
+- **`why-guardian`** (`element.guardian-purpose`, nowy): dawny dalszy wstęp i nota o cenach po inflacji, dwa akapity w jednym stylu.
+- **Nawigacja okresu** (nowe): `element.range-from`, `element.range-to`, `element.range-prev`, `element.range-next`, `element.range-error`.
+- **`data-state` loading:** „Pobieranie historii cen 34 z 94”; warianty tekstu tego samego układu: „Pobieranie danych…”, „Liczenie trendu długoterminowego…” (bez osobnego stanu — układ ten sam).
+- **Legendy** wykresu ceny i statystyki: próbki w rzędzie z zawijaniem.
+- **Brzmienie** całego ekranu według GW-GUARDIAN-WORDING-001 i GW-COPY-2026-10-24 (R1–R3): „da sygnał kupna”, „kto by go posłuchał, miałby…”, „kupno / sprzedaż złota”, „Moment kupna złota”, „dzień decyzji”, „Sprawdź dowolny rok kupna złota”, instrukcja dotykowa na telefonie.
+
+### Interakcje
+- Nowe: `interaction.chart-zoom-click` (kliknięcie albo dotknięcie skraca okres o połowę z dniem na środku), `interaction.range-dates`, `interaction.range-shift`, `interaction.chart-drag`. Każda interakcja pola wykresu ma w DOM własny `data-interaction-id`, `data-action` i `data-expected-effect`: `interaction.price-chart-hover` (pole wykresu: podpowiedź), `interaction.chart-zoom-click` i `interaction.chart-drag` (nieinteraktywne nośniki wewnątrz pola). Na ekranie dotykowym dotknięcie ▲/▼ pokazuje podpowiedź sygnału i nie skraca okresu (`expected_effect` w `interaction.chart-zoom-click`).
+- Kliknięcie wiersza sytuacji przewija stronę do tytułu wykresu wartości i zaznacza okres na wykresie ceny. Kliknięcie wiersza historii pokazuje transakcję na wykresie ceny.
+
+### Usunięte
+- `element.market-assessment` i `element.recent-period` — treść przeszła do `element.signal-status` (`id_migrations`).
+- Dolny wykres historii i osobny wykres stanu (zastąpione jednym wykresem ceny).
+
+### Dane
+- `assets/fixtures.json`: `default` = GW-DESIGNER-DATA-STRAZNIK-002.json (15.10.2026), `in-market` = GW-DESIGNER-DATA-STRAZNIK-002-2024-09-30.json (30.09.2024, własna seria w dolarach z 30.09.2024), `no-data`. Teksty i liczby 1:1 z eksportu; seria „18 mies.” pominięta, bo jest identyczna z ostatnimi 379 dniami serii „Całość”.
+- Usunięte stare teksty r3.3 dla progów 15% i 30% oraz wszystkich kombinacji kalkulatora.
+- Pola spoza eksportu w `prototyp`: szczyt z 1980 r. i lata kalkulatora ze zrzutu tekstów, czas synchronizacji banera `stale` z r3.3, scenariusz capture.
+
+### Capture
+- Scenariusz `price-chart-hover-normal` bez zmian (ready, mac-wide, 1 rok, 09.01.2026); podpowiedź pokazuje teraz datę i cenę.
+- Kody błędów bez zmian.
+
+### ID
+`id_migrations`: `element.market-assessment` → `element.signal-status`, `element.recent-period` → `element.signal-status`.
+
+---
+
+
 ## r3.3 — 2026-10-22
 
 - **revision_id:** r3.3
