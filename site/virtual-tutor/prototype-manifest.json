@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "revision_id": "VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6",
+  "revision_id": "VT-VIRTUALTUTOR-PROTOTYPE-R11-RC10",
   "id_migrations": [],
   "targets": [
     {
@@ -30,6 +30,12 @@
     }
   ],
   "states": [
+    {
+      "state_id": "catalog",
+      "fixture_id": "fx-welcome",
+      "capture_document": "catalog.html",
+      "capture_mode": "catalog-document"
+    },
     {
       "state_id": "welcome",
       "fixture_id": "fx-welcome"
@@ -227,6 +233,38 @@
       "fixture_id": "fx-chat-idle"
     },
     {
+      "state_id": "chat-time-unknown",
+      "fixture_id": "fx-chat-time-unknown"
+    },
+    {
+      "state_id": "chat-time-low",
+      "fixture_id": "fx-chat-time-low"
+    },
+    {
+      "state_id": "chat-time-exhausted",
+      "fixture_id": "fx-chat-time-exhausted"
+    },
+    {
+      "state_id": "chat-service-unavailable",
+      "fixture_id": "fx-chat-service-unavailable"
+    },
+    {
+      "state_id": "chat-mode-topic-known",
+      "fixture_id": "fx-chat-mode-topic-known"
+    },
+    {
+      "state_id": "chat-mode-menu-open",
+      "fixture_id": "fx-chat-mode-menu-open"
+    },
+    {
+      "state_id": "chat-mode-switch-sent",
+      "fixture_id": "fx-chat-mode-switch-sent"
+    },
+    {
+      "state_id": "chat-topic-change-sent",
+      "fixture_id": "fx-chat-topic-change-sent"
+    },
+    {
       "state_id": "chat-recording",
       "fixture_id": "fx-chat-recording"
     },
@@ -237,6 +275,10 @@
     {
       "state_id": "chat-transcribed",
       "fixture_id": "fx-chat-transcribed"
+    },
+    {
+      "state_id": "chat-message-too-long",
+      "fixture_id": "fx-chat-message-too-long"
     },
     {
       "state_id": "chat-ad-active",
@@ -265,6 +307,10 @@
     {
       "state_id": "chat-reply-correction",
       "fixture_id": "fx-chat-reply-correction"
+    },
+    {
+      "state_id": "chat-reply-correction-natural",
+      "fixture_id": "fx-chat-reply-correction-natural"
     },
     {
       "state_id": "chat-reply-dialect",
@@ -325,6 +371,14 @@
     {
       "state_id": "training-tutor-reply-error",
       "fixture_id": "fx-training-tutor-reply-error"
+    },
+    {
+      "state_id": "training-time-exhausted",
+      "fixture_id": "fx-training-time-exhausted"
+    },
+    {
+      "state_id": "landing-default",
+      "fixture_id": "fx-landing-default"
     }
   ]
 }

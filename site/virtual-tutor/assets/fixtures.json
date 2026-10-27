@@ -5017,7 +5017,635 @@
         "profileStep": null,
         "chatStep": 0,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "timeLeft": {
+          "status": "known",
+          "min": 112
+        }
+      }
+    },
+    "fx-chat-time-unknown": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "correction",
+        "sentText": null,
+        "turnsDone": 0,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 0,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "timeLeft": {
+          "status": "unknown",
+          "min": null
+        }
+      }
+    },
+    "fx-chat-time-low": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": null,
+        "turnsDone": 1,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 0,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "learn",
+        "convTopic": "Designing a feedback-loop based software development process with Claude Code, with quality gates for architecture, best practices and requirements",
+        "history": [
+          {
+            "role": "learner",
+            "text": "I want to design a software development process with Claude Code that uses feedback loops and quality gates."
+          },
+          {
+            "role": "tutor",
+            "text": "Great idea! Let’s start with the loop itself: what should Claude Code check before a change is accepted — the architecture, best practices or the requirements?",
+            "pl": "Świetny pomysł! Zacznijmy od samej pętli: co Claude Code powinien sprawdzić, zanim zmiana zostanie przyjęta — architekturę, dobre praktyki czy wymagania?"
+          }
+        ],
+        "timeLeft": {
+          "status": "known",
+          "min": 8
+        }
+      }
+    },
+    "fx-chat-time-exhausted": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": null,
+        "turnsDone": 2,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 2,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "translationPanel": {
+          "state": "ready",
+          "target": "chat-bubble-reply (ostatnia wypowiedź tutora)"
+        },
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister",
+        "timeLeft": {
+          "status": "exhausted",
+          "min": 0
+        },
+        "history": [
+          {
+            "role": "learner",
+            "text": "I had a really nice weekend with my family."
+          },
+          {
+            "role": "tutor",
+            "text": "That’s great to hear! What made it so nice?",
+            "pl": "Świetnie to słyszeć! Co sprawiło, że był taki miły?"
+          }
+        ]
+      }
+    },
+    "fx-chat-service-unavailable": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "We fed the ducks and then we had ice cream by the lake.",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": null,
+        "turnsDone": 2,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 2,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister",
+        "timeLeft": {
+          "status": "service",
+          "min": 64
+        },
+        "history": [
+          {
+            "role": "learner",
+            "text": "I had a really nice weekend with my family."
+          },
+          {
+            "role": "tutor",
+            "text": "That’s great to hear! What made it so nice?",
+            "pl": "Świetnie to słyszeć! Co sprawiło, że był taki miły?"
+          }
+        ]
+      }
+    },
+    "fx-chat-mode-topic-known": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": null,
+        "turnsDone": 1,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 0,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "learn",
+        "convTopic": "Designing a feedback-loop based software development process with Claude Code, with quality gates for architecture, best practices and requirements",
+        "history": [
+          {
+            "role": "learner",
+            "text": "I want to design a software development process with Claude Code that uses feedback loops and quality gates."
+          },
+          {
+            "role": "tutor",
+            "text": "Great idea! Let’s start with the loop itself: what should Claude Code check before a change is accepted — the architecture, best practices or the requirements?",
+            "pl": "Świetny pomysł! Zacznijmy od samej pętli: co Claude Code powinien sprawdzić, zanim zmiana zostanie przyjęta — architekturę, dobre praktyki czy wymagania?"
+          }
+        ]
+      }
+    },
+    "fx-chat-mode-menu-open": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": null,
+        "turnsDone": 1,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 0,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "learn",
+        "convTopic": "Designing a feedback-loop based software development process with Claude Code, with quality gates for architecture, best practices and requirements",
+        "history": [
+          {
+            "role": "learner",
+            "text": "I want to design a software development process with Claude Code that uses feedback loops and quality gates."
+          },
+          {
+            "role": "tutor",
+            "text": "Great idea! Let’s start with the loop itself: what should Claude Code check before a change is accepted — the architecture, best practices or the requirements?",
+            "pl": "Świetny pomysł! Zacznijmy od samej pętli: co Claude Code powinien sprawdzić, zanim zmiana zostanie przyjęta — architekturę, dobre praktyki czy wymagania?"
+          }
+        ],
+        "modeMenuOpen": true
+      }
+    },
+    "fx-chat-mode-switch-sent": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": "I need to make a decision. Help me weigh my options.",
+        "turnsDone": 1,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 1,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "learn",
+        "convTopic": "Designing a feedback-loop based software development process with Claude Code, with quality gates for architecture, best practices and requirements",
+        "history": [
+          {
+            "role": "learner",
+            "text": "I want to design a software development process with Claude Code that uses feedback loops and quality gates."
+          },
+          {
+            "role": "tutor",
+            "text": "Great idea! Let’s start with the loop itself: what should Claude Code check before a change is accepted — the architecture, best practices or the requirements?",
+            "pl": "Świetny pomysł! Zacznijmy od samej pętli: co Claude Code powinien sprawdzić, zanim zmiana zostanie przyjęta — architekturę, dobre praktyki czy wymagania?"
+          }
+        ],
+        "pendingSwitch": {
+          "kind": "mode",
+          "mode": "decide"
+        }
+      }
+    },
+    "fx-chat-topic-change-sent": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": "I'd like to change the subject.",
+        "turnsDone": 2,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 2,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "learn",
+        "convTopic": "Designing a feedback-loop based software development process with Claude Code, with quality gates for architecture, best practices and requirements",
+        "history": [
+          {
+            "role": "learner",
+            "text": "I want to design a software development process with Claude Code that uses feedback loops and quality gates."
+          },
+          {
+            "role": "tutor",
+            "text": "Great idea! Let’s start with the loop itself: what should Claude Code check before a change is accepted — the architecture, best practices or the requirements?",
+            "pl": "Świetny pomysł! Zacznijmy od samej pętli: co Claude Code powinien sprawdzić, zanim zmiana zostanie przyjęta — architekturę, dobre praktyki czy wymagania?"
+          }
+        ],
+        "replyOverride": {
+          "text": "Of course! What would you like to talk about now?",
+          "pl": "Oczywiście! O czym chcesz teraz porozmawiać?"
+        }
       }
     },
     "fx-chat-recording": {
@@ -5209,6 +5837,82 @@
         "chatFreshStart": false
       }
     },
+    "fx-chat-message-too-long": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go. I keep thinking about the job offer and my own projects, and I am still not sure which way to go.",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "plain",
+        "sentText": null,
+        "turnsDone": 1,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 0,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "decide",
+        "convTopic": "Whether to accept a job offer or keep building own projects",
+        "history": [
+          {
+            "role": "learner",
+            "text": "I got a job offer from a big company, but I also have my own projects. I don’t know what to do."
+          },
+          {
+            "role": "tutor",
+            "text": "That’s a big choice. What would you gain from the job, and what would you lose if you put your projects on hold?",
+            "pl": "To duży wybór. Co zyskasz dzięki tej pracy, a co stracisz, jeśli odłożysz swoje projekty?"
+          }
+        ]
+      }
+    },
     "fx-chat-ad-active": {
       "data": {
         "variantPopoverOpen": false,
@@ -5269,7 +5973,9 @@
         "profileStep": null,
         "chatStep": 0,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-chat-typing": {
@@ -5395,7 +6101,9 @@
         "profileStep": null,
         "chatStep": 2,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-chat-reply-plain-translation-loading": {
@@ -5462,7 +6170,9 @@
         "translationPanel": {
           "state": "loading",
           "target": "chat-bubble-reply (ostatnia wypowiedź tutora)"
-        }
+        },
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-chat-reply-plain-translation-ready": {
@@ -5529,7 +6239,9 @@
         "translationPanel": {
           "state": "ready",
           "target": "chat-bubble-reply (ostatnia wypowiedź tutora)"
-        }
+        },
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-chat-reply-plain-translation-error": {
@@ -5596,7 +6308,9 @@
         "translationPanel": {
           "state": "error",
           "target": "chat-bubble-reply (ostatnia wypowiedź tutora)"
-        }
+        },
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-chat-reply-correction": {
@@ -5659,7 +6373,74 @@
         "profileStep": null,
         "chatStep": 2,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
+      }
+    },
+    "fx-chat-reply-correction-natural": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "natural",
+        "sentText": null,
+        "turnsDone": 0,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": null,
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 2,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "Photos from a walk in the park with my sister"
       }
     },
     "fx-chat-reply-dialect": {
@@ -5722,7 +6503,9 @@
         "profileStep": null,
         "chatStep": 2,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "Choosing a shade of blue"
       }
     },
     "fx-chat-reply-both": {
@@ -5785,7 +6568,9 @@
         "profileStep": null,
         "chatStep": 2,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A shopping trip and a new shade of blue"
       }
     },
     "fx-chat-reply-error": {
@@ -5911,7 +6696,9 @@
         "profileStep": null,
         "chatStep": 2,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-characters-returning": {
@@ -6030,7 +6817,9 @@
         "profileStep": null,
         "chatStep": 2,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-variant-popover-open": {
@@ -6291,7 +7080,9 @@
         "profileStep": null,
         "chatStep": 2,
         "chatOpenedViaContinue": false,
-        "chatFreshStart": false
+        "chatFreshStart": false,
+        "convMode": "chat",
+        "convTopic": "A day in the park with my sister"
       }
     },
     "fx-wizard-voice-change-only-selected": {
@@ -6760,6 +7551,88 @@
         "chatStep": 2,
         "chatOpenedViaContinue": false,
         "chatFreshStart": false
+      }
+    },
+    "fx-training-time-exhausted": {
+      "data": {
+        "variantPopoverOpen": false,
+        "newConvoConfirmOpen": false,
+        "adStage": null,
+        "profileError": null,
+        "composerMode": "idle",
+        "composerText": "",
+        "sampleVoiceId": null,
+        "sampleFailedId": null,
+        "ttsPlaying": null,
+        "variantGate": null,
+        "chatVariantNote": null,
+        "correctionOpen": true,
+        "chatFlow": "happy",
+        "pendingCharIdx": null,
+        "learnerPopoverOpen": false,
+        "profileEdit": false,
+        "learnerBeforeEdit": null,
+        "feedbackKind": "correction",
+        "sentText": null,
+        "turnsDone": 0,
+        "profileEditField": null,
+        "levelDraft": null,
+        "tr": {},
+        "finishConfirmOpen": false,
+        "moreOpen": false,
+        "training": {
+          "source": "correction",
+          "english": "Yesterday I went to the park with my sister.",
+          "attempts": [],
+          "error": false
+        },
+        "trainingReturn": null,
+        "addVoicesOpen": null,
+        "screen": "chat",
+        "appConfig": {
+          "variant": "US",
+          "micDone": true,
+          "sttDone": {
+            "US": true,
+            "UK": false
+          },
+          "voices": {
+            "US_F": {
+              "id": "us-f-ava",
+              "name": "Ava"
+            },
+            "US_M": {
+              "id": "us-m-evan",
+              "name": "Evan"
+            },
+            "UK_F": null,
+            "UK_M": null
+          }
+        },
+        "selectedIdx": 1,
+        "learner": {
+          "name": "Anna",
+          "age": 34,
+          "level": "intermediate"
+        },
+        "profileStep": null,
+        "chatStep": 2,
+        "chatOpenedViaContinue": false,
+        "chatFreshStart": false,
+        "timeLeft": {
+          "status": "exhausted",
+          "min": 0
+        }
+      }
+    },
+    "fx-landing-default": {
+      "data": {
+        "screen": "landing",
+        "landingExamples": {
+          "VT_APP_VERSION": "1.0.0",
+          "VT_DMG_SIZE": "28 MB",
+          "VT_MIN_MACOS": "macOS 10.15"
+        }
       }
     }
   }

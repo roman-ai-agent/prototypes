@@ -1,6 +1,6 @@
-# VirtualTutor V4 — responsive-spec R10
+# VirtualTutor V4 — responsive-spec R10 (R11-RC10)
 
-- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC1` (geometria targetów bez zmian) · **Status:** kandydat do odbioru.
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC10` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC9` (geometria targetów bez zmian; RC7: §5.2 meta, §5.7 licznik, §5.8 szerokości; RC8: §5.18 tryb i temat w kompozytorze; RC9: §5.19 dzienny czas rozmowy; RC10: §5.20 strona WWW `landing`) · **Status:** kandydat do odbioru.
 - **Target (R10):** `target_id` = `targets[].target_id`. W `mode=capture` klasa układu (§2) wynika z `targets[].width` jawnego targetu, nie z okna przeglądarki; środowisko capture ustawia viewport na `targets[].width × height` targetu.
 - **Zakres R9:** (1) `advertisement-screen` pełnoekranowy (§5.13); (2) komponenty dynamiczne z regułami ruchu i klatką capture (§5.16); (3) własne ikony SVG zamiast znaków Unicode/emoji (§5.17); (4) usunięte wejście ekranu (fade 0,4–0,5 s). Pozostała geometria, kolejność, widoczność i minima bez zmian względem R8-RC2. `capture_surface` bez zmian (§1.1).
 - **Targety:** `targets[]` manifestu zawiera pięć targetów produktu (`target_id`, `width`, `height`).
@@ -34,7 +34,7 @@ Przedmiotem porównania aplikacji z prototypem jest powierzchnia robocza produkt
 | `galaxy-s20` | `compact` | **360 × 800** | Cały ekran aplikacji; `product-surface` = 360 × 800. |
 | `iphone-16-pro-max` | `mobile` | **440 × 956** | Cały ekran aplikacji; `product-surface` = 440 × 956 (kolumna treści 440 px, poniżej progu 560 px). |
 
-- **Anchor:** `element.product-work-surface`, selektor `[data-element-id="element.product-work-surface"]`. W każdym z 74 stanów (`index.html?mode=capture&state={state_id}&target={target_id}`) jest dokładnie jeden. Ma `position: fixed; top: 0; left: 0` i szerokość oraz wysokość ustawione z `targets[].width × height` targetu. Jest przezroczysty, bez ramki, z `pointer-events: none` i `aria-hidden="true"`. Po zakończeniu renderu ma `data-prototype-ready="true"`. Nie przyjmuje fokusu i nie ma treści ani akcji. Nie jest komponentem ani elementem UI produktu, więc nie ma go w katalogu komponentów. Jego rozmiar wynika z `targets[]` manifestu v3.
+- **Anchor:** `element.product-work-surface`, selektor `[data-element-id="element.product-work-surface"]`. W każdym z 85 stanów (`index.html?mode=capture&state={state_id}&target={target_id}`) jest dokładnie jeden. Ma `position: fixed; top: 0; left: 0` i szerokość oraz wysokość ustawione z `targets[].width × height` targetu. Jest przezroczysty, bez ramki, z `pointer-events: none` i `aria-hidden="true"`. Po zakończeniu renderu ma `data-prototype-ready="true"`. Nie przyjmuje fokusu i nie ma treści ani akcji. Nie jest komponentem ani elementem UI produktu, więc nie ma go w katalogu komponentów. Jego rozmiar wynika z `targets[]` manifestu v3.
 - Anchor nie zmienia układu ani wyglądu (jest poza przepływem, bez tła). `product-surface` pozostaje selektorem stanu (`data-screen-id`, `data-state-id`, `data-fixture-id`).
 - W `mode=user_preview` anchor jest wewnątrz ramki produktu (`mode=capture`) o rozmiarze targetu. `preview-profile` i pasek wyboru stanu leżą poza nim.
 
@@ -90,7 +90,7 @@ Kolumny: **kolumny/szerokości · kolejność/pozycja · widoczność/wariant ·
 | Kolejność | Profil → `Wyczyść rozmowę` → `Zakończ rozmowę`. | Wiersz 2: profil (`state`). Wiersz 3: `Wyczyść rozmowę` i `Zakończ rozmowę` bezpośrednio (zamiast `Więcej`; wymaganie przekazane 26.09). | jw., pigułki zawijają się. |
 | Widoczność | `training`: tło nagłówka jak rozmowa (`#fffcf9`), plakietka `TRENING` przy nazwie tutora, zdanie w przypiętej karcie zadania pod nagłówkiem (`training-task-sentence`), tylko profil i `Zakończ trening` (`training-finish`), bez `Wyczyść rozmowę`. `profile-edit`: bez pigułek. | `training`: `Zakończ trening` zostaje widoczną pigułką (E1). | jw. |
 | Scroll | `sticky` pod `top-header`. | jw. | jw. |
-| Minima | Meta 1 linia z ellipsis tylko na wide (zachowanie aplikacji). | Meta zawija się do 2 linii, bez ellipsis. Zdanie treningu w karcie zadania zawsze w całości. | jw. |
+| Minima | Meta = opis perspektywy z kafelka (RC7, VT-CHAT-HEADER-PERSPECTIVE-001): do 2 linii z wielokropkiem, 12,5 px `#50565e`; wysokość 75 px. | jw. Zdanie treningu w karcie zadania zawsze w całości. | jw. |
 
 ### 5.3 `pill-button`
 Geometria we wszystkich klasach: wysokość 32 px, padding 6/14, promień 24, 12.5/600, szerokość wynika z treści. Na mobile i compact obszar trafienia ma 44 px wysokości. Nie ma wariantu mobilnego: zmienia się wyłącznie kontener (§5.2).
@@ -120,19 +120,21 @@ Wide: szerokość z treści, padding 16/32. Warianty `primary`, `secondary` (sto
 | Sticky | Dół `product-surface`. | `sticky` bottom z safe area. |
 | Minima | Wysokość stała we wszystkich trybach (91 px). | Wysokość stała we wszystkich trybach: czat i trening 210 px, profil 162 px (idle, recording, processing, transcribed, error). |
 
+**`char-counter` (RC7, VT-MESSAGE-LENGTH-LIMIT-001):** we wszystkich klasach po prawej w wierszu podpowiedzi (`margin-left: auto`, 12,5 px, cyfry tabelaryczne), tylko w rozmowie głównej i tylko gdy w polu jest tekst. Przekroczenie 9 000 znaków: licznik 700 `#bd413f`, obramowanie pola `#bd413f`, `composer-length-error` w osobnym wierszu pod polem (wysokość kompozytora rośnie o ten wiersz), `Wyślij` wyłączony.
+
 Wariant `profile`: **jeden wiersz** w stanach idle / recording / processing (mikrofon → pole/status → wyślij); w transcribed / error na mobile pole w pełnym wierszu, pod nim `Nagraj ponownie` + `Wyślij`, pole 52 px na mobile, pod spodem podpowiedź i `Anuluj` (tylko edycja).
 
 ### 5.8 Strumień rozmowy: `tutor-bubble`, `learner-bubble`, karty pomocnicze
 | Oś | `wide` | `mobile` | `compact` |
 | --- | --- | --- | --- |
-| Szerokość tury tutora | 70% szerokości historii, dymek maks. 748 px | 96% | 96% |
-| `learner-bubble` | Maks. 748 px, do prawej | Maks. 85% | Maks. 88% |
+| Szerokość tury tutora | RC7 (VT-CHAT-BUBBLE-WIDTH-001): 80% szerokości historii, dymek wypełnia blok. Pytania profilu: 70%, maks. 748 px | 80%. Pytania profilu: 96% | jw. |
+| `learner-bubble` | Maks. 80% historii, do prawej (odpowiedzi profilu: 748 px) | Maks. 80% (profil: 85%) | Maks. 80% (profil: 88%) |
 | Karty pomocnicze | Start 24 px od lewej krawędzi dymka źródłowego, koniec na jego prawej krawędzi, odstęp 10 px (wide) / 8 px (mobile). | jw. | jw. — 24 px bez zmian (F4) |
-| Kolejność pod jedną odpowiedzią | `translation-card` → `A small correction` → `Dialect difference` (F1) | jw. | jw. |
+| Kolejność pod jedną odpowiedzią | `translation-card` → `A small grammar correction` / `A more natural way to say it` → `Dialect difference` (F1) | jw. | jw. |
 | `Please note` | Karta pod swoim dymkiem powitania. Może mieć własną `translation-card` (F1). | jw. | jw. |
 | `tutor-utterance-actions` | Wiersz w dymku, do prawej. | jw. Na compact, jeśli się nie mieści, zawija się do 2 wierszy do prawej. | jw. |
 
-Na 360 px: kolumna 328 px → tura 315 px → karta pomocnicza 291 px. Przy tej szerokości `A small correction` mieści obie akcje (`Odsłuchaj komunikat korekty` 196 px, `Potrenuj z tutorem` 148 px) tylko w dwóch wierszach. Wiersz akcji zawija się, wyrównany do prawej.
+Na 360 px: kolumna 328 px → tura 262 px → karta pomocnicza 238 px (RC7). Przy tej szerokości `A small correction` mieści obie akcje (`Odsłuchaj komunikat korekty` 196 px, `Potrenuj z tutorem` 148 px) tylko w dwóch wierszach. Wiersz akcji zawija się, wyrównany do prawej.
 
 ### 5.9 `tutor-card` (ekran `characters-select`)
 | Oś | `wide` | `mobile` / `compact` |
@@ -186,6 +188,47 @@ W `mode=capture` prototyp zatrzymuje ruch w tych klatkach przed sygnałem gotowo
 ### 5.17 Ikony (R9)
 Znaki Unicode i emoji (←, ▾, ⌄, ⌃, ✓, ▶, ■, 🎙, ⚠, ＋, ◎, 文, 🌐, ↻, ✎, ◆, △, ~, !, 🇺🇸, 🇬🇧) zastąpione własnymi ikonami SVG `vt-*` (siatka 24, obrys 2 px, `currentColor`; flagi 24×16). Rozmiary jak dotychczasowe glify (10–26 px, diagnostyka 38 px), kolor z kontekstu. Zmiana wyglądu wyłącznie w obrębie glifu; układ i odstępy bez zmian. Pliki i reguły: `virtualtutor-ui-assets-r9-RC1.zip`, `ASSETS.md`.
 
+### 5.18 `conversation-focus-bar` (wiersz w kompozytorze), `conversation-steer-button`, `anchored-menu[mode-menu]` (RC8, brief 008)
+Wiersz jest pierwszym elementem `composer-dock`, nad polem wiadomości. Tylko rozmowa główna; brak w treningu, pytaniach o profil i edycji profilu. Zostaje widoczny (disabled), gdy pole jest ukryte (oczekiwanie na tutora, błąd odpowiedzi). Nie przewija się z historią.
+
+| Oś | `wide` | `mobile` | `compact` |
+| --- | --- | --- | --- |
+| Kolumny | Siatka `auto minmax(0,1fr) auto`: pigułka \| temat \| „Zmień temat”; gap 14. Wysokość wiersza 36 px (temat 1–2 wiersze). | Siatka `auto 1fr`, 2 wiersze: pigułka · „Zmień temat” (do prawej) / temat na całą szerokość; gap 10/6. Wysokość ok. 36 + 6 + 34 px. | jw. |
+| Pigułka (A1) | min. 36 px, padding 4/10/5/14, promień 14: „chcę” 10,5/600 `#6d7178` nad nazwą trybu 13/700 małą literą + chevron 12 px. Szara `#f5f1ec`/`#e3ddd5`; otwarta lista: `#e0f3f4`/`#c2dedf`, chevron obrócony. Nieznany: „tryb” / „jeszcze nieznany” 500 `#6d7178`. | jw. | jw. |
+| Temat | 12/1.4 `#50565e`, EN, do 2 wierszy z wielokropkiem; > 260 znaków — tekst klikalny (rozwiń/zwiń). | do 2 wierszy z wielokropkiem; > 110 znaków — tekst klikalny. | jw. |
+| Lista trybów | Popover 340 px nad pigułką (`bottom: 100%`, 6 px), lewa krawędź = lewa krawędź pigułki; wiersze 44 px; nakłada się na historię. | Popover na szerokość kolumny (margines 20 px) nad kompozytorem; wiersze 52 px. | margines 16 px; wiersze 52 px. |
+| Disabled | krycie 0,55, bez otwierania listy — warunki jak „Wyślij” (`catalog.html#conversation-focus-bar`). | jw. | jw. |
+| Minima | „Zmień temat” 32 px wysokości; obszar trafienia pigułki i linku 44 px na telefonie (§3.4). | jw. | jw. |
+
+### 5.19 `time-left-indicator`, `limit-notice` (RC9, brief 009)
+Rozmowa główna i trening (`chat-*`, `training-*`); brak w pytaniach o profil i edycji profilu. Bez stałych szerokości i wysokości — teksty zawijają się (aplikacja docelowo wielojęzyczna).
+
+| Oś | `wide` | `mobile` | `compact` |
+| --- | --- | --- | --- |
+| Wskaźnik — położenie | Wiersz pod polem: podpowiedź po lewej, grupa `composer-status` (`margin-left:auto`, flex-wrap, gap 4/14) po prawej: wskaźnik, potem licznik znaków. Zwykle 1 linia. | Grupa zawija się pod podpowiedź, do prawej. +ok. 18 px wysokości kompozytora, gdy podpowiedź zajmuje całą szerokość. | jw. |
+| Wskaźnik — pole ukryte | Oczekiwanie na tutora, błąd odpowiedzi: wskaźnik sam w wierszu pod wierszem trybu, do prawej. | jw. | jw. |
+| Wskaźnik — typografia | 12,5/1.4, cyfry tabelaryczne; `low`: 700 `#8a4b00` + ikona 13 px, gap 5. | jw. | jw. |
+| Komunikat — położenie | Pierwszy element `composer-dock` (nad wierszem trybu i polem), pełna szerokość; padding 12/16, promień 14, ikona 34 px. Tekst 14/1.5, zwykle 1 linia. | 1–3 linie. Kompozytor rośnie o wysokość komunikatu + 12 px; historia odpowiednio niższa. | jw. |
+| Kompozytor przy blokadzie | Układ bez zmian (§5.7); pole `#f8f5f1` / ramka `#e3ddd5`, mikrofon szary (`#f5f1ec`, tekst `#6d7178`), „Wyślij” krycie 0,5; podpowiedź ukryta. | jw. | jw. |
+
+### 5.20 Strona WWW — ekran `landing`, stan `landing-default` (RC10, brief 010)
+Strona nie korzysta z klas układu §2 ani z atrybutów profilu. Jedynym wejściem jest **szerokość kontenera** `#vt-landing` (`container: vtl / inline-size`, reguły `@container vtl (max-width: …)`): w zakładce — szerokość powierzchni targetu, po publikacji — szerokość okna. Progi: **> 1000 px** szeroki, **601–1000 px** pośredni, **≤ 600 px** telefon. Strona przewija się w pionie wewnątrz `product-surface`; `element.product-work-surface` ma rozmiar targetu. Kolumna: `min(1180px, 100% − 48px)`, telefon `100% − 32px`. Bez poziomego przewijania na żadnym profilu.
+
+| Sekcja / komponent | `mac-wide` 1440 (> 1000) | 601–1000 | `iphone-16` 393 · `pixel-8` 412 · `galaxy-s20` 360 · `iphone-16-pro-max` 440 (≤ 600) |
+| --- | --- | --- | --- |
+| `landing-nav` | sticky 64 px; marka, Tutorzy, Co potrafi, Jak zacząć, „Pobierz” | marka + „Pobierz” | 60 px; marka + „Pobierz” |
+| `landing-hero` | wyśrodkowany; wachlarz 7 + 5 portretów 118 px; h1 `clamp(38px, 4.6cqi, 64px)` (64 px); przyciski obok siebie 56 px | portrety 88 px | portrety 52 px; h1 33/1.12; przyciski jeden pod drugim na pełną szerokość |
+| `landing-app-preview` + `landing-showcase-captions` | okno Maca max 1040 px na przejściu tła w `#1f5053`; pełny ekran rozmowy (powitanie, uczeń, tutor, tłumaczenie, korekta, wiersz trybu, mikrofon, pole, „Wyślij”); objaśnienia 1–4 w 4 kolumnach | padding okna 24 px; akcje rozmowy pod nazwą tutora; objaśnienia w 2 kolumnach | układ mobilny aplikacji w ramce telefonu (max 420 px): bez paska okna, powitania i tłumaczenia; pole nad mikrofonem i „Wyślij”; objaśnienia w 1 kolumnie |
+| `landing-tutor-card` | 4 kolumny, portret 112 px, opis i styl | 3 kolumny | 2 kolumny; portret 76 px; imię + styl (bez opisu) |
+| `landing-feature-card` | 3 kolumny; grafika 176 px | 1 kolumna | grafika 150 px; fala skrócona do 12 słupków |
+| `landing-install-step` | obok nagłówka (0.8fr / 1.2fr) | pod nagłówkiem | numer 36 px; ścieżka zawija się |
+| `landing-platform-tile` | 3 kolumny, wyrównanie do góry | macOS na całą szerokość, „Wkrótce” 2 × | 1 kolumna; parametry jeden pod drugim |
+| `landing-privacy` | 3 kolumny | 1 kolumna | 1 kolumna |
+| `landing-footer` | 1 wiersz | zawija się | jeden pod drugim |
+| Sekcje | padding 96 px, `scroll-margin-top` 64 px | jw. | 64 px, 60 px |
+
+Wysokość strony (sprawdzona, z przykładami chromu): 1440 → 6392 px; 393 → 8428 px; 412 → 8277 px; 360 → 8780 px; 440 → 8129 px. Tryb ciemny: brak. Ruch: tylko przejścia hover przycisków (wyłączone przy `prefers-reduced-motion`).
+
 ## 6. Typografia zmieniana responsywnie
 
 | Styl | `wide` | `mobile` | `compact` |
@@ -207,16 +250,19 @@ Znaki Unicode i emoji (←, ▾, ⌄, ⌃, ✓, ▶, ■, 🎙, ⚠, ＋, ◎, �
 | `variant-gate` | `system-check-panel`, `primary-cta` |
 | `profile-ask-*`, `profile-edit-*` | strumień §5.8, `text-composer[profile]` §5.7 |
 | `profile-level`, `profile-edit-level` | §5.15 |
-| `chat-*`, `training-*` | `top-header`, `secondary-conversation-header` / `training-header` §5.2, strumień §5.8, `text-composer` §5.7 |
+| `chat-*`, `training-*` | `top-header`, `secondary-conversation-header` / `training-header` §5.2, `conversation-focus-bar` w kompozytorze §5.18 (tylko `chat-*`, nie `training-*`), `time-left-indicator` / `limit-notice` §5.19, strumień §5.8, `text-composer` §5.7 |
+| `chat-mode-menu` (`chat-mode-menu-open`) | `anchored-menu[mode-menu]` §5.18 |
 | `chat-profile-popover`, `variant-popover-open` | `anchored-menu` §5.4 |
 | `chat-new-conversation-confirm` | `confirmation-dialog` §5.5 |
 | `chat-ad-active` | `advertisement-screen[fullscreen]` §5.13 |
+| `landing` (`landing-default`) | wyłącznie szerokość kontenera `#vt-landing` §5.20 (bez klas §2) |
 
 ## 8. Capture przy odbiorze
 
 Kadr każdego zrzutu = prostokąt `element.product-work-surface` o rozmiarze `width × height` targetu (§1.1). Klatka ruchu ustalona przez `mode=capture` (§5.16).
 
 - `mac-wide`: każdy stan.
+- `landing-default`: wszystkie pięć targetów (strona przewijana — kadr capture to pierwszy ekran; całość strony oceniana w zakładce „Strona WWW”).
 - `iphone-16`, `pixel-8`, `galaxy-s20`, `iphone-16-pro-max`: stan bazowy każdej rodziny oraz każdy stan z różnicą układu z §5 (np. `chat-profile-popover` → popover pod pigułką, `chat-transcribed` → pole nad wierszem akcji, `training-active` → karta zadania i `Zakończ trening` widoczne).
 
 ## 9. Punkty kandydata (wymagają odbioru)
@@ -231,3 +277,5 @@ Kadr każdego zrzutu = prostokąt `element.product-work-surface` o rozmiarze `wi
 8. `voice-selector`: pierwszy element listy `voice-download-callout` (`voice-add-voices`) z instrukcją i ilustracjami, bez `sticky` (§5.12).
 9. `welcome-tutors`: 12 portretów w układzie 7 + 5 (124 px wide, 56/50 px mobile).
 10. Menu i potwierdzenia na telefonie jako popovery pod wyzwalaczem, bez arkusza i przyciemnienia (§5.4, §5.5).
+11. Dzienny czas rozmowy (RC9): wskaźnik w prawej grupie wiersza pod polem (z licznikiem znaków), komunikat o wyczerpaniu jako pierwszy element `composer-dock`; na telefonie komunikat zabiera wysokość historii (§5.19). Forma D5 do oceny Użytkownika.
+12. Strona WWW (RC10): kolejność sekcji i podgląd aplikacji wg D3 (zaakceptowane 26.10.2026); układ telefonu ≤ 600 px, pośredni ≤ 1000 px (§5.20).

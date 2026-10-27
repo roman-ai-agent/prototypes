@@ -1,4 +1,167 @@
-# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6
+# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R11-RC10
+
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC10` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC9` · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Brief:** `VT-DESIGNER-BRIEF-010` (aktualizacja 26.10.2026: pierwsza wersja 1.0.0, bez „beta”) — publiczna strona WWW do pobrania aplikacji na Maca. Bramka §4: 10 pytań, odpowiedzi Lidera `VT-DESIGNER-BRIEF-010-answers.md` (26.10.2026). D1, D2 `accepted`; **D3 `accepted`** (kolejność sekcji i podgląd w oknie Maca).
+
+## R11-RC10 (względem R11-RC9) — strona WWW `landing`
+
+1. **Nowy ekran `landing`, stan `landing-default`** — cała strona, przewijana. Kolejność po przeglądzie Użytkownika 27.10.2026 (zmienia propozycję D3 z 26.10): nawigacja → hero (12 portretów tutorów, hasło „Rozmawiaj o tym, co Cię ciekawi. Angielski przyjdzie przy okazji.”, pobranie) → ekran rozmowy z objaśnieniami 1–4 → Tutorzy (12 kart) → Co jeszcze potrafi (3 karty z grafikami) → Jak zacząć (4 kroki) → Wersje i pobranie → Prywatność → stopka.
+2. **Uwagi Użytkownika z przeglądu (27.10):** portrety tutorów na stronie; przekaz „ciekawa rozmowa + nauka przy okazji”; ekran rozmowy odtworzony według ekranu `chat-*` R11 (Sherlock Holmes jako główna postać, spójna rozmowa o znikającym serze); grafiki funkcji zamiast elementów UI; trening pokazany jako seria podobnych zdań z tą samą poprawką; **brak jakichkolwiek informacji o limitach**; równe portrety w hero.
+3. **Kod strony w `index.html`** (brief §7.1): `<style id="vt-landing-style">` (koniec `<head>`) i `<!-- vt-landing:start -->` … `<main id="vt-landing" …>` … `<!-- vt-landing:end -->` (w `<template id="vt-landing-source">` przed `</body>`). Bez skryptu strony.
+4. **Izolacja:** selektory wyłącznie `#vt-landing …`; tokeny `--vtl-*` z wartościami R11 (w tym 9 teł `tutor-card`); kroje `VTL Plus Jakarta Sans` i `VTL Lora` (italic) jako `data:`; 12 portretów jako WebP 288 px `data:` (z portretów aplikacji, łącznie ok. 160 KB); `#vt-landing` pozycjonowany absolutnie — marginesy i tło `body` bez wpływu.
+5. **Responsywność wyłącznie przez `@container vtl`** (progi 1000 i 600 px) — responsive-spec §5.20.
+6. **Wartości do podstawienia:** `[[VT_DOWNLOAD_URL_MAC]]` (2 × href), `[[VT_APP_VERSION]]` (2), `[[VT_DMG_SIZE]]` (3), `[[VT_MIN_MACOS]]` (2).
+7. **Treść wg odpowiedzi Lidera 26.10:** pierwsze uruchomienie (zdanie wyjaśnienia, Ustawienia systemowe › Prywatność i ochrona › „Otwórz mimo to”, drobniej macOS 14 i starsze); „Mac z Apple Silicon lub Intel, [[VT_MIN_MACOS]] lub nowszy”; prywatność (DeepSeek, serwer nie zapisuje treści, zbiorcze statystyki 90 dni, historia tylko na Macu, anonimowy identyfikator urządzenia — bez wzmianki o limicie); stopka „© 2026 Tomasz Białobrzeg Cyber IT”. Bez słowa „beta”.
+8. **Chrom prototypu:** przełącznik „Aplikacja | Strona WWW”; ten sam wybór profilu; przykłady (1.0.0, 28 MB, macOS 10.15 z `fx-landing-default`) tylko w tekście kopii; kliknięcie pobrania przechwytywane → „Pobranie VirtualTutor.dmg (prototyp: plik nie jest pobierany)”.
+9. **Katalog:** sekcja „12 · Strona WWW” (9 komponentów), przykłady wczytywane z `index.html`.
+
+### Stany
+| `state_id` | Zmiana |
+| --- | --- |
+| `landing-default` | **nowy**: ekran `landing`, fixture `fx-landing-default` |
+| pozostałe 85 | bez zmian |
+
+Stany: 85 → **86** (manifest: 87 wpisów z `catalog`); fixtures: 85 → 86.
+
+### ID
+- **Dodane `component_id` (katalog 39 → 48):** `landing-nav`, `landing-hero`, `landing-app-preview`, `landing-tutor-card`, `landing-feature-card`, `landing-install-step`, `landing-platform-tile` [`available`|`soon`], `landing-privacy`, `landing-footer`.
+- **Dodane `element_id` strony (47):** `landing-page`, `landing-nav`, `landing-nav-brand`, `landing-nav-link-tutors`, `landing-nav-link-features`, `landing-nav-link-install`, `landing-nav-download`, `landing-hero`, `landing-hero-tutors`, `landing-hero-download-mac`, `landing-hero-install-link`, `landing-hero-meta`, `landing-showcase`, `landing-app-preview`, `landing-showcase-captions`, `landing-tutors`, `landing-tutor-{curie|davinci|sherlock|cleopatra|copernicus|lovelace|confucius|austen|shakespeare|alice|robinhood|dorothy}` (12), `landing-features`, `landing-feature-training`, `landing-feature-dialect`, `landing-feature-voice`, `landing-install-steps`, `landing-install-step-1` … `-4`, `landing-versions`, `landing-platform-mac`, `landing-download-mac`, `landing-platform-iphone`, `landing-platform-android`, `landing-privacy`, `landing-privacy-model`, `landing-privacy-history`, `landing-privacy-account`, `landing-footer`.
+- **Dodane `element_id` chromu (4):** `preview-view-switch`, `preview-view-app`, `preview-view-landing`, `preview-download-notice`.
+- **Usunięte / zmienione:** brak. `id_migrations: []`. Wszystkie ID, stany i zachowanie RC9 bez zmian.
+
+### Instancje akcji (interactions)
+| `element_id` | `component_id[wariant]` | `action` | `expected_effect` |
+| --- | --- | --- | --- |
+| `landing-hero-download-mac` | `landing-hero` | pobranie pliku | przeglądarka pobiera `VirtualTutor.dmg` (`[[VT_DOWNLOAD_URL_MAC]]`); w zakładce: `preview-download-notice` |
+| `landing-download-mac` | `landing-platform-tile[available]` | pobranie pliku | jw. |
+| `landing-platform-iphone`, `landing-platform-android` | `landing-platform-tile[soon]` | brak („Wkrótce”) | — |
+| `landing-nav-brand` | `landing-nav` | kotwica | `#vtl-start` |
+| `landing-nav-link-tutors` / `-features` / `-install` | `landing-nav` | kotwica | `#vtl-tutorzy` / `#vtl-co-potrafi` / `#vtl-jak-zaczac` |
+| `landing-nav-download` | `landing-nav` | kotwica | `#vtl-pobierz` |
+| `landing-hero-install-link` | `landing-hero` | kotwica | `#vtl-jak-zaczac` |
+| `preview-view-app` / `preview-view-landing` | chrom | wybór widoku | ostatni stan aplikacji / `landing-default` |
+
+---
+
+# changelog — VT-VIRTUALTUTOR-PROTOTYPE-R11-RC9 (historia)
+
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC9` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC8` · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Brief:** `VT-DESIGNER-BRIEF-009` — dzienny limit czasu rozmowy widoczny w aplikacji. Bramka §4: 6 pytań, odpowiedzi Lidera 24.10.2026. D1–D4 `accepted`; D5 — propozycja Designera przyjęta jako kierunek, forma do oceny Użytkownika w tej paczce.
+- **Korekta briefu (odpowiedź Lidera):** „Przetłumacz” korzysta z modelu przez serwer i zużywa limit — przy wyczerpanym limicie jest wyłączone; „Odsłuchaj” działa zawsze (głos systemowy).
+
+## R11-RC9 (względem R11-RC8) — dzienny czas rozmowy
+
+1. **Wskaźnik pozostałego czasu** (`time-left-indicator`, `composer-time-left`): „Zostało dziś: 1 h 52 min” w wierszu pod polem wiadomości, w prawej grupie razem z `composer-char-counter` (`data-part="composer-status"`); podpowiedź po lewej. Grupa zawija się pod podpowiedź, gdy brakuje miejsca. Gdy pole jest ukryte (oczekiwanie na tutora, błąd odpowiedzi), wskaźnik stoi sam pod wierszem trybu. Rozmowa główna i trening; nie w pytaniach o profil ani edycji profilu.
+2. **Warianty:** `normal` (12,5/500 `#50565e`), `low` ≤ 10 min (12,5/700 `#8a4b00` + ikona `vt-clock`), `unknown` „Zostało dziś: —” (`#6d7178`, bez wymyślonej wartości i bez animacji), `exhausted` „Zostało dziś: 0 min”. Format: „1 h 20 min”, „45 min”, „mniej niż 1 min”.
+3. **Zmiana wartości** wyłącznie po odpowiedzi tutora (prototyp: −3 min na odpowiedź; pierwsza odpowiedź dnia zamienia `unknown` na wartość). Odpowiedź rozpoczęta przed wyczerpaniem zawsze się kończy; po niej stan `exhausted`. Bez odliczania na żywo.
+4. **Ogłoszenie „mało czasu”:** `composer-time-announcement` (`role="status"`, wizualnie ukryty) — jednorazowo „Zostało mniej niż 10 minut rozmowy na dziś.” Wskaźnik ma `role="timer"` i nazwę „Pozostały czas rozmowy dzisiaj: …”.
+5. **Komunikat** `limit-notice` (`composer-limit-notice`) jako pierwszy element `composer-dock`: `personal-exhausted` „Dzisiejszy czas rozmowy się skończył. Limit odnowi się o północy.” (ikona `vt-moon`), `service-unavailable` „Rozmowy są dziś chwilowo niedostępne z powodu dużego zainteresowania. Spróbuj ponownie jutro.” (ikona `vt-info`; wskaźnik czasu ukryty). `role="status"`, bez akcji.
+6. **Blokada przy wyczerpanym limicie** (osobistym i usługi): `chat-send` i `composer-mic-button` wyłączone; `chat-input-field` `aria-disabled="true"`, tło `#f8f5f1`, pole tylko do odczytu (szkic czytelny, do skopiowania, „Wyczyść” działa); podpowiedź ukryta; pigułka trybu i „Zmień temat” `aria-disabled="true"` (reguła RC8: niedostępne, gdy niedostępne jest wysłanie); „Przetłumacz” wyłączone (`aria-disabled="true"`, krycie 0,55), wczytane tłumaczenia widoczne; „Odsłuchaj” działa; historia widoczna.
+7. **Limit usługi przy wysyłce:** wiadomość nie jest wysłana i zostaje w polu jako szkic (`chat-service-unavailable`).
+8. **Odnowienie:** o północy czasu użytkownika aplikacja sama odblokowuje rozmowę, bez stanu przejścia (prototyp tego nie symuluje).
+
+### Stany
+| `state_id` | Zmiana |
+| --- | --- |
+| `chat-idle` | zmieniony: wskaźnik `normal` „Zostało dziś: 1 h 52 min” (fixture: `timeLeft`) |
+| `chat-time-unknown` | **nowy**: „Zostało dziś: —”; wysyłanie aktywne (decyduje serwer) |
+| `chat-time-low` | **nowy**: 8 min, `low`; tryb „Nauczyć się”, historia jednej wymiany |
+| `chat-time-exhausted` | **nowy**: limit osobisty wyczerpany po odpowiedzi tutora; komunikat, kompozytor i sterowanie wyłączone; wczytane tłumaczenie widoczne |
+| `chat-service-unavailable` | **nowy**: limit usługi; niewysłany szkic w polu, wskaźnik ukryty |
+| `training-time-exhausted` | **nowy**: trening przy wyczerpanym limicie osobistym |
+| pozostałe `chat-*` i `training-*` | wskaźnik `normal` 1 h 52 min (wartość domyślna stanu; fixture bez zmian) |
+
+Stany: 80 → **85** (manifest: 86 wpisów z `catalog`); fixtures: 80 → 85.
+
+### ID
+- **Dodane `component_id`:** `time-left-indicator`, `limit-notice` (katalog: 37 → 39).
+- **Dodane `element_id`:** `composer-time-left`, `composer-time-announcement`, `composer-limit-notice`, `composer-limit-notice-text`.
+- **Dodane `state_id`:** 5 (tabela wyżej). **Zmienione:** `chat-idle` (fixture).
+- **Zmienione warunki (semantyka bez zmian):** `chat-send`, `composer-mic-button` (+ `aria-disabled`), `chat-input-field` (+ `aria-disabled`, textarea `aria-readonly`), `conversation-mode-change`, `conversation-topic-change`, `*-translation-action` — dodatkowy warunek wyłączenia: wyczerpany limit.
+- **Usunięte:** brak. `id_migrations: []`. Chronione ID RC8 bez zmian, wiersz trybu i tematu bez zmian zachowania.
+
+### Instancje akcji
+Nowe komponenty są nieinteraktywne (brak `action`). Instancje akcji RC8 bez zmian; w stanach wyczerpania: `action` bez skutku (`expected_effect`: brak — element `aria-disabled`/`disabled`).
+
+---
+
+
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC8` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC7` · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Źródło zmiany:** decyzje Użytkownika z przeglądu RC7 (24.10.2026), szkic „Propozycja tryb przy kompozytorze”. Brief `VT-DESIGNER-BRIEF-008` bez zmian (położenie i forma były po stronie Designera; D3 nadal spełnione).
+
+## R11-RC8 (względem R11-RC7) — tryb i temat przy polu wiadomości
+
+1. **Położenie:** pasek `conversation-focus` spod nagłówka rozmowy usunięty. Ten sam element jest teraz **wierszem w `composer-dock` nad polem wiadomości**. Widoczny tylko w rozmowie głównej — **nie w treningu** (`training-*`), pytaniach o profil ani edycji profilu. Wiersz zostaje widoczny (disabled), gdy pole wiadomości jest ukryte: oczekiwanie na tutora (`chat-typing`, `chat-mode-switch-sent`) i błąd odpowiedzi (`chat-reply-error`).
+2. **Pigułka trybu (wariant A1):** `conversation-mode-change` łączy informację i przycisk — małe „chcę” (10,5/600 `#6d7178`) nad nazwą trybu małą literą (13/700), np. „chcę / nauczyć się”, chevron w górę. Kolor szary (`#f5f1ec`, ramka `#e3ddd5`), turkus (`#e0f3f4` / `#c2dedf`) tylko przy otwartej liście — celowo inaczej niż pigułka profilu, żeby nie konkurować z mikrofonem i „Wyślij”. Nieznany tryb: „tryb / jeszcze nieznany” (500, `#6d7178`). Nazwa dostępna: „Zmień tryb rozmowy. Obecny: …”.
+3. **Lista trybów** (`conversation-mode-menu`) otwiera się **w górę**: wide — 340 px nad pigułką; telefon — na szerokość kolumny nad kompozytorem, wiersze 52 px. Pozycje, opisy i wysyłane wiadomości bez zmian, poza opisem niżej.
+4. **Opis trybu „Wygadać się”:** „Tutor głównie słucha.” → **„Tutor rozumie, co czujesz.”** Wysyłana wiadomość EN bez zmian (tabela briefu §2).
+5. **Temat:** 12/1.4 `#50565e`, EN, **do 2 wierszy z wielokropkiem**. Wide: między pigułką a „Zmień temat” (długi przykład mieści się w 1 wierszu). Telefon: pigułka i „Zmień temat” w pierwszym wierszu, temat pod nimi na całą szerokość. Skrócony temat (> 110 znaków na telefonie, > 260 na wide) jest przyciskiem `conversation-topic-expand` — kliknięcie pokazuje całość.
+6. **„Zmień temat”** (`conversation-topic-change`): link tekstowy 12,5/600 `#286265` na końcu wiersza (był pigułką). Zachowanie bez zmian.
+
+**ID:** usunięte (względem RC7, nieodebranej) `conversation-mode-label` („TRYB”) i `conversation-topic-label` („TEMAT”); dodane `conversation-mode-lead` („chcę” / „tryb”). `conversation-topic-expand` zmienia formę (link „Pokaż cały temat” → klikalny tekst tematu). Pozostałe ID RC7 i wszystkie ID RC6 bez zmian; `id_migrations: []` (RC7 nie została odebrana, więc ID z RC7 nie są publiczne).
+**Stany:** te same 80 `state_id` i fixture co w RC7. **Bez zmian:** wyrównanie do 4 odstępstw z RC7, licznik znaków, karty poprawek, nagłówek z perspektywą.
+
+---
+
+- **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC7` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6` · **Status:** kandydat do odbioru, niezaakceptowany.
+- **Brief:** `VT-DESIGNER-BRIEF-008` — tryb i temat rozmowy widoczne i sterowane przez ucznia. Bramka §4: brak pytań.
+
+## R11-RC7 (względem R11-RC6)
+
+### 1. Tryb i temat rozmowy (nowe)
+- **`conversation-focus-bar`** (`conversation-focus`): pasek pod `secondary-conversation-header`, nad historią, tylko w rozmowie głównej (nie w treningu, profilu i edycji profilu). Pokazuje „TRYB” + nazwę trybu i „TEMAT” + temat po angielsku (jak zapisuje tutor, `lang="en"`). Informacja, nie przełącznik.
+- **Nieznany tryb/temat** (nowa rozmowa, przed pierwszą odpowiedzią tutora): osobny wygląd — „jeszcze nieznany” i „Tutor rozpozna tryb i temat po Twojej pierwszej wiadomości.” w kolorze `#6d7178`, zwykła grubość; akcje dostępne.
+- **„Zmień tryb”** (`conversation-mode-change`, `conversation-steer-button[mode]`) obok nazwy trybu otwiera `anchored-menu[mode-menu]` (`conversation-mode-menu`) z 5 pozycjami `mode-option` (`conversation-mode-option-{vent|learn|sort|decide|chat}`), bieżąca oznaczona (`menuitemradio`, `aria-checked`, tło `#e0f3f4`, znacznik). Wybór innego trybu wysyła widoczny dymek ucznia z tekstem EN z briefu i zwykłe oczekiwanie na tutora; wybór bieżącego tylko zamyka listę. Wyświetlany tryb zmienia się po odpowiedzi tutora (podąża za rozpoznaniem).
+- **„Zmień temat”** (`conversation-topic-change`, `conversation-steer-button[topic]`): wysyła dymek `I'd like to change the subject.`; tutor odpowiada pytaniem o nowy temat; wyświetlany temat zostaje do ponownego rozpoznania.
+- **Długi temat:** do 2 wierszy z wielokropkiem (pełny tekst w `title` i nazwie dostępnej); na telefonie przy temacie > 72 znaków link „Pokaż cały temat” / „Zwiń temat” (`conversation-topic-expand`, `aria-expanded`), na wide > 200 znaków.
+- **Dostępność akcji:** disabled (krycie 0,55, `aria-disabled="true"`) jak wysłanie wiadomości — oczekiwanie na tutora, nagrywanie, rozpoznawanie mowy, błąd odpowiedzi tutora z ukrytym polem (do „Popraw wiadomość”), reklama. Wybrana akcja nie czyści szkicu w polu wiadomości.
+- **Prototyp:** poprzednia wymiana przechodzi do historii (`chat-history-learner-n`, `chat-history-tutor-n`) przy kolejnej wiadomości; „Wyczyść rozmowę” zeruje tryb, temat i historię.
+
+### 2. Wyrównanie do aplikacji (zaakceptowane odstępstwa)
+- **VT-CHAT-HEADER-PERSPECTIVE-001** — `chat-tutor-meta`: zamiast etykiety stylu opis perspektywy z kafelka tutora (w prototypie `personality` z karty `tutor-card`), 12,5 px, `#50565e`, do 2 wierszy z wielokropkiem; nagłówek 75 px. **Zmiana semantyki chronionego ID** (etykieta stylu → opis perspektywy); ID bez zmian.
+- **VT-CHAT-BUBBLE-WIDTH-001** — dymki ucznia i tutora (z powitaniem i Please note, także historia) do 80% szerokości historii we wszystkich klasach; dymek tutora wypełnia swój blok; karty pomocnicze od +24 px do prawej krawędzi dymka. Pytania i odpowiedzi profilu bez zmian (748 px / dotychczasowe %).
+- **VT-MESSAGE-LENGTH-LIMIT-001** — `char-counter` (`composer-char-counter`) „X / 9 000 znaków” po prawej w wierszu podpowiedzi, gdy w polu jest tekst; po przekroczeniu: czerwony licznik i obramowanie pola, `composer-length-error` „Wiadomość jest za długa — skróć ją” pod polem, `chat-send` wyłączony (także strażnik wysyłki). Tylko rozmowa główna.
+- **VT-TUTORS-ARCHETYPES-R2-001-CORRECTION-KINDS** — `correction-card` z `data-option`: `grammar` „A small grammar correction” (dotychczasowy wygląd) i `natural` „A more natural way to say it” (`#e9f3e5`, ramka `#bcd9b4`, tekst `#2f6334`, ikona dymka `vt-speech`). Tytuł ma ID `correction-title`.
+
+### 3. Stany
+| `state_id` | Zmiana |
+| --- | --- |
+| `chat-idle` | zmieniony: pasek w stanie `unknown`, akcje dostępne, nagłówek z perspektywą |
+| `chat-mode-topic-known` | **nowy**: tryb „Nauczyć się”, długi temat EN, historia jednej wymiany |
+| `chat-mode-menu-open` | **nowy**: otwarta lista trybów, „Nauczyć się” oznaczony |
+| `chat-mode-switch-sent` | **nowy**: po wyborze „Podjąć decyzję” — dymek `I need to make a decision. Help me weigh my options.`, „Tutor pisze”, akcje disabled, tryb nadal „Nauczyć się” |
+| `chat-topic-change-sent` | **nowy**: dymek `I'd like to change the subject.` i odpowiedź tutora z pytaniem o temat; temat poprzedni |
+| `chat-message-too-long` | **nowy**: przekroczony limit 9 000 znaków (9 015), krótki temat EN, tryb „Podjąć decyzję” |
+| `chat-reply-correction-natural` | **nowy**: karta „A more natural way to say it” |
+| `chat-reply-correction`, `chat-reply-plain` | zmienione: pasek (tryb „Pogadać”, temat), szerokości 80%, tytuł „A small grammar correction” |
+| `chat-reply-plain-translation-*`, `chat-reply-dialect`, `chat-reply-both`, `chat-new-conversation-confirm`, `chat-profile-popover`, `chat-variant-switched`, `chat-ad-active` | fixture uzupełnione o rozpoznany tryb i temat (po odpowiedzi tutora) |
+| `chat-typing`, `chat-recording`, `chat-processing`, `chat-transcribed`, `chat-reply-error`, `variant-popover-open` | pasek `unknown` (pierwsza wiadomość bez odpowiedzi); w `chat-typing`, `chat-recording`, `chat-processing`, `chat-reply-error` akcje disabled |
+
+Stany: 74 → **80** (manifest: 81 wpisów z `catalog`); fixtures: 74 → 80.
+
+### 4. ID
+- **Dodane `element_id`:** `conversation-focus`, `conversation-mode-label`, `conversation-mode-value`, `conversation-mode-change`, `conversation-mode-menu`, `conversation-mode-menu-note`, `conversation-mode-option-vent`, `conversation-mode-option-learn`, `conversation-mode-option-sort`, `conversation-mode-option-decide`, `conversation-mode-option-chat`, `conversation-topic-label`, `conversation-topic-value`, `conversation-topic-expand`, `conversation-topic-change`, `composer-char-counter`, `composer-length-error`, `correction-title`, `chat-history-learner-{n}`, `chat-history-tutor-{n}` (+ pochodne `-replay`, `-actions`, `-translation-*`).
+- **Dodane `component_id`:** `conversation-focus-bar`, `conversation-steer-button`, `mode-option`, `char-counter`. **Rozszerzone:** `anchored-menu` (wariant `mode-menu`), `supplemental-tutor-card[correction]` (`data-option` `grammar` | `natural`).
+- **Dodane `state_id`:** 6 (tabela §3).
+- **Zmieniona semantyka:** `chat-tutor-meta` (opis perspektywy zamiast etykiety stylu; `data-ui-variant` `meta` → `perspective`).
+- **Usunięte:** brak. `id_migrations: []`.
+- **Zachowane bez zmian semantyki:** wszystkie pozostałe `element_id`, `component_id` i `state_id` RC6, w tym `chat-input-field`, `chat-send` (nowy warunek wyłączenia: przekroczony limit — zgodnie z odstępstwem), `composer-mic-button`, `secondary-conversation-header`, `chat-messages`, `chat-bubble-user`, `chat-bubble-reply`, `chat-typing-indicator`, `correction-card`, `chat-reply-error`.
+
+### 5. Instancje akcji
+| `element_id` | `component_id`[wariant] | `action` | `expected_effect` | Rola · nazwa dostępna | Przełącznik |
+| --- | --- | --- | --- | --- | --- |
+| `conversation-mode-change` | `conversation-steer-button[mode]` | otwórz/zamknij listę trybów | `conversation-mode-menu` widoczne/ukryte; nic nie wysłane | button · „Zmień tryb rozmowy” (`aria-haspopup="menu"`, `aria-expanded`) | nie |
+| `conversation-mode-option-vent` | `mode-option` | wybierz „Wygadać się” | dymek ucznia `I just need to talk something through. Please mostly listen.` → oczekiwanie na tutora; bieżący: tylko zamyka listę | menuitemradio · „Wygadać się” | nie |
+| `conversation-mode-option-learn` | `mode-option` | wybierz „Nauczyć się” | dymek `I want to learn about something. Please explain and teach me.` → oczekiwanie | menuitemradio · „Nauczyć się” | nie |
+| `conversation-mode-option-sort` | `mode-option` | wybierz „Poukładać myśli” | dymek `I want to sort out my thoughts. Help me put them in order.` → oczekiwanie | menuitemradio · „Poukładać myśli” | nie |
+| `conversation-mode-option-decide` | `mode-option` | wybierz „Podjąć decyzję” | dymek `I need to make a decision. Help me weigh my options.` → oczekiwanie | menuitemradio · „Podjąć decyzję” | nie |
+| `conversation-mode-option-chat` | `mode-option` | wybierz „Pogadać” | dymek `I'd just like to chat.` → oczekiwanie | menuitemradio · „Pogadać” | nie |
+| `conversation-topic-change` | `conversation-steer-button[topic]` | zmień temat | dymek `I'd like to change the subject.` → oczekiwanie → tutor pyta o temat | button · „Zmień temat rozmowy” | nie |
+| `conversation-topic-expand` | link tekstowy | rozwiń/zwiń temat | pełny / skrócony tekst tematu; nic nie wysłane | button · „Pokaż cały temat” / „Zwiń temat” (`aria-expanded`) | nie |
+
+**Chronione bez zmian:** 5 targetów, kontrakt capture i `element.product-work-surface`, schema manifestu v3, `assets/voice_help/*`, wszystkie ekrany poza rozmową główną (kreator, profil, wybór tutora, trening).
+
+---
 
 - **Rewizja:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC6` · **Baza:** `VT-VIRTUALTUTOR-PROTOTYPE-R11-RC5` · **Status:** kandydat do odbioru, niezaakceptowany.
 - **Źródło zmiany:** decyzja Lidera z podglądu.
